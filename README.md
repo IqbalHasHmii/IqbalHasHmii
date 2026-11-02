@@ -56,3 +56,12 @@ Strict rules (`smc_ob.py`):
 4. Limit order at the engulfing open, SL at the engulfing wick (setup skipped if > 50 pips = $5), TP 1:3. The trade is closed in loss when an H1 candle closes beyond the wick. If a candle takes the wick's liquidity but closes back inside, the SL moves to that candle's wick (normal stop) after it closes. TP is checked on M15.
 
 The rules leave a few things open, so these defaults are used: the limit order is valid for one H1 candle, only one trade at a time, and setups with a 0 wick distance are skipped. `--hard-sl` exists only for comparison and is not part of the rules.
+
+## Engulfing sell strategy: SL 50-100 pips at 1:3 (`sl_sweep.py`)
+
+```bash
+python sl_sweep.py               # sells only, no volume filter
+python sl_sweep.py --side both   # buys + sells
+```
+
+Rules: H1 structure must be bearish (swing 3, BOS on a close), a bearish engulfing candle closes, a sell limit goes at the engulfing **open** and stays valid only for the next candle, SL 50/60/.../100 pips, TP = 3 x SL. Results go to `results/engulf_<side>_sl_sweep.csv`, with each SL's trade list in `results/engulf_<side>_sl<N>_trades.csv`.

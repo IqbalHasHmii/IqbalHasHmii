@@ -96,7 +96,8 @@ TF_MINUTES = {"M1": 1, "M5": 5, "M15": 15, "M30": 30, "H1": 60, "H4": 240}
 
 def engulfing_retrace(df: pd.DataFrame, h1: pd.DataFrame, tf: str = "H1", pip: float = 0.10,
                       sl_pips: float = 50, rr: float = 3.0, valid_bars: int = 1, swing: int = 3,
-                      structure: str = "bos", min_body_atr: float = 0.0, **_) -> pd.DataFrame:
+                      structure: str = "bos", min_body_atr: float = 0.0, volume_filter: bool = True,
+                      side: str = "both", **_) -> pd.DataFrame:
     """User strategy:
     1. H1 structure decides direction (bullish -> only buys, bearish -> only sells).
     2. On the trading timeframe an engulfing candle forms in that direction AND its tick
@@ -106,6 +107,8 @@ def engulfing_retrace(df: pd.DataFrame, h1: pd.DataFrame, tf: str = "H1", pip: f
     4. SL = `sl_pips` pips, TP = `rr` x SL.
     Optional (off by default): `min_body_atr` ignores engulfing candles whose body is
     smaller than that fraction of ATR(14) on the trading timeframe.
+    `volume_filter=False` drops rule 2's tick-volume condition; `side` = "both", "sell"
+    or "buy" restricts which direction is traded.
     """
     df = df.copy()
     st = h1_structure(h1, swing, structure)
@@ -117,13 +120,14 @@ def engulfing_retrace(df: pd.DataFrame, h1: pd.DataFrame, tf: str = "H1", pip: f
     df["structure"] = m["structure"].fillna(0).astype(int).to_numpy()
 
     po, pc, pv = df.open.shift(), df.close.shift(), df.tickvol.shift()
-    low_vol = df.tickvol < pv
+    low_vol = df.tickvol < pv if volume_filter else pd.Series(True, index=df.index)
     if min_body_atr > 0:
         low_vol &= (df.close - df.open).abs() >= min_body_atr * atr(df, 14)
     bull = (pc < po) & (df.close > df.open) & (df.close >= po) & (df.open <= pc) & low_vol
     bear = (pc > po) & (df.close < df.open) & (df.close <= po) & (df.open >= pc) & low_vol
 
-    df["signal"] = np.select([bull & (df.structure == 1), bear & (df.structure == -1)], [1, -1], 0)
+    df["signal"] = np.select([bull & (df.structure == 1) & (side != "sell"),
+                              bear & (df.structure == -1) & (side != "buy")], [1, -1], 0)
     df["entry_price"] = np.where(df.signal != 0, df.open, np.nan)
     df["valid_bars"] = valid_bars
     df["sl_dist"] = sl_pips * pip
