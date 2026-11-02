@@ -78,3 +78,11 @@ Rules (H1 only, no volume or body filter):
 3. SL level = engulfing wick (High for sells, Low for buys). There is no hard stop: the trade closes in loss only when an H1 candle **closes** beyond that level. TP = 3 x SL distance.
 
 The table also shows comparison variants that are not part of the rules: a minimum SL distance (`max(wick, N pips)`) and a normal hard stop at the SL level. P/L in $ uses a fixed 0.10 lot ($1 per pip).
+
+## v3: 200 EMA trend + low-volume engulfing (`ema_v3.py`)
+
+```bash
+python ema_v3.py      # comparison table -> results/ema_v3_summary.csv
+```
+
+Same as v2, with two changes: the trend comes from EMA(200) (H1 close above it = buys only, below = sells only), and the engulfing candle's tick volume must be lower than the previous candle's. The limit order at the engulfing open stays valid for 5 H1 candles and is cancelled if the close crosses the EMA the other way. The script compares wick SL (H1-close exit or hard stop) with fixed 50/70/100-pip hard stops, at 1:3. It runs each one in two modes: `every` (each engulfing gets its own trade, so trades can overlap) and `one-at-time`.
