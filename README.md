@@ -65,3 +65,16 @@ python sl_sweep.py --side both   # buys + sells
 ```
 
 Rules: H1 structure must be bearish (swing 3, BOS on a close), a bearish engulfing candle closes, a sell limit goes at the engulfing **open** and stays valid only for the next candle, SL 50/60/.../100 pips, TP = 3 x SL. Results go to `results/engulf_<side>_sl_sweep.csv`, with each SL's trade list in `results/engulf_<side>_sl<N>_trades.csv`.
+
+## SMC v2: 5/2 swings, limit valid 5-10 candles, H1-close stop (`smc_v2.py`)
+
+```bash
+python smc_v2.py      # prints the full comparison table -> results/smc_v2_summary.csv
+```
+
+Rules (H1 only, no volume or body filter):
+1. Swing High = High above the 5 candles to its left and the 2 to its right (Swing Low mirrored), confirmed after the 2 right candles close. A close above the last Swing High = buys only, a close below the last Swing Low = sells only.
+2. Bearish/bullish body engulfing in the trend direction. A limit order goes at the engulfing **open** and stays valid for the next 5 (or 10) H1 candles. It is cancelled if the structure flips, and replaced if a new setup forms first.
+3. SL level = engulfing wick (High for sells, Low for buys). There is no hard stop: the trade closes in loss only when an H1 candle **closes** beyond that level. TP = 3 x SL distance.
+
+The table also shows comparison variants that are not part of the rules: a minimum SL distance (`max(wick, N pips)`) and a normal hard stop at the SL level. P/L in $ uses a fixed 0.10 lot ($1 per pip).
