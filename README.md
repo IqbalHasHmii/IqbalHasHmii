@@ -39,3 +39,20 @@ Rules jis tarah code mein likhe gaye hain (`strategies.py` -> `engulfing_retrace
 
 ## Nayi strategy add karna
 `strategies.py` mein ek function likhein jo `signal` (1/-1/0), `sl_dist` aur `tp_dist` columns return kare, phir use `REGISTRY` mein add kar dein.
+
+## SMC Extreme Order Block strategy (H1 signals + M15 monitoring)
+
+```bash
+python smc_ob.py                              # strict rules, 1% risk sized on the wick
+python smc_ob.py --sizing max --tag _sizing_max   # 1% risk sized on the 50-pip max SL
+python smc_ob.py --sizing fixed --tag _fixed_0.1lot
+python smc_variants.py                        # comparison table
+```
+
+Strict rules (`smc_ob.py`):
+1. H1 body engulfing (wicks ignored).
+2. Engulfing tick volume <= previous candle's tick volume.
+3. Swing High/Low = 5 candles left, 2 right (strict). BOS: close above the last swing high -> buys only, close below the last swing low -> sells only.
+4. Limit order at the engulfing open, SL at the engulfing wick (setup skipped if > 50 pips = $5), TP 1:3. No hard stop: the trade is closed in loss only when an H1 candle closes beyond the wick. TP is checked on M15.
+
+The rules leave a few things open, so these defaults are used: the limit order is valid for one H1 candle, only one trade at a time, and setups with a 0 wick distance are skipped. `--hard-sl` exists only for comparison and is not part of the rules.

@@ -1,0 +1,6 @@
+Variant,Trades,Win%,PF,Net $ (0.1 lot),MaxDD $,Losing years
+Strict rules (limit valid 1 H1 candle),293,48.8,0.69,-2155.0,-2432.0,5/6
+Limit valid 3 H1 candles,509,53.0,0.83,-1866.0,-2686.0,4/6
+Limit valid until filled (24 H1 candles),721,54.5,0.88,-1836.0,-3251.0,4/6
+COMPARE: hard SL at wick (no stop-hunt rule),295,15.9,0.68,-861.0,-1101.0,5/6
+COMPARE: hard SL + limit valid 3,511,15.1,0.75,-1066.0,-1739.0,4/6
