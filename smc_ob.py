@@ -5,7 +5,7 @@ Strict rules
 1. Body engulfing on H1
    BUY : previous candle red, current green, Close >= prev Open AND Open <= prev Close.
    SELL: previous candle green, current red, Close <= prev Open AND Open >= prev Close.
-   Wicks are ignored.
+   The engulfing candle's body must be bigger than its wicks (upper + lower combined).
 2. Volume exhaustion: engulfing tick volume <= previous candle's tick volume.
 3. SMC structure on H1
    Swing High: High strictly higher than the 5 candles to the left and the 2 to the right
@@ -16,8 +16,11 @@ Strict rules
    Entry: limit order exactly at the engulfing candle's OPEN (never at market).
    SL   : engulfing candle's wick (Low for buys, High for sells).
           Setup skipped if |entry - wick| > 50 pips (1 pip = $0.10 -> $5).
-   Stop-hunt protection: no hard stop. The trade is closed in loss only when an H1 candle
-          CLOSES beyond the SL wick, at that H1 close price.
+   Stop-hunt protection: no hard stop at the wick. The trade is closed in loss when an H1
+          candle CLOSES beyond the SL wick, at that H1 close price.
+   Liquidity sweep: if an H1 candle takes the wick's liquidity (trades beyond it) but closes
+          back inside, then after that candle closes the SL is placed at that candle's wick
+          (its Low for buys, High for sells) as a normal stop.
    TP   : fixed 1:3 of the entry-to-wick distance, a normal take-profit order.
 
 Settings that the rules leave open (all can be changed from the command line)
@@ -89,13 +92,18 @@ def smc_structure(h1: pd.DataFrame, left: int = 5, right: int = 2) -> np.ndarray
 
 
 def signals(h1: pd.DataFrame, pip: float = 0.10, max_sl_pips: float = 50,
-            left: int = 5, right: int = 2) -> pd.DataFrame:
+            left: int = 5, right: int = 2, body_filter: bool = True) -> pd.DataFrame:
     df = h1.copy()
     df["trend"] = smc_structure(h1, left, right)
     po, pc, pv = df.open.shift(), df.close.shift(), df.tickvol.shift()
     vol_ok = df.tickvol <= pv
     bull = (pc < po) & (df.close > df.open) & (df.close >= po) & (df.open <= pc) & vol_ok
     bear = (pc > po) & (df.close < df.open) & (df.close <= po) & (df.open >= pc) & vol_ok
+    if body_filter:   # engulfing body must be bigger than its wicks (upper + lower combined)
+        body = (df.close - df.open).abs()
+        wicks = (df.high - df.low) - body
+        bull &= body > wicks
+        bear &= body > wicks
     df["raw"] = np.select([bull & (df.trend == 1), bear & (df.trend == -1)], [1, -1], 0)
     df["entry"] = df.open
     df["sl"] = np.where(df.raw == 1, df.low, df.high)
@@ -111,7 +119,7 @@ def signals(h1: pd.DataFrame, pip: float = 0.10, max_sl_pips: float = 50,
 def simulate(sig: pd.DataFrame, m15: pd.DataFrame, balance: float = 10_000, risk_pct: float = 1.0,
              rr: float = 3.0, valid_hours: int = 1, commission: float = 0.0, max_lots: float = 100.0,
              sizing: str = "wick", size_dist: float = 5.0, fixed_lots: float = 0.10,
-             hard_sl: bool = False):
+             hard_sl: bool = False, sweep_sl: bool = True):
     h1_times = sig.index
     h1_pos = {t: k for k, t in enumerate(h1_times)}
     h1_close = sig.close.to_numpy()
@@ -137,6 +145,7 @@ def simulate(sig: pd.DataFrame, m15: pd.DataFrame, balance: float = 10_000, risk
             "signal_time": pos["signal_time"], "entry_time": pos["entry_time"], "exit_time": mt[i],
             "direction": "BUY" if d == 1 else "SELL", "entry": round(pos["entry"], 2),
             "sl_wick": round(pos["sl"], 2), "tp": round(pos["tp"], 2), "sl_pips": round(pos["dist"] / 0.1, 1),
+            "sweep_sl": round(pos["moved_sl"], 2) if np.isfinite(pos["moved_sl"]) else None,
             "exit": round(price, 2), "lots": pos["lots"], "pnl": round(pnl, 2),
             "r_multiple": round(pnl / pos["risk_usd"], 2), "reason": reason, "equity": round(equity, 2),
         })
@@ -174,6 +183,7 @@ def simulate(sig: pd.DataFrame, m15: pd.DataFrame, balance: float = 10_000, risk
                         lots = round(min(max(lots, MIN_LOT), max_lots), 2)
                     # R is always measured against the wick distance (the rule's 1R)
                     pos = {"dir": d, "entry": fill, "sl": pending["sl"], "dist": dist,
+                           "swept": False, "sweep_ext": np.nan, "moved_sl": np.nan,
                            "tp": p + d * rr * dist, "lots": lots, "risk_usd": lots * dist * CONTRACT,
                            "entry_time": mt[i], "signal_time": pending["signal_time"]}
                     pending = None
@@ -186,6 +196,23 @@ def simulate(sig: pd.DataFrame, m15: pd.DataFrame, balance: float = 10_000, risk
                 close_trade(i, pos["sl"] if fresh else min(pos["sl"], o[i]), "SL (hard)")
             elif pos["dir"] == -1 and h[i] + spr[i] >= pos["sl"]:
                 close_trade(i, pos["sl"] if fresh else max(pos["sl"], o[i] + spr[i]), "SL (hard)")
+
+        # Liquidity-sweep stop: once a candle has taken the engulfing wick's liquidity and
+        # closed, the SL sits at that candle's wick and works as a normal stop.
+        if sweep_sl and pos is not None and np.isfinite(pos["moved_sl"]):
+            ms = pos["moved_sl"]
+            if pos["dir"] == 1 and l[i] <= ms:
+                close_trade(i, ms if fresh else min(ms, o[i]), "SL (sweep candle)")
+            elif pos["dir"] == -1 and h[i] + spr[i] >= ms:
+                close_trade(i, ms if fresh else max(ms, o[i] + spr[i]), "SL (sweep candle)")
+        # track whether this H1 candle is taking the engulfing wick's liquidity
+        if sweep_sl and pos is not None and not np.isfinite(pos["moved_sl"]):
+            if pos["dir"] == 1 and l[i] < pos["sl"]:
+                pos["swept"] = True
+                pos["sweep_ext"] = np.nanmin([pos["sweep_ext"], l[i]])
+            elif pos["dir"] == -1 and h[i] > pos["sl"]:
+                pos["swept"] = True
+                pos["sweep_ext"] = np.nanmax([pos["sweep_ext"], h[i]])
 
         # take profit (intrabar, M15)
         if pos is not None and not fresh:
@@ -202,6 +229,8 @@ def simulate(sig: pd.DataFrame, m15: pd.DataFrame, balance: float = 10_000, risk
                     close_trade(i, hc, "SL (H1 close)")
                 elif pos["dir"] == -1 and hc > pos["sl"]:
                     close_trade(i, hc + spr[i], "SL (H1 close)")
+                elif sweep_sl and pos["swept"] and not np.isfinite(pos["moved_sl"]):
+                    pos["moved_sl"] = pos["sweep_ext"]   # sweep candle closed back inside
             if pos is None and s_sig[k] != 0 and equity > 0:
                 pending = {"dir": int(s_sig[k]), "entry": s_entry[k], "sl": s_sl[k], "dist": s_dist[k],
                            "signal_h1": k, "last_h1": k + valid_hours, "signal_time": h1_times[k]}
@@ -235,14 +264,16 @@ def main() -> None:
     ap.add_argument("--fixed-lots", type=float, default=0.10)
     ap.add_argument("--hard-sl", action="store_true",
                     help="COMPARISON ONLY: normal stop at the wick instead of the H1-close rule")
+    ap.add_argument("--no-body-filter", action="store_true", help="old rule 1 (no body > wick check)")
+    ap.add_argument("--no-sweep-sl", action="store_true", help="old rule 4 (H1-close stop only)")
     ap.add_argument("--tag", default="")
     args = ap.parse_args()
 
     h1, m15 = load_data("H1"), load_data("M15")
-    sig = signals(h1, args.pip, args.max_sl_pips)
+    sig = signals(h1, args.pip, args.max_sl_pips, body_filter=not args.no_body_filter)
     trades, equity = simulate(sig, m15, args.balance, args.risk, args.rr, args.valid_hours,
                               args.commission, args.max_lots, args.sizing, args.max_sl_pips * args.pip,
-                              args.fixed_lots, args.hard_sl)
+                              args.fixed_lots, args.hard_sl, not args.no_sweep_sl)
 
     raw = sig[sig.raw != 0]
     head = (f"Strategy: SMC Extreme OB | H1 signals, M15 monitoring | risk {args.risk}% | "

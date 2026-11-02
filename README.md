@@ -50,9 +50,9 @@ python smc_variants.py                        # comparison table
 ```
 
 Strict rules (`smc_ob.py`):
-1. H1 body engulfing (wicks ignored).
+1. H1 body engulfing, and the engulfing body must be bigger than its wicks (upper + lower combined).
 2. Engulfing tick volume <= previous candle's tick volume.
 3. Swing High/Low = 5 candles left, 2 right (strict). BOS: close above the last swing high -> buys only, close below the last swing low -> sells only.
-4. Limit order at the engulfing open, SL at the engulfing wick (setup skipped if > 50 pips = $5), TP 1:3. No hard stop: the trade is closed in loss only when an H1 candle closes beyond the wick. TP is checked on M15.
+4. Limit order at the engulfing open, SL at the engulfing wick (setup skipped if > 50 pips = $5), TP 1:3. The trade is closed in loss when an H1 candle closes beyond the wick. If a candle takes the wick's liquidity but closes back inside, the SL moves to that candle's wick (normal stop) after it closes. TP is checked on M15.
 
 The rules leave a few things open, so these defaults are used: the limit order is valid for one H1 candle, only one trade at a time, and setups with a 0 wick distance are skipped. `--hard-sl` exists only for comparison and is not part of the rules.

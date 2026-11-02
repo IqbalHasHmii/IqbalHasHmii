@@ -1,28 +1,28 @@
 Strategy: SMC Extreme OB | H1 signals, M15 monitoring | risk 1.0% | sizing fixed | TP 1:3 | max SL 50 pips | limit valid 1 H1 candle(s)
-Setups found: 1009 | skipped SL > 50 pips: 51 | skipped SL = 0: 38
+Setups found: 697 | skipped SL > 50 pips: 24 | skipped SL = 0: 34
 
 Period            : 2021-11-01 -> 2026-10-30 (5.0 years)
 Starting balance  : $10,000.00
-Final balance     : $7,845.00
-Net profit        : $-2,155.00 (-21.5%)
-CAGR              : -4.7% per year
-Max drawdown      : -24.1%
-Limit orders      : 913 placed, 293 filled (32%)
-Total trades      : 293 (BUY 144, SELL 149)
-Win rate          : 48.8%
-Profit factor     : 0.69
-Avg win / loss    : $33.20 / $46.02
-Expectancy        : -1.37R per trade
-Max losing streak : 7 trades
+Final balance     : $9,274.50
+Net profit        : $-725.50 (-7.3%)
+CAGR              : -1.5% per year
+Max drawdown      : -9.6%
+Limit orders      : 639 placed, 140 filled (22%)
+Total trades      : 140 (BUY 75, SELL 65)
+Win rate          : 47.9%
+Profit factor     : 0.74
+Avg win / loss    : $31.57 / $38.91
+Expectancy        : -1.48R per trade
+Max losing streak : 6 trades
 
 Year-by-year:
-  2021:    9 trades | win  22.2% | P/L $    -101.80 |   -32.7R
-  2022:   62 trades | win  51.6% | P/L $     -18.40 |  +160.1R
-  2023:   71 trades | win  49.3% | P/L $    -249.70 |  -179.7R
-  2024:   72 trades | win  52.8% | P/L $       5.00 |   -31.2R
-  2025:   50 trades | win  36.0% | P/L $  -1,707.20 |  -244.3R
-  2026:   29 trades | win  62.1% | P/L $     -82.90 |   -74.4R
+  2021:    6 trades | win  16.7% | P/L $     -74.10 |   -28.3R
+  2022:   24 trades | win  58.3% | P/L $     139.50 |  +169.3R
+  2023:   26 trades | win  50.0% | P/L $       9.00 |  -118.3R
+  2024:   43 trades | win  44.2% | P/L $    -281.00 |   -61.0R
+  2025:   23 trades | win  39.1% | P/L $    -230.90 |   -71.6R
+  2026:   18 trades | win  61.1% | P/L $    -288.00 |   -97.7R
 
-Exit reasons: SL (H1 close) 151, TP 142
-Average loss on SL exits: -7.17R | worst trade: -159.50R
+Exit reasons: TP 66, SL (H1 close) 64, SL (sweep candle) 10
+Average loss on SL exits: -8.29R | worst trade: -159.50R
 Lots used: median 0.10, max 0.10
