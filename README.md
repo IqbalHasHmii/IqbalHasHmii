@@ -86,3 +86,16 @@ python ema_v3.py      # comparison table -> results/ema_v3_summary.csv
 ```
 
 Same as v2, with two changes: the trend comes from EMA(200) (H1 close above it = buys only, below = sells only), and the engulfing candle's tick volume must be lower than the previous candle's. The limit order at the engulfing open stays valid for 5 H1 candles and is cancelled if the close crosses the EMA the other way. The script compares wick SL (H1-close exit or hard stop) with fixed 50/70/100-pip hard stops, at 1:3. It runs each one in two modes: `every` (each engulfing gets its own trade, so trades can overlap) and `one-at-time`.
+
+## v4: engulfing only inside an Order Block / FVG (`zones_v4.py`)
+
+```bash
+python zones_v4.py    # comparison table -> results/zones_v4_summary.csv
+```
+
+v3 plus a zone filter. Zones are built on H1 from closed candles only:
+- **Bullish FVG:** `low[i] > high[i-2]`. **Bearish FVG:** `high[i] < low[i-2]`.
+- **OB:** the last opposite-colour candle within the 5 candles before that FVG displacement.
+- A zone stays active until a candle closes through it, or for at most 100 candles.
+
+A buy needs a bullish engulfing whose two-candle range touches an active bullish zone and closes above the zone bottom; sells are the mirror. The EMA(200) trend, limit at the engulfing open (valid 5 candles), every-setup trading and the SL versions are the same as v3. The table compares OB only, FVG only and OB-or-FVG, each with and without the volume filter.
