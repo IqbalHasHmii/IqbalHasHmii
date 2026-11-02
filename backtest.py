@@ -49,18 +49,28 @@ def load_data(tf: str = "H1", folder: str = os.path.join(HERE, "data")) -> pd.Da
 
 def run(df: pd.DataFrame, balance: float, risk_pct: float, commission_per_lot: float,
         exit_on_opposite: bool) -> tuple[pd.DataFrame, pd.Series]:
-    """Simulate trades. `df` must contain signal, sl_dist, tp_dist columns."""
+    """Simulate trades.
+
+    Required columns: signal, sl_dist, tp_dist.
+    Optional columns: entry_price + valid_bars. When entry_price is set on a signal bar, a
+    LIMIT order is placed at that (bid-chart) price and stays active for `valid_bars` bars;
+    otherwise the trade opens at market on the next bar's open.
+    """
     o, h, l, c = (df[k].to_numpy() for k in ("open", "high", "low", "close"))
     spr = df["spread_px"].to_numpy()
     sig = df["signal"].fillna(0).to_numpy()
     sl_d = df["sl_dist"].to_numpy()
     tp_d = df["tp_dist"].to_numpy()
+    lim = df["entry_price"].to_numpy() if "entry_price" in df else np.full(len(df), np.nan)
+    valid = df["valid_bars"].to_numpy() if "valid_bars" in df else np.ones(len(df))
     times = df.index
 
     equity = balance
     eq_curve = np.full(len(df), np.nan)
     trades = []
-    pos = None  # dict while a trade is open
+    pos = None      # open trade
+    pending = None  # unfilled limit order
+    n_orders = n_filled = 0
 
     def close(i, price, reason):
         nonlocal equity, pos
@@ -68,39 +78,73 @@ def run(df: pd.DataFrame, balance: float, risk_pct: float, commission_per_lot: f
         pnl = (price - pos["entry"]) * d * pos["lots"] * CONTRACT - pos["lots"] * commission_per_lot
         equity += pnl
         trades.append({
-            "entry_time": pos["time"], "exit_time": times[i], "direction": "BUY" if d == 1 else "SELL",
+            "signal_time": pos["signal_time"], "entry_time": pos["time"], "exit_time": times[i],
+            "direction": "BUY" if d == 1 else "SELL",
             "entry": round(pos["entry"], 2), "exit": round(price, 2), "sl": round(pos["sl"], 2),
             "tp": round(pos["tp"], 2), "lots": pos["lots"], "pnl": round(pnl, 2),
             "r_multiple": round(pnl / pos["risk_usd"], 2), "reason": reason, "equity": round(equity, 2),
         })
         pos = None
 
+    def open_pos(i, d, entry, sl_dist, tp_dist, signal_time):
+        nonlocal pos
+        risk_usd = equity * risk_pct / 100
+        lots = np.floor(risk_usd / (sl_dist * CONTRACT) / LOT_STEP) * LOT_STEP
+        lots = round(max(lots, MIN_LOT), 2)
+        pos = {"dir": d, "entry": entry, "lots": lots, "time": times[i], "signal_time": signal_time,
+               "sl": entry - d * sl_dist, "tp": entry + d * tp_dist,
+               "risk_usd": lots * sl_dist * CONTRACT}
+
     for i in range(1, len(df)):
-        # 1) open a new trade from the previous bar's signal
-        s = sig[i - 1]
+        s, k = sig[i - 1], i - 1
+        fresh = False  # True when the position was opened inside this bar (not at its open)
+
+        # 1) act on the previous bar's signal
         if pos is not None and exit_on_opposite and s == -pos["dir"]:
             close(i, o[i] if pos["dir"] == 1 else o[i] + spr[i], "opposite signal")
-        if pos is None and s != 0 and np.isfinite(sl_d[i - 1]) and sl_d[i - 1] > 0 and equity > 0:
-            d = int(s)
-            entry = o[i] + spr[i] if d == 1 else o[i]
-            risk_usd = equity * risk_pct / 100
-            lots = np.floor(risk_usd / (sl_d[i - 1] * CONTRACT) / LOT_STEP) * LOT_STEP
-            lots = round(max(lots, MIN_LOT), 2)
-            pos = {"dir": d, "entry": entry, "lots": lots, "time": times[i],
-                   "sl": entry - d * sl_d[i - 1], "tp": entry + d * tp_d[i - 1],
-                   "risk_usd": lots * sl_d[i - 1] * CONTRACT}
+        if pos is None and s != 0 and np.isfinite(sl_d[k]) and sl_d[k] > 0 and equity > 0:
+            if np.isfinite(lim[k]):
+                pending = {"dir": int(s), "price": lim[k], "last_bar": k + int(valid[k]),
+                           "sl": sl_d[k], "tp": tp_d[k], "signal_time": times[k]}
+                n_orders += 1
+            else:
+                d = int(s)
+                open_pos(i, d, o[i] + spr[i] if d == 1 else o[i], sl_d[k], tp_d[k], times[k])
 
-        # 2) manage the open trade on this bar
+        # 2) try to fill a pending limit order on this bar
+        if pending is not None and pos is None:
+            if i > pending["last_bar"]:
+                pending = None
+            else:
+                d, p = pending["dir"], pending["price"]
+                fill = None
+                if d == 1:   # buy limit triggers on ask
+                    if o[i] + spr[i] <= p:
+                        fill = o[i] + spr[i]
+                    elif l[i] + spr[i] <= p:
+                        fill, fresh = p, True
+                else:        # sell limit triggers on bid
+                    if o[i] >= p:
+                        fill = o[i]
+                    elif h[i] >= p:
+                        fill, fresh = p, True
+                if fill is not None:
+                    open_pos(i, d, fill, pending["sl"], pending["tp"], pending["signal_time"])
+                    pending = None
+                    n_filled += 1
+
+        # 3) manage the open trade on this bar. On a bar where a limit filled mid-bar we
+        #    only check the stop (we cannot know whether TP came after the fill).
         if pos is not None:
             if pos["dir"] == 1:   # long exits at bid
                 if l[i] <= pos["sl"]:
-                    close(i, min(pos["sl"], o[i]), "SL")
-                elif h[i] >= pos["tp"]:
+                    close(i, min(pos["sl"], o[i]) if not fresh else pos["sl"], "SL")
+                elif not fresh and h[i] >= pos["tp"]:
                     close(i, max(pos["tp"], o[i]), "TP")
             else:                 # short exits at ask = bid + spread
                 if h[i] + spr[i] >= pos["sl"]:
-                    close(i, max(pos["sl"], o[i] + spr[i]), "SL")
-                elif l[i] + spr[i] <= pos["tp"]:
+                    close(i, max(pos["sl"], o[i] + spr[i]) if not fresh else pos["sl"], "SL")
+                elif not fresh and l[i] + spr[i] <= pos["tp"]:
                     close(i, min(pos["tp"], o[i] + spr[i]), "TP")
 
         # mark-to-market equity
@@ -114,7 +158,9 @@ def run(df: pd.DataFrame, balance: float, risk_pct: float, commission_per_lot: f
         close(len(df) - 1, c[-1] if pos["dir"] == 1 else c[-1] + spr[-1], "end of data")
         eq_curve[-1] = equity
     eq_curve[0] = balance
-    return pd.DataFrame(trades), pd.Series(eq_curve, index=times, name="equity")
+    t = pd.DataFrame(trades)
+    t.attrs["orders"], t.attrs["filled"] = n_orders, n_filled
+    return t, pd.Series(eq_curve, index=times, name="equity")
 
 
 def report(trades: pd.DataFrame, equity: pd.Series, balance: float) -> str:
@@ -138,6 +184,8 @@ def report(trades: pd.DataFrame, equity: pd.Series, balance: float) -> str:
         f"Net profit        : ${final - balance:,.2f} ({(final / balance - 1) * 100:.1f}%)",
         f"CAGR              : {cagr * 100:.1f}% per year",
         f"Max drawdown      : {dd.min() * 100:.1f}%",
+        *([f"Limit orders      : {trades.attrs['orders']} placed, {trades.attrs['filled']} filled "
+           f"({trades.attrs['filled'] / trades.attrs['orders'] * 100:.0f}%)"] if trades.attrs.get("orders") else []),
         f"Total trades      : {len(trades)} (BUY {sum(trades.direction == 'BUY')}, SELL {sum(trades.direction == 'SELL')})",
         f"Win rate          : {len(wins) / len(trades) * 100:.1f}%",
         f"Profit factor     : {gross_win / gross_loss:.2f}" if gross_loss else "Profit factor     : inf",
@@ -183,14 +231,32 @@ def main() -> None:
     ap.add_argument("--commission", type=float, default=0.0, help="round-turn commission, $ per lot")
     ap.add_argument("--exit-on-opposite", action="store_true", help="close a trade on an opposite signal")
     ap.add_argument("--out", default=os.path.join(HERE, "results"))
+    # parameters for the engulfing strategy (ignored by others)
+    ap.add_argument("--pip", type=float, default=0.10, help="price value of 1 pip for gold (0.10 = $0.10)")
+    ap.add_argument("--sl-pips", type=float, default=50)
+    ap.add_argument("--rr", type=float, default=3.0, help="take profit as a multiple of the stop")
+    ap.add_argument("--valid-bars", type=int, default=1, help="bars the limit order stays active")
+    ap.add_argument("--swing", type=int, default=3, help="bars each side that confirm an H1 swing point")
+    ap.add_argument("--structure", default="bos", choices=["bos", "hhhl"],
+                    help="bos = trend flips on a close beyond the last swing; hhhl = HH+HL / LH+LL")
+    ap.add_argument("--min-body-atr", type=float, default=0.0,
+                    help="optional: skip engulfing candles with body < this x ATR(14)")
+    ap.add_argument("--tag", default="", help="suffix for output file names")
     args = ap.parse_args()
 
-    df = strategies.REGISTRY[args.strategy](load_data(args.tf))
+    params = dict(pip=args.pip, sl_pips=args.sl_pips, rr=args.rr, valid_bars=args.valid_bars,
+                  swing=args.swing, structure=args.structure, min_body_atr=args.min_body_atr)
+    df = strategies.REGISTRY[args.strategy](load_data(args.tf), h1=load_data("H1"), tf=args.tf, **params)
     trades, equity = run(df, args.balance, args.risk, args.commission, args.exit_on_opposite)
 
     os.makedirs(args.out, exist_ok=True)
-    name = f"{args.strategy}_{args.tf}"
-    text = f"Strategy: {args.strategy} | {args.tf} | risk {args.risk}% | commission ${args.commission}/lot\n\n"
+    name = f"{args.strategy}_{args.tf}{args.tag}"
+    text = f"Strategy: {args.strategy} | {args.tf} | risk {args.risk}% | commission ${args.commission}/lot\n"
+    if args.strategy != "ema_cross":
+        text += (f"SL {args.sl_pips:g} pips (${args.sl_pips * args.pip:g}) | TP 1:{args.rr:g} | "
+                 f"structure {args.structure}, swing {args.swing} | limit valid {args.valid_bars} bar(s)"
+                 + (f" | min body {args.min_body_atr:g} ATR" if args.min_body_atr else "") + "\n")
+    text += "\n"
     text += report(trades, equity, args.balance)
     print(text)
     with open(os.path.join(args.out, f"{name}_report.txt"), "w") as f:
