@@ -1,0 +1,23 @@
+
+===== our data (M1 -> M3, UTC+2/+3 broker): 2021-11-01 -> 2026-10-30 (strategy clock), median spread $0.173 =====
+                             period  trades  per week  TP hit %  R/trade  net R
+   2021-11..2023-10  P1 (chosen on)     850       8.2      25.8    0.100   85.3
+2023-11..2024-10  P2 (confirmed on)     701      13.4      39.8    0.599  420.2
+        2024-11..2026-10  P3 (test)     779       7.5      32.5    0.309  240.7
+per year: {2021: '1 tr, TP 0%, -1R', 2022: '402 tr, TP 25%, +17R', 2023: '539 tr, TP 29%, +130R', 2024: '610 tr, TP 40%, +359R', 2025: '522 tr, TP 32%, +147R', 2026: '256 tr, TP 34%, +95R'}
+  every signal: 2330 trades (9.2/wk), TP 32.2%, +0.320R/trade, net +746R, max drawdown -74.8R, most open at once 16
+  max 1 open  : 595 trades (2.4/wk), TP 29.9%, +0.206R/trade, net +122R, max drawdown -41.1R, most open at once 1
+  max 3 open  : 1375 trades (5.5/wk), TP 30.8%, +0.247R/trade, net +339R, max drawdown -65.2R, most open at once 3
+  max 5 open  : 1824 trades (7.2/wk), TP 31.7%, +0.287R/trade, net +523R, max drawdown -60.3R, most open at once 5
+
+===== XAUUSD_M3_exness_202001020100_202310030000.csv, XAUUSD_M3_exness_202310012203_202611030000.csv (utc0 clock): 2020-01-02 -> 2026-11-03 (strategy clock), median spread $0.125 =====
+                                period  trades  per week  TP hit %  R/trade  net R
+2020-01..2021-10  NEW data, never used     646       6.8      27.7    0.121   78.1
+      2021-11..2023-10  P1 (chosen on)     901       8.6      24.3    0.055   49.3
+   2023-11..2024-10  P2 (confirmed on)     686      13.1      42.9    0.727  498.6
+           2024-11..2026-10  P3 (test)     767       7.4      34.3    0.386  295.9
+per year: {2020: '494 tr, TP 27%, +38R', 2021: '184 tr, TP 27%, +16R', 2022: '426 tr, TP 24%, -3R', 2023: '550 tr, TP 30%, +186R', 2024: '580 tr, TP 41%, +388R', 2025: '517 tr, TP 33%, +176R', 2026: '249 tr, TP 36%, +120R'}
+  every signal: 3000 trades (8.6/wk), TP 31.8%, +0.307R/trade, net +922R, max drawdown -111.0R, most open at once 16
+  max 1 open  : 765 trades (2.2/wk), TP 29.9%, +0.217R/trade, net +166R, max drawdown -41.2R, most open at once 1
+  max 3 open  : 1765 trades (5.0/wk), TP 31.0%, +0.265R/trade, net +467R, max drawdown -62.8R, most open at once 3
+  max 5 open  : 2346 trades (6.7/wk), TP 31.5%, +0.285R/trade, net +667R, max drawdown -77.9R, most open at once 5

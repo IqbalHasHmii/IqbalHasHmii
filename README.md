@@ -336,3 +336,34 @@ Findings:
 - **No strategy keeps a 40%+ TP rate.** On 1-5 minutes, 268 strategies had >= 40% wins in P1, 2 of them also in P2, and none in P3. On 15-60 minutes it was 310, then 19, then 1: M30 three soldiers in an uptrend, about 1.5 trades a week. With >= 3 trades a week, none reached 40% in both P1 and P2.
 - **Best 1-5 minute strategies (ranked on P1+P2):** buy-only momentum entries in an uptrend (above the H1 EMA200) when volatility is high, in the late (20:00-00:59) or New York session. Examples are Heikin Ashi two strong candles and three soldiers. The top 100 kept 29.8% TP and +0.20R/trade in P3, and 99% were profitable. By timeframe, M3 is best and M1 has no edge.
 - **Best overall (15-60 minutes):** M30 EMA9 pullback (EMA9 > EMA21, the candle touches EMA9 and closes bullish above it), buy only, close above the H1 EMA200, ADX(14) < 20, SL 2 ATR. The TP rate was 34.3% / 40.1% / 35.2% (P1 / P2 / P3), with +0.40R/trade and about 7 trades a week in P3. It lost money in 2026 (-25R) while gold fell.
+
+### M3 Heikin Ashi strategy on Exness data (`m3_ha_test.py`)
+
+```bash
+python m3_ha_test.py --ours --clock utc0 data/M3_exness/*.csv   # -> results/m3_ha_test.txt
+```
+
+This tests the 1-5 minute pick from the 5M search on the user's Exness M3 export (UTC+0 server, 3-digit prices, 2020-01..2026-11). Times are converted to the backtest clock and spreads use the 0.001 point.
+
+The strategy:
+- **Entry:** buy after two strong bullish Heikin Ashi candles.
+- **Filters:** close above the H1 EMA200, a 20:00-00:59 candle, and ATR above its 20-day average.
+- **Exits:** SL 2 x ATR and TP 1:3.
+
+Results:
+- **On our data** it reproduces the search exactly (P1 / P2 / P3 TP 25.8% / 39.8% / 32.5%).
+- **On Exness:**
+  - 2020-01..2021-10 (data never used before): 27.7% TP, +0.12R/trade.
+  - P1 (2021-11..2023-10): 24.3% TP, +0.06R/trade.
+  - P2 (2023-11..2024-10): 42.9% TP, +0.73R/trade.
+  - P3 (2024-11..2026-10): 34.3% TP, +0.39R/trade.
+- **By year:** every year was positive except 2022 (-3R).
+- **Drawdowns:**
+
+| Version | Trades / week | Max drawdown | When |
+|---|---|---|---|
+| Every signal | 8.6 | -111R | Mar-Jul 2020 |
+| Max 3 open | 5.0 | -63R | |
+| One at a time | 2.2 | -41R | |
+
+The Exness M3 files are not committed (about 50 MB); put them in `data/M3_exness/`.
