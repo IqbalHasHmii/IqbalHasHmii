@@ -259,15 +259,30 @@ Rules (checked at every H1 close, any hour):
 - **Exits:** SL 2 x ATR(14), TP 3 x SL, and a time stop after 115 candles.
 - **Trades:** every signal is its own trade, up to `InpMaxOpenTrades` open at once (default 5).
 
-`python m60_ema20_pullback.py` backtests the same rules on H1 built from the M1 data (2021-11..2026-10):
+`python m60_ema20_pullback.py` (-> `results/m60_ema20_pullback.txt`) backtests the same rules on H1 built from two sources:
+- our M1 data (2021-11..2026-10);
+- the Exness M3 export (2020-01..2026-11).
 
-| Version | Trades / week | Win rate | R / trade | Net | Max drawdown |
-|---|---|---|---|---|---|
-| All signals | 13.4 | 30.4% | +0.198 | +678R | -69.3R (up to 18 trades open) |
-| Max 5 open (EA default) | 9.9 | 30.6% | +0.200 | +508.5R | -54.6R |
-| One at a time | 2.7 | 29.5% | +0.162 | +112.3R | -28.8R |
+The win rate counts every trade closed in profit, including time stops. "TP hit" counts only the trades that reached the TP.
 
-Split by side, buys made +0.33R per trade and sells only +0.03R.
+| Data | Version | Trades / week | Win rate | TP hit | R / trade | Net | Max drawdown |
+|---|---|---|---|---|---|---|---|
+| Ours | All signals | 13.4 | 30.4% | 29.2% | +0.198 | +678R | -69.3R (up to 18 trades open) |
+| Ours | Max 5 open (EA default) | 9.9 | 30.6% | 29.1% | +0.200 | +508.5R | -54.6R |
+| Ours | One at a time | 2.7 | 29.5% | 27.9% | +0.162 | +112.3R | -28.8R |
+| Exness | All signals | 13.6 | 29.3% | 27.7% | +0.146 | +696R | -174R |
+| Exness | Max 5 open (EA default) | 10.0 | 28.9% | 27.0% | +0.124 | +433R | -178R |
+| Exness | One at a time | 2.7 | 28.0% | 25.7% | +0.080 | +76R | -45R |
+
+- **Sells:** +0.03R per trade on our data and -0.003R on Exness. Buys made +0.33R and +0.26R.
+- **Exness 2020-01..2021-10 (data never used before):** about break-even (-0.005R/trade). With max 5 open it lost -41R in 2020 and -43R in 2021. The -178R drawdown ran from August 2020 to February 2022, while gold fell and ranged after its 2020 high.
+- **From 2021-11 on, the two datasets agree:**
+
+| Period | Ours, R / trade | Exness, R / trade |
+|---|---|---|
+| 2021-11..2023-10 | +0.16 | +0.15 |
+| 2023-11..2024-10 | +0.19 | +0.18 |
+| 2024-11..2026-10 | +0.24 | +0.27 |
 
 ## Exness versions (`mql5/exness/`)
 
