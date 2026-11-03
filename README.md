@@ -185,3 +185,22 @@ Findings (5 years):
 - The sweep and EMA pullback setups lose on M1. The median spread ($0.18) is about 30% of a median M1 candle ($0.63).
 - Only the Asian breakout (SL at the other side of the range, 1:3) works, and it is no better than on M15. With multiple trades it made 4.6 trades a week, 27.2% win rate, +101.5R and -48R max drawdown, compared with 4.1 trades a week, +100.3R and -44R on M15.
 - With one trade at a time, a single January 2026 trade had a $384 SL (the crash range) and stayed open until October, which blocked the rest of 2026.
+
+## M5 strategy search, with new strategies (`m5_search.py`)
+
+```bash
+python m5_search.py      # ~1 minute -> results/m5_search.csv
+```
+
+This tests the three `m15_search.py` families on M5, plus three new ones: an RSI pullback with an EMA(2400) trend, Bollinger mean reversion in the Asian session, and a New York opening-range breakout. The data covers 2020-11..2026-10. Parameters are judged on the period up to 2024-10 and checked on 2024-11..2026-10.
+
+Best three (1:3, each one trade at a time):
+
+| Setup | Trades / week | Win rate | Net | Max drawdown | In-sample / out-of-sample |
+|---|---|---|---|---|---|
+| RSI pullback (level 25, SL 1x-10x the average range) | 2.4 | 29.3% | +130.9R | -30.0R | +72.1 / +58.9 |
+| NY opening-range breakout (SL at the other side of the range) | 3.2 | 28.0% | +115.6R | -27.7R | +78.8 / +36.8 |
+| Asian breakout (SL at the other side of the range) | 1.6 | 29.7% | +90.5R | -21.0R | +57.2 / +33.3 |
+| All three together | 7.1 | 28.8% | +337.0R | -32.7R | +208.2 / +128.9 |
+
+Every full year from 2021 to 2026 was positive. With overlapping trades allowed, the combined result is worse: +267.5R with a -72.3R drawdown. The sweep, EMA pullback and Bollinger reversion setups lose on M5.
