@@ -204,3 +204,32 @@ Best three (1:3, each one trade at a time):
 | All three together | 7.1 | 28.8% | +337.0R | -32.7R | +208.2 / +128.9 |
 
 Every full year from 2021 to 2026 was positive. With overlapping trades allowed, the combined result is worse: +267.5R with a -72.3R drawdown. The sweep, EMA pullback and Bollinger reversion setups lose on M5.
+
+## Mass search: 226,800 strategies, 1:3, M1-M60 (`mass_search.py`, `mass_analyze.py`)
+
+```bash
+pip install numba
+python mass_search.py && python mass_analyze.py   # ~1 minute
+```
+
+A strategy combines one choice from each of these:
+- timeframe (10)
+- trigger (21)
+- trend filter (5)
+- session (6)
+- volatility filter (3)
+- SL size (4, in ATR)
+- direction (3)
+
+TP is always 3 x SL. The M1 data is resampled to each timeframe, and every signal is its own trade. Picks are ranked only on 2021-11..2024-10 and then checked on 2024-11..2026-10.
+
+Outputs:
+- `results/mass_search.csv.gz`: every strategy.
+- `results/mass_search_by_tf.csv`: summary per timeframe.
+- `results/mass_search_top.csv`: top 50 by in-sample t-stat.
+- `results/mass_search_baseline.csv`: no-skill win rate per timeframe.
+
+Findings:
+- **Higher timeframes are more accurate at 1:3.** Taking a trade after every candle (SL 2 ATR) wins 21.9% on M1 and 26.1% on M60, against a break-even of 25%. Strategies profitable in both periods: 0.6% on M1, 7.5% on M5, 19.4% on M15, 30.7% on M30, 37.1% on M60.
+- **The top in-sample strategies are almost all buy-only with an uptrend filter.** All of the top 50 stayed profitable out-of-sample (+0.22R/trade). But simply buying every M60 candle above the H1 EMA200 (SL 2 ATR, 1:3) already makes 31.7% / 32.9% wins and +0.25R / +0.29R per trade. Most of the "edge" is gold's 2021-2026 uptrend.
+- **Sell-only strategies that looked best in-sample failed out-of-sample.** Only 40% of the top 10 stayed profitable, averaging -0.12R per trade.
