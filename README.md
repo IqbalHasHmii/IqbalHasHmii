@@ -462,3 +462,26 @@ Results with 3 higher highs and the SL at the high:
 - The mirror buy (close above the high of a bullish engulfing after lower lows, SL at the low) made +0.11R/trade on Exness and +0.26R/trade on our data. That is only about 0.5-0.7 trades a week, and it lost on the 2020-21 Exness data.
 
 **Engulfing on 3-decimal brokers:** our data has 2-decimal prices, so 36% of bearish engulfings there have an open exactly equal to the previous close. On Exness (3 decimals) that is 2%, and 1,309 candles failed the "open >= previous close" rule by only 1-5 cents. Engulfing rules without a small tolerance therefore find fewer, and different, setups on Exness.
+
+### Sell limit at 25% retracement, SL at the engulfing high (`h1_hh_engulf_25.py`)
+
+```bash
+python h1_hh_engulf_25.py   # -> results/h1_hh_engulf_25.txt (levels 0-62%: results/h1_hh_engulf_levels_slhigh.txt)
+```
+
+Rules:
+- **Setup:** 3 higher highs, then a bearish engulfing.
+- **Entry:** a sell limit at close + 25% of the body.
+- **Exits:** SL at the engulfing high, TP 1:3.
+- **Cancel:** when an H1 candle closes below the engulfing low.
+
+This is the first version of the user's engulfing idea that is profitable on both datasets:
+
+| Data | Fills | Trades / week | TP | R / trade | Net | Max drawdown | Median SL / TP |
+|---|---|---|---|---|---|---|---|
+| Exness 2020-26 | 335 of 404 | 0.94 | 29.0% | +0.18 | +59R | -13R | 40 / 120 pips |
+| Our data 2021-26 | 323 of 388 | 1.24 | 28.2% | +0.15 | +48R | -16R | |
+
+- **By period:** every period is positive, including the never-used 2020-21 Exness data (+0.10R/trade).
+- **Entry level:** the result is a smooth hump, positive from about 15% to 38% of the body, with 25-30% best on both datasets.
+- **Failing variants:** the same rules with SL at high + 50 pips lose, and the mirror buy loses.

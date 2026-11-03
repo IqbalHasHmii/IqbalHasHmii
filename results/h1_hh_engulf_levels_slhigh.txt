@@ -1,0 +1,22 @@
+
+Exness 2020-26: SELL 3 higher highs, SL at the engulfing high, TP 1:3
+  entry   0.0% of body: filled 401/404, TP 22.7%, -0.073R/trade, net  -29.4R
+  entry  10.0% of body: filled 374/404, TP 25.9%, +0.054R/trade, net  +20.0R
+  entry  15.0% of body: filled 361/404, TP 27.1%, +0.102R/trade, net  +36.8R
+  entry  20.0% of body: filled 345/404, TP 27.5%, +0.118R/trade, net  +40.7R
+  entry  25.0% of body: filled 335/404, TP 29.0%, +0.175R/trade, net  +58.7R
+  entry  30.0% of body: filled 328/404, TP 29.0%, +0.177R/trade, net  +57.9R
+  entry  38.2% of body: filled 309/404, TP 27.8%, +0.134R/trade, net  +41.5R
+  entry  50.0% of body: filled 279/404, TP 24.4%, +0.002R/trade, net   +0.5R
+  entry  61.8% of body: filled 259/404, TP 23.2%, -0.067R/trade, net  -17.4R
+
+Hamara data 2021-26: SELL 3 higher highs, SL at the engulfing high, TP 1:3
+  entry   0.0% of body: filled 384/388, TP 24.5%, -0.020R/trade, net   -7.6R
+  entry  10.0% of body: filled 360/388, TP 25.0%, -0.003R/trade, net   -0.9R
+  entry  15.0% of body: filled 345/388, TP 26.1%, +0.041R/trade, net  +14.1R
+  entry  20.0% of body: filled 334/388, TP 27.2%, +0.088R/trade, net  +29.3R
+  entry  25.0% of body: filled 323/388, TP 28.2%, +0.148R/trade, net  +47.7R
+  entry  30.0% of body: filled 312/388, TP 28.8%, +0.178R/trade, net  +55.5R
+  entry  38.2% of body: filled 291/388, TP 26.8%, +0.092R/trade, net  +26.8R
+  entry  50.0% of body: filled 264/388, TP 26.1%, +0.070R/trade, net  +18.4R
+  entry  61.8% of body: filled 252/388, TP 27.0%, +0.109R/trade, net  +27.4R
