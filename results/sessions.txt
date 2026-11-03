@@ -1,0 +1,53 @@
+
+===== Our data (strategies 1-6, 8, 9): 2021-11-01 -> 2026-10-31, 4983 trades, TP 30.2% =====
+By the session the trade was OPENED in:
+ session Pakistan time (winter)  trades  per week  TP   SL  TP %  R/trade  net R
+    Asia            04:00-12:59     568       2.2 153  415  26.9    0.092   52.0
+  London            13:00-17:59    1233       4.7 362  869  29.4    0.180  222.0
+New York            18:00-22:59    1835       7.0 539 1295  29.4    0.179  329.0
+    Late            23:00-03:59    1347       5.2 452  895  33.6    0.354  476.0
+
+By the session the SL / TP was HIT in:
+ session Pakistan time (winter)  TP   SL
+    Asia            04:00-12:59 533  756
+  London            13:00-17:59 222  628
+New York            18:00-22:59 510 1252
+    Late            23:00-03:59 241  838
+
+TP % (trades) by strategy and opening session:
+              strategy      Asia    London  New York       Late
+  1 M15 Asian breakout         - 27% (293)  38% (68)          -
+  2 M15 prev-day sweep  25% (59) 31% (173) 26% (298)       (11)
+ 3 H1 EMA200 engulfing 28% (343) 31% (153) 26% (189)   26% (89)
+     4 M5 RSI pullback  20% (71) 30% (244) 31% (303)   22% (23)
+ 5 M5 NY opening range         -         - 28% (851)        (1)
+   6 M5 Asian breakout         - 29% (322)  43% (67)          -
+  8 M3 Heikin Ashi buy       (7)         -         - 34% (1197)
+9 H1 HH engulfing sell  31% (88)  35% (48)  34% (59)   27% (26)
+
+By opening hour (strategy clock): 01h 56 tr 16% -0.26R, 02h 20 tr 35% +0.40R, 03h 77 tr 34% +0.35R, 04h 76 tr 28% +0.14R, 05h 42 tr 33% +0.33R, 06h 25 tr 28% +0.12R, 07h 31 tr 23% -0.10R, 08h 54 tr 33% +0.33R, 09h 187 tr 24% -0.06R, 10h 441 tr 28% +0.13R, 11h 284 tr 29% +0.15R, 12h 169 tr 35% +0.39R, 13h 167 tr 26% +0.05R, 14h 172 tr 31% +0.28R, 15h 338 tr 37% +0.48R, 16h 276 tr 26% +0.06R, 17h 869 tr 28% +0.13R, 18h 227 tr 28% +0.11R, 19h 125 tr 28% +0.12R, 20h 635 tr 32% +0.32R, 21h 387 tr 35% +0.38R, 22h 236 tr 36% +0.50R, 23h 89 tr 29% +0.10R
+
+===== Exness data (strategies 1-3, 8, 9): 2020-01-02 -> 2026-11-03, 3943 trades, TP 30.0% =====
+By the session the trade was OPENED in:
+ session Pakistan time (winter)  trades  per week  TP   SL  TP %  R/trade  net R
+    Asia            04:00-12:59     578       1.6 164  414  28.4    0.147   85.0
+  London            13:00-17:59     884       2.5 253  630  28.6    0.146  129.0
+New York            18:00-22:59     779       2.2 206  573  26.4    0.053   42.0
+    Late            23:00-03:59    1702       4.8 560 1142  32.9    0.339  576.0
+
+By the session the SL / TP was HIT in:
+ session Pakistan time (winter)  TP  SL
+    Asia            04:00-12:59 469 669
+  London            13:00-17:59 168 438
+New York            18:00-22:59 316 803
+    Late            23:00-03:59 230 849
+
+TP % (trades) by strategy and opening session:
+              strategy      Asia    London  New York       Late
+  1 M15 Asian breakout         - 28% (413) 29% (100)          -
+  2 M15 prev-day sweep  26% (93) 31% (237) 25% (403)       (16)
+ 3 H1 EMA200 engulfing 27% (384) 28% (187) 27% (220)  21% (117)
+  8 M3 Heikin Ashi buy      (11)         -         - 34% (1544)
+9 H1 HH engulfing sell  34% (90)  30% (47)  30% (56)   32% (25)
+
+By opening hour (strategy clock): 00h 29 tr 14% -0.44R, 01h 68 tr 28% +0.22R, 02h 30 tr 33% +0.33R, 03h 73 tr 29% +0.15R, 04h 73 tr 29% +0.15R, 05h 47 tr 36% +0.45R, 06h 27 tr 22% -0.11R, 07h 35 tr 29% +0.14R, 08h 63 tr 30% +0.21R, 09h 162 tr 25% +0.01R, 10h 281 tr 27% +0.08R, 11h 214 tr 30% +0.20R, 12h 122 tr 34% +0.34R, 13h 120 tr 22% -0.13R, 14h 147 tr 31% +0.26R, 15h 256 tr 27% +0.08R, 16h 227 tr 26% +0.06R, 17h 155 tr 25% -0.04R, 18h 84 tr 26% +0.05R, 19h 57 tr 30% +0.19R, 20h 761 tr 31% +0.26R, 21h 473 tr 36% +0.44R, 22h 303 tr 34% +0.48R, 23h 136 tr 32% +0.25R

@@ -780,3 +780,26 @@ The gain holds for thresholds from about 1.10x to 1.20x, so 1.15x is not a singl
 - **Exness by period:** v1.10 makes more in each of the discovery, 2020-21 and P3 periods: +300R / +104R / +181R, against +237R / +74R / +156R for v1.00.
 - **2022 turns positive:** +20R on Exness (was -15R) and +40R on our data (was -4R).
 - **All-in-one EA:** the backtest tables above already use v1.10 for strategy 8.
+
+### TP and SL by session (`sessions.py`)
+
+```bash
+python sessions.py   # -> results/sessions.txt
+```
+
+These are the EA-default trades, put in the session they were opened in. Session times are given in Pakistan time (UTC+5) for winter; in European summer every session starts 1 hour earlier in Pakistan time.
+
+Our data, strategies 1-6, 8, 9:
+
+| Session | Pakistan time | Trades / week | TP | SL | TP % | R / trade |
+|---|---|---|---|---|---|---|
+| Asia | 04:00-12:59 | 2.2 | 153 | 415 | 26.9% | +0.09 |
+| London | 13:00-17:59 | 4.7 | 362 | 869 | 29.4% | +0.18 |
+| New York | 18:00-22:59 | 7.0 | 539 | 1295 | 29.4% | +0.18 |
+| Late | 23:00-03:59 | 5.2 | 452 | 895 | 33.6% | +0.35 |
+
+On Exness, strategies 1-3, 8 and 9 give 28.4% / 28.6% / 26.4% / 32.9% TP across the four sessions. Every session made money on both datasets.
+
+- **Most trades and most SLs: New York.** It has the most strategies (NY opening range, sweep, RSI pullback).
+- **Best session: Late, mostly the M3 Heikin Ashi.** About 34% TP and +0.34R/trade on both datasets. The best hours were 21:00-22:59 on the strategy clock (00:00-01:59 Pakistan time in winter), with 35-36% TP.
+- **Most TPs are hit in the Asian session.** That is 533 of 1,506 on our data. The TP is far away, so evening trades often reach it overnight.
