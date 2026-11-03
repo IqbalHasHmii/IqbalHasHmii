@@ -233,3 +233,20 @@ Findings:
 - **Higher timeframes are more accurate at 1:3.** Taking a trade after every candle (SL 2 ATR) wins 21.9% on M1 and 26.1% on M60, against a break-even of 25%. Strategies profitable in both periods: 0.6% on M1, 7.5% on M5, 19.4% on M15, 30.7% on M30, 37.1% on M60.
 - **The top in-sample strategies are almost all buy-only with an uptrend filter.** All of the top 50 stayed profitable out-of-sample (+0.22R/trade). But simply buying every M60 candle above the H1 EMA200 (SL 2 ATR, 1:3) already makes 31.7% / 32.9% wins and +0.25R / +0.29R per trade. Most of the "edge" is gold's 2021-2026 uptrend.
 - **Sell-only strategies that looked best in-sample failed out-of-sample.** Only 40% of the top 10 stayed profitable, averaging -0.12R per trade.
+
+### Buy vs sell (`mass_by_direction.py`)
+
+```bash
+python mass_by_direction.py   # -> results/mass_search_by_direction.csv, results/mass_search_best_by_direction.csv
+```
+
+This script combines both mass-search runs and splits the results by direction. "Both" means buys when the trend filter is up and sells when it is down.
+
+| Timeframe | Profitable in both periods: buy only | sell only | both | Top-20 out-of-sample R/trade: buy | sell | both |
+|---|---|---|---|---|---|---|
+| M5 | 13.1% | 3.7% | 5.8% | +0.16 | +0.07 | +0.10 |
+| M15 | 34.4% | 6.0% | 17.4% | +0.25 | +0.05 | +0.10 |
+| M30 | 46.0% | 11.8% | 32.4% | +0.27 | +0.01 | +0.15 |
+| M60 | 52.8% | 13.2% | 40.5% | +0.31 | +0.09 | +0.16 |
+
+Sell-only strategies picked on 2021-24 mostly failed in 2024-26, because of gold's uptrend.
