@@ -250,3 +250,21 @@ This script combines both mass-search runs and splits the results by direction. 
 | M60 | 52.8% | 13.2% | 40.5% | +0.31 | +0.09 | +0.16 |
 
 Sell-only strategies picked on 2021-24 mostly failed in 2024-26, because of gold's uptrend.
+
+## MT5 EA: H1 EMA20 pullback, buys and sells (`mql5/XAUUSD_H1_EMA20_Pullback_EA.mq5`)
+
+Rules (checked at every H1 close, any hour):
+- **Buy:** close above EMA200, the low touches EMA20, and the candle closes bullish above EMA20.
+- **Sell:** the mirror of the buy rule.
+- **Exits:** SL 2 x ATR(14), TP 3 x SL, and a time stop after 115 candles.
+- **Trades:** every signal is its own trade, up to `InpMaxOpenTrades` open at once (default 5).
+
+`python m60_ema20_pullback.py` backtests the same rules on H1 built from the M1 data (2021-11..2026-10):
+
+| Version | Trades / week | Win rate | R / trade | Net | Max drawdown |
+|---|---|---|---|---|---|
+| All signals | 13.4 | 30.4% | +0.198 | +678R | -69.3R (up to 18 trades open) |
+| Max 5 open (EA default) | 9.9 | 30.6% | +0.200 | +508.5R | -54.6R |
+| One at a time | 2.7 | 29.5% | +0.162 | +112.3R | -28.8R |
+
+Split by side, buys made +0.33R per trade and sells only +0.03R.
