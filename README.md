@@ -124,3 +124,11 @@ The H1 version had its own problems in v2.00, fixed in v2.10:
 ```bash
 python ea_h1_replay.py    # replays H1 v2.00 as written (on M15 candles) and the v2.10 logic (on H1)
 ```
+
+## M15 strategy search: >= 40% win rate, 3-5 trades a week (`m15_search.py`)
+
+```bash
+python m15_search.py   # -> results/m15_search.csv
+```
+
+The script tests three families on M15 with small parameter grids: Asian-range breakout, previous-day high/low sweep, and EMA trend pullback. SL limits are scaled by the average M15 candle range, so they follow volatility. Parameters are judged on 2021-11..2024-10 (in-sample) and then checked on 2024-11..2026-10 (out-of-sample). Times are broker server time (UTC+2 winter / UTC+3 summer).
