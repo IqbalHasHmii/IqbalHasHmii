@@ -381,6 +381,8 @@ Results:
 | Max 3 open | 5.0 | -63R | |
 | One at a time | 2.2 | -41R | |
 
+With max 3 open (the EA default), every Exness year was positive except 2022 (-15R). 2024 alone made +174R of the +467R total.
+
 The Exness M3 files are not committed (about 50 MB); put them in `data/M3_exness/`.
 
 ## MT5 EAs: M3 Heikin Ashi strategy, Exness and FTMO (`mql5/exness/XAUUSD_M3_HeikinAshi_EA_Exness.mq5`, `mql5/XAUUSD_M3_HeikinAshi_EA_FTMO.mq5`)

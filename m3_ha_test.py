@@ -132,6 +132,8 @@ def run(d: pd.DataFrame, label: str) -> pd.DataFrame:
         print(f"  {'every signal' if cap == 0 else f'max {cap} open':12s}: {len(x)} trades ({len(x) / weeks:.1f}/wk), "
               f"TP {x.tp_hit.mean() * 100:.1f}%, {x.R.mean():+.3f}R/trade, net {x.R.sum():+.0f}R, "
               f"max drawdown {(eq - eq.cummax()).min():.1f}R, most open at once {ev.d.cumsum().max()}")
+        if cap:
+            print(f"  {'':12s}  per year: " + ", ".join(f"{yy}: {v:+.0f}R" for yy, v in x.groupby(x.exit.dt.year).R.sum().items()))
     return t
 
 

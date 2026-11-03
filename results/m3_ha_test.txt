@@ -7,8 +7,11 @@
 per year: {2021: '1 tr, TP 0%, -1R', 2022: '402 tr, TP 25%, +17R', 2023: '539 tr, TP 29%, +130R', 2024: '610 tr, TP 40%, +359R', 2025: '522 tr, TP 32%, +147R', 2026: '256 tr, TP 34%, +95R'}
   every signal: 2330 trades (9.2/wk), TP 32.2%, +0.320R/trade, net +746R, max drawdown -74.8R, most open at once 16
   max 1 open  : 595 trades (2.4/wk), TP 29.9%, +0.206R/trade, net +122R, max drawdown -41.1R, most open at once 1
+                per year: 2021: -1R, 2022: +6R, 2023: +14R, 2024: +57R, 2025: +26R, 2026: +20R
   max 3 open  : 1375 trades (5.5/wk), TP 30.8%, +0.247R/trade, net +339R, max drawdown -65.2R, most open at once 3
+                per year: 2021: -1R, 2022: -4R, 2023: +51R, 2024: +166R, 2025: +72R, 2026: +54R
   max 5 open  : 1824 trades (7.2/wk), TP 31.7%, +0.287R/trade, net +523R, max drawdown -60.3R, most open at once 5
+                per year: 2021: -1R, 2022: +1R, 2023: +84R, 2024: +248R, 2025: +114R, 2026: +77R
 
 ===== XAUUSD_M3_exness_202001020100_202310030000.csv, XAUUSD_M3_exness_202310012203_202611030000.csv (utc0 clock): 2020-01-02 -> 2026-11-03 (strategy clock), median spread $0.125 =====
                                 period  trades  per week  TP hit %  R/trade  net R
@@ -19,5 +22,8 @@ per year: {2021: '1 tr, TP 0%, -1R', 2022: '402 tr, TP 25%, +17R', 2023: '539 tr
 per year: {2020: '494 tr, TP 27%, +38R', 2021: '184 tr, TP 27%, +16R', 2022: '426 tr, TP 24%, -3R', 2023: '550 tr, TP 30%, +186R', 2024: '580 tr, TP 41%, +388R', 2025: '517 tr, TP 33%, +176R', 2026: '249 tr, TP 36%, +120R'}
   every signal: 3000 trades (8.6/wk), TP 31.8%, +0.307R/trade, net +922R, max drawdown -111.0R, most open at once 16
   max 1 open  : 765 trades (2.2/wk), TP 29.9%, +0.217R/trade, net +166R, max drawdown -41.2R, most open at once 1
+                per year: 2020: +25R, 2021: +15R, 2022: +0R, 2023: +27R, 2024: +57R, 2025: +17R, 2026: +25R
   max 3 open  : 1765 trades (5.0/wk), TP 31.0%, +0.265R/trade, net +467R, max drawdown -62.8R, most open at once 3
+                per year: 2020: +39R, 2021: +27R, 2022: -15R, 2023: +85R, 2024: +174R, 2025: +88R, 2026: +69R
   max 5 open  : 2346 trades (6.7/wk), TP 31.5%, +0.285R/trade, net +667R, max drawdown -77.9R, most open at once 5
+                per year: 2020: +50R, 2021: +22R, 2022: -17R, 2023: +127R, 2024: +251R, 2025: +137R, 2026: +98R
