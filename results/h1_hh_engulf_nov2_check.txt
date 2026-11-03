@@ -1,0 +1,18 @@
+2 Nov 2026 setup (chart 12:00 UTC-5 = 17:00 UTC) on Exness data:
+  engulfing candle O 3967.563 H 3970.006 L 3953.359 C 3958.018 | previous candle O 3957.720 C 3967.775
+  body check: close 3958.018 <= previous open 3957.720? False (short by $0.30); open 3967.563 >= previous close 3967.775? False (short by $0.21)
+  with our rules it would be: sell limit (25%) 3960.40, SL 3970.01 (96 pips), TP 1:3 3931.60
+
+Would allowing such setups help? (sell, limit 25% of body, SL at the engulfing high, TP 1:3)
+  Exness 2020-26  engulfing tolerance $0.00, 3 HH consecutive : 335 trades, TP 29.0%, +0.175R/trade, net  +58.7R
+  Exness 2020-26  engulfing tolerance $0.00, 3 HH, 1 pause ok : 515 trades, TP 22.1%, -0.102R/trade, net  -52.5R
+  Exness 2020-26  engulfing tolerance $0.30, 3 HH consecutive : 767 trades, TP 26.1%, +0.049R/trade, net  +37.8R
+  Exness 2020-26  engulfing tolerance $0.30, 3 HH, 1 pause ok : 1125 trades, TP 23.4%, -0.058R/trade, net  -65.4R
+  Exness 2020-26  engulfing tolerance $0.50, 3 HH consecutive : 837 trades, TP 25.3%, +0.022R/trade, net  +18.6R
+  Exness 2020-26  engulfing tolerance $0.50, 3 HH, 1 pause ok : 1224 trades, TP 23.4%, -0.056R/trade, net  -69.0R
+  Ours 2021-26    engulfing tolerance $0.00, 3 HH consecutive : 323 trades, TP 28.2%, +0.148R/trade, net  +47.7R
+  Ours 2021-26    engulfing tolerance $0.00, 3 HH, 1 pause ok : 447 trades, TP 27.7%, +0.124R/trade, net  +55.4R
+  Ours 2021-26    engulfing tolerance $0.30, 3 HH consecutive : 562 trades, TP 25.4%, +0.033R/trade, net  +18.4R
+  Ours 2021-26    engulfing tolerance $0.30, 3 HH, 1 pause ok : 798 trades, TP 25.1%, +0.016R/trade, net  +12.5R
+  Ours 2021-26    engulfing tolerance $0.50, 3 HH consecutive : 611 trades, TP 24.2%, -0.016R/trade, net   -9.7R
+  Ours 2021-26    engulfing tolerance $0.50, 3 HH, 1 pause ok : 863 trades, TP 24.1%, -0.021R/trade, net  -18.5R
