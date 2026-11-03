@@ -1,0 +1,60 @@
+
+===== Our data (2021-11..2026-10) =====
+
+-- SELL 3 higher highs: 388 setups, 203 filled, 185 NOT filled
+   NOT filled -> price reached the planned TP first: 120 (65%), planned SL first: 65 (35%), neither: 0
+   (filled ones for comparison: TP 42, SL 161)
+   market entry at the engulfing close, all setups          : 387 trades, TP 22.7%, -0.097R/trade, net -37.4R
+   market entry at the engulfing close, the filled ones     : 202 trades, TP 11.9%, -0.526R/trade, net -106.2R
+   market entry at the engulfing close, the NOT filled ones : 185 trades, TP 34.6%, +0.372R/trade, net +68.7R
+
+-- SELL 4 higher highs: 193 setups, 108 filled, 85 NOT filled
+   NOT filled -> price reached the planned TP first: 63 (74%), planned SL first: 22 (26%), neither: 0
+   (filled ones for comparison: TP 25, SL 83)
+   market entry at the engulfing close, all setups          : 193 trades, TP 23.3%, -0.068R/trade, net -13.2R
+   market entry at the engulfing close, the filled ones     : 108 trades, TP 12.0%, -0.520R/trade, net -56.2R
+   market entry at the engulfing close, the NOT filled ones : 85 trades, TP 37.6%, +0.506R/trade, net +43.0R
+
+-- BUY 3 lower lows: 337 setups, 179 filled, 158 NOT filled
+   NOT filled -> price reached the planned TP first: 101 (64%), planned SL first: 57 (36%), neither: 0
+   (filled ones for comparison: TP 45, SL 134)
+   market entry at the engulfing close, all setups          : 337 trades, TP 25.5%, +0.021R/trade, net +7.1R
+   market entry at the engulfing close, the filled ones     : 179 trades, TP 12.3%, -0.508R/trade, net -90.9R
+   market entry at the engulfing close, the NOT filled ones : 158 trades, TP 40.5%, +0.620R/trade, net +98.0R
+
+-- BUY 4 lower lows: 175 setups, 89 filled, 86 NOT filled
+   NOT filled -> price reached the planned TP first: 56 (65%), planned SL first: 30 (35%), neither: 0
+   (filled ones for comparison: TP 23, SL 66)
+   market entry at the engulfing close, all setups          : 175 trades, TP 27.4%, +0.098R/trade, net +17.1R
+   market entry at the engulfing close, the filled ones     : 89 trades, TP 12.4%, -0.504R/trade, net -44.9R
+   market entry at the engulfing close, the NOT filled ones : 86 trades, TP 43.0%, +0.721R/trade, net +62.0R
+
+===== Exness (2020-01..2026-11) =====
+
+-- SELL 3 higher highs: 404 setups, 218 filled, 186 NOT filled
+   NOT filled -> price reached the planned TP first: 114 (61%), planned SL first: 72 (39%), neither: 0
+   (filled ones for comparison: TP 43, SL 175)
+   market entry at the engulfing close, all setups          : 402 trades, TP 18.7%, -0.254R/trade, net -102.0R
+   market entry at the engulfing close, the filled ones     : 216 trades, TP 11.1%, -0.556R/trade, net -120.0R
+   market entry at the engulfing close, the NOT filled ones : 186 trades, TP 27.4%, +0.097R/trade, net +18.0R
+
+-- SELL 4 higher highs: 204 setups, 113 filled, 91 NOT filled
+   NOT filled -> price reached the planned TP first: 54 (59%), planned SL first: 37 (41%), neither: 0
+   (filled ones for comparison: TP 25, SL 88)
+   market entry at the engulfing close, all setups          : 204 trades, TP 16.2%, -0.355R/trade, net -72.5R
+   market entry at the engulfing close, the filled ones     : 113 trades, TP 11.5%, -0.540R/trade, net -61.0R
+   market entry at the engulfing close, the NOT filled ones : 91 trades, TP 22.0%, -0.126R/trade, net -11.5R
+
+-- BUY 3 lower lows: 361 setups, 196 filled, 165 NOT filled
+   NOT filled -> price reached the planned TP first: 96 (58%), planned SL first: 69 (42%), neither: 0
+   (filled ones for comparison: TP 45, SL 151)
+   market entry at the engulfing close, all setups          : 361 trades, TP 23.3%, -0.080R/trade, net -28.9R
+   market entry at the engulfing close, the filled ones     : 196 trades, TP 12.8%, -0.490R/trade, net -96.1R
+   market entry at the engulfing close, the NOT filled ones : 165 trades, TP 35.8%, +0.407R/trade, net +67.2R
+
+-- BUY 4 lower lows: 176 setups, 97 filled, 79 NOT filled
+   NOT filled -> price reached the planned TP first: 47 (59%), planned SL first: 32 (41%), neither: 0
+   (filled ones for comparison: TP 22, SL 75)
+   market entry at the engulfing close, all setups          : 176 trades, TP 20.5%, -0.205R/trade, net -36.0R
+   market entry at the engulfing close, the filled ones     : 97 trades, TP 9.3%, -0.629R/trade, net -61.0R
+   market entry at the engulfing close, the NOT filled ones : 79 trades, TP 34.2%, +0.316R/trade, net +25.0R

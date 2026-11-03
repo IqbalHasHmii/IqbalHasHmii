@@ -408,3 +408,22 @@ Results:
   - About half the orders fill and the rest are cancelled.
 - **Only sells below the H1 EMA200:** still a loss.
 - **The mirror buy:** about break-even overall. Only above the H1 EMA200 it is slightly positive (+0.19R / +0.06R per trade), but that is about 1 trade a month.
+
+### What the unfilled setups did (`h1_hh_engulf_unfilled.py`)
+
+```bash
+python h1_hh_engulf_unfilled.py   # -> results/h1_hh_engulf_unfilled.txt
+```
+
+For the cancelled sell limits (price closed below the engulfing low before retracing to the open), the script checks which planned level price reached first after the engulfing closed.
+
+With 3 higher highs, most unfilled setups reached the planned TP first:
+
+| Data | Reached TP first | Reached SL first |
+|---|---|---|
+| Our data | 120 (65%) | 65 (35%) |
+| Exness | 114 (61%) | 72 (39%) |
+
+Of the filled orders, only about 20% reached TP. The limit entry fills mostly on the setups that go against the trade.
+
+Selling at market at the engulfing close does not fix this. Across all setups (same SL at the engulfing high + 50 pips, TP 1:3) it still loses: -0.10R/trade on our data and -0.25R/trade on Exness. The setups that later retrace lose heavily (about 11-12% TP, -0.53R/trade), and there is no way to know in advance which setups will retrace.
