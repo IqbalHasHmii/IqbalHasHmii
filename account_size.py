@@ -50,6 +50,15 @@ def run(label: str, parts: dict, end: pd.Timestamp):
             ("cent account, 0.25% risk (EA default)", 0.0025, 0.01, (100, 250, 500, 1000))):
         print(f"\n{name}:")
         print(pd.DataFrame([sized(t, bal, risk, step) for bal in balances]).to_string(index=False))
+    # month by month for $100 on a cent account (fixed balance)
+    oz = np.floor(100 * 0.0025 / t.sl.to_numpy() / 0.01 + 1e-9) * 0.01
+    x = t[oz >= 0.01].assign(pnl=(t.move * oz)[oz >= 0.01])
+    mo = x.groupby(x.exit.dt.to_period("M")).agg(trades=("pnl", "size"), profit=("pnl", "sum"))
+    mo = mo[mo.index >= start.to_period("M")]
+    print(f"\n$100 cent account, 0.25% risk, month by month ($): " +
+          ", ".join(f"{m.strftime('%b %y')} {v:+.2f}" for m, v in mo.profit.items()))
+    print(f"   average {mo.profit.mean():+.2f}/month, best {mo.profit.max():+.2f}, worst {mo.profit.min():+.2f}, "
+          f"losing months {(mo.profit < 0).sum()} of {len(mo)}")
 
 
 if __name__ == "__main__":

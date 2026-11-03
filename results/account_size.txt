@@ -30,6 +30,9 @@ balance trades taken  per week profit in 12 months % of balance max drawdown    
    $500         100%      17.3                $179         +36%  $-53 (-11%)  S1:97% S2:100% S3:100% S4:100% S5:99% S6:93% S8:100% S9:100%
  $1,000         100%      17.3                $374         +37% $-112 (-11%) S1:97% S2:100% S3:100% S4:100% S5:100% S6:97% S8:100% S9:100%
 
+$100 cent account, 0.25% risk, month by month ($): Oct 25 +0.11, Nov 25 +4.11, Dec 25 -3.11, Jan 26 +12.41, Feb 26 +2.52, Mar 26 +3.62, Apr 26 +6.30, May 26 +6.08, Jun 26 +0.44, Jul 26 -3.93, Aug 26 +0.87, Sep 26 -3.56, Oct 26 +2.95
+   average +2.22/month, best +12.41, worst -3.93, losing months 3 of 13
+
 ===== Exness data (no M5 strategies): trades of 2025-11-03 -> 2026-11-03 (537 trades, +84R at full size) =====
 SL in $ per 0.01 lot (median / 90th percentile): S1 54/93, S2 16/30, S3 10/10, S8 11/22, S9 15/30
 
@@ -60,3 +63,6 @@ balance trades taken  per week profit in 12 months % of balance max drawdown    
    $250          98%      10.1                 $37         +15%  $-35 (-14%)  S1:66% S2:98% S3:100% S8:100% S9:100%
    $500         100%      10.3                 $91         +18%  $-70 (-14%) S1:97% S2:100% S3:100% S8:100% S9:100%
  $1,000         100%      10.3                $191         +19% $-144 (-14%) S1:97% S2:100% S3:100% S8:100% S9:100%
+
+$100 cent account, 0.25% risk, month by month ($): Nov 25 +4.65, Dec 25 -6.90, Jan 26 +10.95, Feb 26 -1.23, Mar 26 +2.06, Apr 26 +2.23, May 26 +2.62, Jun 26 -0.18, Jul 26 -1.32, Aug 26 +0.75, Sep 26 -1.51, Oct 26 +1.20, Nov 26 -0.37
+   average +1.00/month, best +10.95, worst -6.90, losing months 6 of 13

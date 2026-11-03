@@ -679,6 +679,14 @@ This runs the EA-default trades (strategy 7 off) on a $100 start. A 0.01 lot of 
 - **Fixed 0.02 lot:** surviving the biggest drop of the backtest needs more than $2,601 (our data) or $1,926 (Exness).
 - **Cent account:** one cent lot is 1/100 of a standard lot, so the EA can size the trades at 0.25%.
 - **Starting today on a cent account:** with $100 at the current gold price, strategies 1, 5 and 6 are mostly skipped until the balance reaches about $220.
+- **Cent account month by month (whole backtest, profits reinvested):**
+
+| | Our data | Exness |
+|---|---|---|
+| Average month | +4.4% | +2.5% |
+| Median month | +3.0% | +1.3% |
+| Worst month | -6.5% | -8.3% |
+| Losing months | 28% | 36% |
 
 ### Account size (`account_size.py`)
 
@@ -700,6 +708,14 @@ This applies the EA's lot rule (0.25% risk per trade, the EA default) to the tra
 - **Cent account:** it sizes like a normal account 100 times bigger, so $100 on a cent account takes the same trades as $10,000 on a normal one.
 - **Exness:** the Exness values lack the M5 strategies.
 - **Longer run:** the drawdown at full size was -11% (our data) and -17% (Exness).
+- **$100 on a cent account, month by month over the last 12 months (fixed balance):**
+
+| | Our data | Exness |
+|---|---|---|
+| Average | +$2.22 a month | +$1.00 a month |
+| Best month | +$12.41 | +$10.95 |
+| Worst month | -$3.93 | -$6.90 |
+| Losing months | 3 of 13 | 6 of 13 |
 
 ## M3 Heikin Ashi: TP trades vs SL trades, and EA v1.10 (`m3_ha_analysis.py`, `m3_ha_improve.py`)
 

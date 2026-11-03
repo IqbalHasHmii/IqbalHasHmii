@@ -71,7 +71,7 @@ def percent_risk(t: pd.DataFrame, risk: float, min_oz: float, start: pd.Timestam
     x = t.sort_values("entry")
     bal, peak, dd = START, START, 0.0
     heap, taken, skipped = [], 0, 0
-    yearly = {}
+    yearly, month_end = {}, {}
 
     def close_until(when):
         nonlocal bal, peak, dd
@@ -81,6 +81,7 @@ def percent_risk(t: pd.DataFrame, risk: float, min_oz: float, start: pd.Timestam
             peak = max(peak, bal)
             dd = min(dd, bal / peak - 1)
             yearly[et.year] = bal
+            month_end[et.to_period("M")] = bal
 
     for row in x.itertuples():
         close_until(row.entry)
@@ -99,6 +100,14 @@ def percent_risk(t: pd.DataFrame, risk: float, min_oz: float, start: pd.Timestam
                    f"(about {((bal / START) ** (1 / years) - 1) * 100:+.0f}% a year compounded), "
                    f"max drawdown {dd * 100:.0f}%")
         out.append("    balance at the end of each year: " + ", ".join(f"{y}: ${v:,.0f}" for y, v in yearly.items()))
+        months = pd.period_range(start, end - pd.Timedelta(days=1), freq="M")
+        eom = pd.Series(month_end).reindex(months).ffill().fillna(START)
+        ret = eom / eom.shift(1).fillna(START) - 1
+        first = (eom.diff().fillna(eom.iloc[0] - START)).iloc[:12]
+        out.append(f"    monthly return: average {ret.mean() * 100:+.1f}%, median {ret.median() * 100:+.1f}%, "
+                   f"best {ret.max() * 100:+.1f}%, worst {ret.min() * 100:+.1f}%, losing months {(ret < 0).sum()} of "
+                   f"{len(ret)} ({(ret < 0).mean() * 100:.0f}%)")
+        out.append("    first 12 months in $: " + ", ".join(f"{m.strftime('%b %y')} {v:+.1f}" for m, v in first.items()))
     return "\n".join(out)
 
 
