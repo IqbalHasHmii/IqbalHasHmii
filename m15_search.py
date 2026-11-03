@@ -39,17 +39,17 @@ def first_per_day(mask: pd.Series) -> pd.Series:
     return mask & (mask.astype(int).groupby(day).cumsum() == 1)
 
 
-def atr96(d):
-    """Average M15 candle range over the last day (96 candles) - scales limits with volatility."""
+def atr96(d, n=96):
+    """Average candle range over the last n candles (M15: 96 = one day) - scales limits with volatility."""
     prev = d.close.shift()
     tr = pd.concat([d.high - d.low, (d.high - prev).abs(), (d.low - prev).abs()], axis=1).max(axis=1)
-    return tr.rolling(96).mean()
+    return tr.rolling(n).mean()
 
 
-def asia_bo(df, sl_mode="mid", rr=1.5, max_range=10.0, min_range=2.0, **_):
+def asia_bo(df, sl_mode="mid", rr=1.5, max_range=10.0, min_range=2.0, atr_n=96, **_):
     """max_range / min_range are in units of the average M15 candle range (atr96)."""
     d = df.copy()
-    a = atr96(d)
+    a = atr96(d, atr_n)
     hr, day = d.index.hour, d.index.normalize()
     asia = (hr >= 1) & (hr <= 9)
     rng = d[asia].groupby(day[asia]).agg(rh=("high", "max"), rl=("low", "min"))
@@ -66,10 +66,10 @@ def asia_bo(df, sl_mode="mid", rr=1.5, max_range=10.0, min_range=2.0, **_):
     return d
 
 
-def sweep(df, rr=1.5, buffer=0.3, min_sl=1.0, max_sl=4.0, **_):
+def sweep(df, rr=1.5, buffer=0.3, min_sl=1.0, max_sl=4.0, atr_n=96, **_):
     """buffer, min_sl, max_sl in units of the average M15 candle range (atr96)."""
     d = df.copy()
-    a = atr96(d)
+    a = atr96(d, atr_n)
     day = d.index.normalize()
     daily = d.groupby(day).agg(dh=("high", "max"), dl=("low", "min"))
     prev = daily.shift(1).rename(columns={"dh": "pdh", "dl": "pdl"})
@@ -85,10 +85,10 @@ def sweep(df, rr=1.5, buffer=0.3, min_sl=1.0, max_sl=4.0, **_):
     return d
 
 
-def pullback(df, rr=1.5, buffer=0.3, min_sl=1.5, max_sl=5.0, **_):
+def pullback(df, rr=1.5, buffer=0.3, min_sl=1.5, max_sl=5.0, atr_n=96, **_):
     """buffer, min_sl, max_sl in units of the average M15 candle range (atr96)."""
     d = df.copy()
-    a = atr96(d)
+    a = atr96(d, atr_n)
     e50, e200, e800 = ema(d.close, 50), ema(d.close, 200), ema(d.close, 800)
     hr = d.index.hour
     win = (hr >= 9) & (hr <= 20)
@@ -140,3 +140,33 @@ if __name__ == "__main__":
     pd.set_option("display.width", 250, "display.max_colwidth", 60, "display.max_rows", 200)
     print(out.to_string(index=False))
     out.to_csv("results/m15_search.csv", index=False)
+
+
+def run_every(df: pd.DataFrame) -> pd.DataFrame:
+    """Every signal trades on its own (overlapping trades allowed): market entry at the next
+    candle's open, SL / TP fixed from the fill, SL first when both are inside one candle."""
+    o, h, l = (df[k].to_numpy() for k in ("open", "high", "low"))
+    spr, t = df.spread_px.to_numpy(), df.index
+    sig, sd, td = df.signal.to_numpy(), df.sl_dist.to_numpy(), df.tp_dist.to_numpy()
+    out = []
+    for k in np.flatnonzero(sig != 0):
+        if not np.isfinite(sd[k]) or sd[k] <= 0 or k + 1 >= len(df):
+            continue
+        d, i = int(sig[k]), k + 1
+        e = o[i] + spr[i] if d == 1 else o[i]
+        sl, tp = e - d * sd[k], e + d * td[k]
+        for j in range(i, len(df)):
+            if d == 1:
+                if l[j] <= sl:
+                    r = (min(sl, o[j]) if j > i else sl) - e; break
+                if h[j] >= tp:
+                    r = max(tp, o[j]) - e; break
+            else:
+                if h[j] + spr[j] >= sl:
+                    r = e - (max(sl, o[j] + spr[j]) if j > i else sl); break
+                if l[j] + spr[j] <= tp:
+                    r = e - min(tp, o[j] + spr[j]); break
+        else:
+            continue                                  # still open at the end of the data
+        out.append((t[i], t[j], "BUY" if d == 1 else "SELL", r / sd[k]))
+    return pd.DataFrame(out, columns=["entry_time", "exit_time", "direction", "r_multiple"])

@@ -170,3 +170,18 @@ Backtest with one trade per setup (5 years, 1:3):
 |---|---|---|---|---|
 | Asian breakout + sweep | 3.5 | 28.5% | +125.6R | -27R |
 | H1 EMA200 engulfing (one at a time) | 3.0 | 28.0% | +101.9R | -30.7R |
+
+## M1 strategy search (`m1_search.py`)
+
+```bash
+python m1_search.py      # ~5 minutes -> results/m1_search.csv
+```
+
+This runs the same three families as `m15_search.py` on 1-minute candles, with limits scaled by the average M1 candle range of the last day. `m15_search.run_every` replays a strategy with overlapping trades allowed.
+
+M1 data is not committed (about 100 MB). Export it from MT5 into `data/M1/`.
+
+Findings (5 years):
+- The sweep and EMA pullback setups lose on M1. The median spread ($0.18) is about 30% of a median M1 candle ($0.63).
+- Only the Asian breakout (SL at the other side of the range, 1:3) works, and it is no better than on M15. With multiple trades it made 4.6 trades a week, 27.2% win rate, +101.5R and -48R max drawdown, compared with 4.1 trades a week, +100.3R and -44R on M15.
+- With one trade at a time, a single January 2026 trade had a $384 SL (the crash range) and stayed open until October, which blocked the rest of 2026.
