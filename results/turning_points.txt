@@ -1,0 +1,138 @@
+
+===== Our data: 2021-11-01 -> 2026-10-30, 29591 H1 candles =====
+Hour (strategy clock; Pakistan time = +3 h in winter, +2 h in summer) in which each day's high / low formed:
+hour          1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23
+day high %   7.6  3.0  6.2  5.3  2.9  1.3  1.3  2.3  3.2  3.6  2.2  2.4  1.8  2.7  7.6  7.7  9.2  5.9  4.6  4.6  3.5  5.6  5.4
+day low %   10.1  4.7  5.8  5.3  3.6  1.9  2.1  2.2  2.6  3.9  2.9  2.3  1.4  2.1  7.1  8.8  8.5  4.9  3.3  4.1  4.3  5.0  3.3
+days whose high is above the previous day's high: 52%, whose low is below the previous day's low: 45%
+
+swing tops: 813 (1 per year-ish), bottoms: 794; share of all candles: tops 2.8%, bottoms 2.7%
+
+What is true at the TOPS (the highs price fell from):
+(base rate: 2.8% of candles are a top point)
+                              condition at tops/bottoms at all candles  lift hit rate
+swept Asian high, closed below (10:00+)             24%           5.4%  4.33    12.0%
+                      volume 2x average             17%           4.1%  4.30    12.0%
+  swept previous day high, closed below             17%           4.4%  3.82    10.6%
+                 rose 3+ ATR in 6 hours             13%           3.7%  3.37     9.4%
+                              RSI >= 70             23%           7.9%  2.99     8.3%
+ swept previous week high, closed below              6%           2.0%  2.81     7.8%
+                above previous day high             60%          23.5%  2.54     7.1%
+                3 higher highs in a row             35%          14.1%  2.49     6.9%
+               close 3+ ATR above EMA50             31%          13.5%  2.27     6.3%
+                 session New York 15-19             45%          21.8%  2.05     5.7%
+          upper wick >= half the candle             30%          15.6%  1.91     5.3%
+ traded through $50 level, closed below             13%           7.9%  1.67     4.7%
+                   session London 10-14             19%          21.8%  0.89     2.5%
+                     session Asia 01-09             27%          39.3%  0.69     1.9%
+                     session Late 20-00              9%          17.1%  0.53     1.5%
+
+What is true at the BOTTOMS (the lows price was bought from):
+(base rate: 2.7% of candles are a top point)
+                             condition at tops/bottoms at all candles  lift hit rate
+swept Asian low, closed above (10:00+)             24%           4.9%  5.02    13.6%
+                fell 3+ ATR in 6 hours             13%           2.9%  4.65    12.6%
+  swept previous day low, closed above             19%           4.1%  4.56    12.4%
+                     volume 2x average             18%           4.1%  4.50    12.2%
+                             RSI <= 30             19%           5.0%  3.78    10.2%
+                below previous day low             57%          17.0%  3.34     9.1%
+ swept previous week low, closed above              6%           1.8%  3.14     8.5%
+              close 3+ ATR below EMA50             22%           7.9%  2.76     7.5%
+                 3 lower lows in a row             27%          11.6%  2.34     6.4%
+         lower wick >= half the candle             37%          16.9%  2.17     5.9%
+                session New York 15-19             46%          21.8%  2.11     5.7%
+traded through $50 level, closed above             15%           8.0%  1.91     5.2%
+                  session London 10-14             19%          21.8%  0.85     2.3%
+                    session Late 20-00             12%          17.1%  0.70     1.9%
+                    session Asia 01-09             24%          39.3%  0.60     1.6%
+
+Best pairs of conditions at the TOPS (>= 100 candles), hit rate = share that were a top:
+                                                                      conditions  candles  hit rate
+                     swept Asian high, closed below (10:00+) + volume 2x average      206      27.7
+                               upper wick >= half the candle + volume 2x average      138      24.6
+                       swept previous day high, closed below + volume 2x average      138      22.5
+                          rose 3+ ATR in 6 hours + upper wick >= half the candle      134      20.1
+                                    close 3+ ATR above EMA50 + volume 2x average      198      19.7
+swept Asian high, closed below (10:00+) + traded through $50 level, closed below      187      19.3
+                                     above previous day high + volume 2x average      477      18.7
+                                                   RSI >= 70 + volume 2x average      178      18.5
+
+Best pairs of conditions at the BOTTOMS (>= 100 candles), hit rate = share that were a bottom:
+                                                                   conditions  candles  hit rate
+                   swept Asian low, closed above (10:00+) + volume 2x average      179      29.6
+                     swept previous day low, closed above + volume 2x average      130      25.4
+                                   below previous day low + volume 2x average      398      23.4
+                            lower wick >= half the candle + volume 2x average      182      23.1
+       swept Asian low, closed above (10:00+) + lower wick >= half the candle      383      22.2
+                       fell 3+ ATR in 6 hours + lower wick >= half the candle      100      22.0
+                                   fell 3+ ATR in 6 hours + volume 2x average      105      21.9
+swept previous day low, closed above + swept Asian low, closed above (10:00+)      220      21.4
+
+===== Exness data: 2020-01-02 -> 2026-11-03, 40423 H1 candles =====
+Hour (strategy clock; Pakistan time = +3 h in winter, +2 h in summer) in which each day's high / low formed:
+hour         0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23
+day high %  0.7  7.8  3.5  5.4  4.8  2.9  1.2  1.2  2.4  3.1  3.6  2.2  2.5  1.8  2.8  7.8  8.6  8.9  6.1  4.2  4.5  2.8  5.4  5.9
+day low %   0.7  9.5  3.7  6.8  5.3  3.3  1.9  1.9  2.0  2.9  3.8  2.7  2.2  1.7  2.6  7.7  8.7  9.4  4.8  3.3  4.0  3.9  4.2  2.9
+days whose high is above the previous day's high: 52%, whose low is below the previous day's low: 44%
+
+swing tops: 1100 (1 per year-ish), bottoms: 1102; share of all candles: tops 2.7%, bottoms 2.7%
+
+What is true at the TOPS (the highs price fell from):
+(base rate: 2.7% of candles are a top point)
+                              condition at tops/bottoms at all candles  lift hit rate
+swept Asian high, closed below (10:00+)             24%           5.5%  4.47    12.3%
+  swept previous day high, closed below             18%           4.6%  3.92    10.8%
+                      volume 2x average             20%           5.3%  3.73    10.2%
+                 rose 3+ ATR in 6 hours             12%           3.5%  3.40     9.3%
+ swept previous week high, closed below              6%           2.0%  3.00     8.2%
+                              RSI >= 70             22%           7.6%  2.84     7.8%
+                above previous day high             61%          23.3%  2.61     7.2%
+                3 higher highs in a row             35%          13.9%  2.51     6.9%
+               close 3+ ATR above EMA50             30%          13.0%  2.28     6.3%
+                 session New York 15-19             45%          21.8%  2.05     5.6%
+          upper wick >= half the candle             31%          15.1%  2.05     5.6%
+ traded through $50 level, closed below             12%           7.1%  1.72     4.7%
+                   session London 10-14             19%          21.8%  0.89     2.4%
+                     session Asia 01-09             27%          39.3%  0.68     1.9%
+                     session Late 20-00              9%          17.1%  0.54     1.5%
+
+What is true at the BOTTOMS (the lows price was bought from):
+(base rate: 2.7% of candles are a top point)
+                             condition at tops/bottoms at all candles  lift hit rate
+                     volume 2x average             27%           5.3%  5.13    14.1%
+swept Asian low, closed above (10:00+)             26%           5.1%  5.13    14.1%
+  swept previous day low, closed above             21%           4.2%  4.92    13.5%
+                fell 3+ ATR in 6 hours             13%           2.8%  4.51    12.4%
+                             RSI <= 30             18%           4.9%  3.77    10.4%
+                below previous day low             57%          16.5%  3.45     9.5%
+ swept previous week low, closed above              5%           1.7%  3.12     8.6%
+              close 3+ ATR below EMA50             21%           7.5%  2.82     7.8%
+                 3 lower lows in a row             26%          11.3%  2.34     6.4%
+         lower wick >= half the candle             40%          17.6%  2.26     6.2%
+                session New York 15-19             46%          21.8%  2.13     5.9%
+traded through $50 level, closed above             15%           7.2%  2.01     5.5%
+                  session London 10-14             20%          21.8%  0.89     2.5%
+                    session Late 20-00             11%          17.1%  0.65     1.8%
+                    session Asia 01-09             23%          39.3%  0.58     1.6%
+
+Best pairs of conditions at the TOPS (>= 100 candles), hit rate = share that were a top:
+                                                                     conditions  candles  hit rate
+                    swept Asian high, closed below (10:00+) + volume 2x average      333      25.5
+                      swept previous day high, closed below + volume 2x average      259      25.1
+                              upper wick >= half the candle + volume 2x average      238      24.8
+                     swept previous week high, closed below + volume 2x average      110      23.6
+                         rose 3+ ATR in 6 hours + upper wick >= half the candle      182      21.4
+swept previous day high, closed below + swept Asian high, closed below (10:00+)      335      20.3
+                                    above previous day high + volume 2x average      852      19.1
+        swept Asian high, closed below (10:00+) + upper wick >= half the candle      521      19.0
+
+Best pairs of conditions at the BOTTOMS (>= 100 candles), hit rate = share that were a bottom:
+                                                                   conditions  candles  hit rate
+                   swept Asian low, closed above (10:00+) + volume 2x average      295      33.9
+                     swept previous day low, closed above + volume 2x average      250      28.8
+                            lower wick >= half the candle + volume 2x average      374      27.0
+                           traded through $50 level, closed above + RSI <= 30      108      25.9
+         swept previous day low, closed above + lower wick >= half the candle      489      24.9
+       swept Asian low, closed above (10:00+) + lower wick >= half the candle      571      24.5
+swept previous day low, closed above + swept Asian low, closed above (10:00+)      302      24.5
+                                   below previous day low + volume 2x average      787      24.1

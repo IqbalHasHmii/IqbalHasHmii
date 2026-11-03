@@ -972,3 +972,34 @@ It covers 19 patterns, in three contexts (alone, after 3 candles against, after 
 - **The winners are bullish momentum patterns on H1/H4.** They gain from gold's uptrend.
 - **Classic reversal patterns are close to the baseline.** These are hammer, morning star, doji, harami and piercing line.
 - **Sells by candles alone do not pay at 1:1.** The best are about 50% with about 0R per trade. Only a shooting star or pin bar after 3 lower lows on H1 works at 1:3 (31.7% / 29.4%).
+
+## Where gold turns, and trading the liquidity sweep (`turning_points.py`, `sweep_reversal.py`)
+
+```bash
+python turning_points.py   # -> results/turning_points.txt
+python sweep_reversal.py   # -> results/sweep_reversal.txt, results/sweep_reversal.csv
+```
+
+**When the day's high and low form (strategy clock; Pakistan time = +3 h in winter, +2 h in summer):**
+- **01:00:** about 8-10% of days, the first hour of the trading day.
+- **15:00-17:59 (New York open):** about 25% of days, against 12.5% for any three hours.
+- **06:00-14:00:** rarely.
+
+The day takes out the previous day's high 52% of the time, and its low 45%.
+
+**What is true at swing tops on H1.** A swing top is the highest high of 12 candles on each side, followed by a 2 ATR fall within 24 candles; bottoms mirror it. "Lift" compares how often a condition appears at tops with how often it appears at any candle. "Share that were a top" is the hit rate of candles with that condition. Both datasets agree.
+
+| Condition at the top | Lift | Share that were a top |
+|---|---|---|
+| swept the Asian-session high (after 10:00) and closed back below | 4.3-4.5x | 12% |
+| tick volume 2x its average | 3.7-4.3x | 10-12% |
+| swept the previous day's high and closed back below | 3.8-3.9x | 11% |
+| rose 3+ ATR in 6 hours | 3.4x | 9% |
+| RSI(14) >= 70 | 2.8-3.0x | 8% |
+| New York session 15:00-19:59 | 2.0x | 6% |
+
+- **Bottoms are the mirror, a little stronger.** An Asian-low sweep has a 5.0-5.1x lift.
+- **The best pair is a sweep of the Asian high or low on a 2x-volume candle.** 25-34% of those candles were the turning point, against a base rate of 2.7%.
+- **But most sweeps are not tops.** Selling every sweep and closed-back candle (buying mirrored), with the SL at its extreme and TP 1:3, wins 22-25%. That is break-even at best, at 0.5-2 trades a day, in every variant: M15 or H1, with or without previous-week levels, volume filter, session filter or SL buffer.
+- **Waiting for confirmation does not fix it.** With a close beyond the sweep candle's other end within 4 or 8 candles, it trades about once a week at 16-21% TP.
+- **No variant with at least one trade a day was profitable in both halves of our data and on Exness.**
