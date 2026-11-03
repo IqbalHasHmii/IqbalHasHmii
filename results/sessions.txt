@@ -27,6 +27,14 @@ TP % (trades) by strategy and opening session:
 
 By opening hour (strategy clock): 01h 56 tr 16% -0.26R, 02h 20 tr 35% +0.40R, 03h 77 tr 34% +0.35R, 04h 76 tr 28% +0.14R, 05h 42 tr 33% +0.33R, 06h 25 tr 28% +0.12R, 07h 31 tr 23% -0.10R, 08h 54 tr 33% +0.33R, 09h 187 tr 24% -0.06R, 10h 441 tr 28% +0.13R, 11h 284 tr 29% +0.15R, 12h 169 tr 35% +0.39R, 13h 167 tr 26% +0.05R, 14h 172 tr 31% +0.28R, 15h 338 tr 37% +0.48R, 16h 276 tr 26% +0.06R, 17h 869 tr 28% +0.13R, 18h 227 tr 28% +0.11R, 19h 125 tr 28% +0.12R, 20h 635 tr 32% +0.32R, 21h 387 tr 35% +0.38R, 22h 236 tr 36% +0.50R, 23h 89 tr 29% +0.10R
 
+===== Our data: sessions switched off (EA defaults otherwise) =====
+              version  trades/week  TP %  R/trade  net R a year  max DD R  losing years  worst year R at 0.25%: a year at 0.25%: max DD
+   all sessions (now)         19.1  30.2    0.217         216.0     -45.0             0           8.0             +54%             -11%
+       without London         15.0  30.2    0.214         167.0     -61.0             1          -8.0             +42%             -15%
+         without Late         14.0  29.0    0.166         121.0     -58.0             0          11.0             +30%             -15%
+without London + Late          9.8  28.4    0.141          72.0     -53.0             1          -5.0             +18%             -13%
+         without Asia         16.9  30.6    0.233         206.0     -45.0             0           7.0             +51%             -11%
+
 ===== Exness data (strategies 1-3, 8, 9): 2020-01-02 -> 2026-11-03, 3943 trades, TP 30.0% =====
 By the session the trade was OPENED in:
  session Pakistan time (winter)  trades  per week  TP   SL  TP %  R/trade  net R
@@ -51,3 +59,11 @@ TP % (trades) by strategy and opening session:
 9 H1 HH engulfing sell  34% (90)  30% (47)  30% (56)   32% (25)
 
 By opening hour (strategy clock): 00h 29 tr 14% -0.44R, 01h 68 tr 28% +0.22R, 02h 30 tr 33% +0.33R, 03h 73 tr 29% +0.15R, 04h 73 tr 29% +0.15R, 05h 47 tr 36% +0.45R, 06h 27 tr 22% -0.11R, 07h 35 tr 29% +0.14R, 08h 63 tr 30% +0.21R, 09h 162 tr 25% +0.01R, 10h 281 tr 27% +0.08R, 11h 214 tr 30% +0.20R, 12h 122 tr 34% +0.34R, 13h 120 tr 22% -0.13R, 14h 147 tr 31% +0.26R, 15h 256 tr 27% +0.08R, 16h 227 tr 26% +0.06R, 17h 155 tr 25% -0.04R, 18h 84 tr 26% +0.05R, 19h 57 tr 30% +0.19R, 20h 761 tr 31% +0.26R, 21h 473 tr 36% +0.44R, 22h 303 tr 34% +0.48R, 23h 136 tr 32% +0.25R
+
+===== Exness data: sessions switched off (EA defaults otherwise) =====
+              version  trades/week  TP %  R/trade  net R a year  max DD R  losing years  worst year R at 0.25%: a year at 0.25%: max DD
+   all sessions (now)         11.1  30.0    0.211         122.0     -66.0             0           8.0             +30%             -17%
+       without London          8.9  30.2    0.221         102.0     -74.0             1         -12.0             +26%             -18%
+         without Late          6.3  27.8    0.113          37.0     -45.0             1         -11.0              +9%             -11%
+without London + Late          4.1  27.0    0.083          18.0     -56.0             1         -31.0              +4%             -14%
+         without Asia          9.4  30.3    0.222         109.0     -66.0             1          -7.0             +27%             -16%

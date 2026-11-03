@@ -60,19 +60,27 @@ NAMES = {1: "M15 Asian breakout", 2: "M15 prev-day sweep", 3: "H1 EMA200 engulfi
 COLS = ["entry", "exit", "R", "tp", "sl", "move"]
 
 
-def from_run(sig: pd.DataFrame) -> pd.DataFrame:
+# `hours` (optional, every builder): the strategy-clock hours in which a trade may be opened.
+# Market entries are filtered at the signal, before the one-at-a-time / max-open rule; limit-order
+# strategies (3 and 9) drop the trades whose order filled outside those hours.
+
+def from_run(sig: pd.DataFrame, hours=None) -> pd.DataFrame:
     """backtest.run: market entry at the next candle's open, one trade at a time."""
+    if hours is not None:
+        nxt = np.r_[sig.index.hour[1:], -1]                 # hour of the entry candle
+        sig = sig.assign(signal=np.where(np.isin(nxt, list(hours)), sig.signal, 0))
     t, _ = b.run(sig, 10_000, 1.0, 0.0, False)
     return pd.DataFrame({"entry": pd.to_datetime(t.entry_time), "exit": pd.to_datetime(t.exit_time),
                          "R": t.r_multiple.astype(float), "tp": t.reason == "TP", "sl": (t.entry - t.sl).abs(),
                          "move": (t.exit - t.entry) * np.where(t.direction == "BUY", 1, -1)})
 
 
-def s3(h1: pd.DataFrame) -> pd.DataFrame:
+def s3(h1: pd.DataFrame, hours=None) -> pd.DataFrame:
     t = one_order_at_a_time(ema200_setups(h1, "both", "fixed", 100, volume_filter=False), 5, hard_sl=True)
-    return pd.DataFrame({"entry": pd.to_datetime(t.entry_time), "exit": pd.to_datetime(t.exit_time),
-                         "R": t.r_multiple.astype(float), "tp": t.reason == "TP", "sl": t.sl_pips * 0.10,
-                         "move": t.pips * 0.10})
+    t = pd.DataFrame({"entry": pd.to_datetime(t.entry_time), "exit": pd.to_datetime(t.exit_time),
+                      "R": t.r_multiple.astype(float), "tp": t.reason == "TP", "sl": t.sl_pips * 0.10,
+                      "move": t.pips * 0.10})
+    return t if hours is None else t[t.entry.dt.hour.isin(list(hours))].reset_index(drop=True)
 
 
 def s7(fine: pd.DataFrame, cap: int = 5) -> pd.DataFrame:
@@ -80,12 +88,15 @@ def s7(fine: pd.DataFrame, cap: int = 5) -> pd.DataFrame:
     return t.assign(tp=t.R >= RR - 0.001, move=t.R * t.sl)[COLS]
 
 
-def s8(m3d: pd.DataFrame) -> pd.DataFrame:
-    t = m3.cap_open(m3.ha_trades(m3d, atr_min=1.15), 5)
+def s8(m3d: pd.DataFrame, hours=None) -> pd.DataFrame:
+    t = m3.ha_trades(m3d, atr_min=1.15)
+    if hours is not None:
+        t = t[t.entry.dt.hour.isin(list(hours))].reset_index(drop=True)
+    t = m3.cap_open(t, 5)
     return t.assign(tp=t.tp_hit, move=t.R * t.sl)[COLS]
 
 
-def s9(fine: pd.DataFrame) -> pd.DataFrame:
+def s9(fine: pd.DataFrame, hours=None) -> pd.DataFrame:
     h1 = resample(fine, 60)
     fh1 = np.searchsorted(h1.index.to_numpy(), fine.index.floor("h").to_numpy())
     flast = np.r_[fh1[1:] != fh1[:-1], True]
@@ -99,18 +110,19 @@ def s9(fine: pd.DataFrame) -> pd.DataFrame:
         if st == 1:
             d = h[i] - (c[i] + 0.25 * (o[i] - c[i]))
             rows.append((fine.index[fj], fine.index[xj], r, r >= RR - 0.001, d, r * d))
-    return pd.DataFrame(rows, columns=COLS)
+    t = pd.DataFrame(rows, columns=COLS)
+    return t if hours is None else t[t.entry.dt.hour.isin(list(hours))].reset_index(drop=True)
 
 
-def m15_strategies(m15: pd.DataFrame) -> dict:
-    return {1: from_run(asia_bo(m15, sl_mode="full", rr=RR, max_range=10.0)),
-            2: from_run(sweep(m15, rr=RR, buffer=0.2, max_sl=5.0))}
+def m15_strategies(m15: pd.DataFrame, hours=None) -> dict:
+    return {1: from_run(asia_bo(m15, sl_mode="full", rr=RR, max_range=10.0), hours),
+            2: from_run(sweep(m15, rr=RR, buffer=0.2, max_sl=5.0), hours)}
 
 
-def m5_strategies(m5: pd.DataFrame) -> dict:
-    return {4: from_run(rsi_pb(m5, rr=RR, level=25, max_sl=10.0)),
-            5: from_run(ny_orb(m5, rr=RR, sl_mode="full", max_range=15.0)),
-            6: from_run(asia_bo(m5, sl_mode="full", rr=RR, max_range=25.0, min_range=3.5, atr_n=288))}
+def m5_strategies(m5: pd.DataFrame, hours=None) -> dict:
+    return {4: from_run(rsi_pb(m5, rr=RR, level=25, max_sl=10.0), hours),
+            5: from_run(ny_orb(m5, rr=RR, sl_mode="full", max_range=15.0), hours),
+            6: from_run(asia_bo(m5, sl_mode="full", rr=RR, max_range=25.0, min_range=3.5, atr_n=288), hours)}
 
 
 def drawdown(eq: pd.Series, times: pd.Series):
@@ -183,23 +195,44 @@ OURS = (pd.Timestamp("2021-11-01"), pd.Timestamp("2026-10-31"))
 EXNESS = (pd.Timestamp("2020-01-02"), pd.Timestamp("2026-11-03"))
 
 
+def ours_data() -> dict:
+    m1 = b.load_data("M1")
+    return {"m1": m1, "m3": resample(m1, 3), "m5": b.load_data("M5"), "m15": b.load_data("M15"), "h1": b.load_data("H1")}
+
+
+def exness_data() -> dict | None:
+    files = sorted(glob.glob("data/M3_exness/*.csv"))
+    if not files:
+        return None
+    ex = m3.load_mt5(files)
+    ex.index = m3.utc_to_backtest_clock(ex.index)          # Exness UTC+0 -> strategy clock, as the EA does
+    return {"m3": ex, "m15": resample(ex, 15), "h1": resample(ex, 60)}
+
+
+def build(data: dict, hours=None, with7: bool = True) -> dict:
+    """Trades of every strategy the data allows (M5 strategies only with M5 data)."""
+    fine = data.get("m1", data["m3"])                      # finest candles for strategies 7 and 9
+    parts = {**m15_strategies(data["m15"], hours), 3: s3(data["h1"], hours),
+             8: s8(data["m3"], hours), 9: s9(fine, hours)}
+    if "m5" in data:
+        parts.update(m5_strategies(data["m5"], hours))
+    if with7:
+        parts[7] = s7(fine)
+    return dict(sorted(parts.items()))
+
+
 def ours_parts():
     """Trades of all 9 strategies on our data, and strategy 7 with one trade at a time."""
-    m1 = b.load_data("M1")
-    parts = {**m15_strategies(b.load_data("M15")), 3: s3(b.load_data("H1")), **m5_strategies(b.load_data("M5")),
-             7: s7(m1), 8: s8(resample(m1, 3)), 9: s9(m1)}
-    return dict(sorted(parts.items())), s7(m1, 1)
+    data = ours_data()
+    return build(data), s7(data["m1"], 1)
 
 
 def exness_parts():
     """Trades of strategies 1-3 and 7-9 on the Exness M3 export (None if it is not there)."""
-    files = sorted(glob.glob("data/M3_exness/*.csv"))
-    if not files:
+    data = exness_data()
+    if data is None:
         return None, None
-    ex = m3.load_mt5(files)
-    ex.index = m3.utc_to_backtest_clock(ex.index)          # Exness UTC+0 -> strategy clock, as the EA does
-    parts = {**m15_strategies(resample(ex, 15)), 3: s3(resample(ex, 60)), 7: s7(ex), 8: s8(ex), 9: s9(ex)}
-    return parts, s7(ex, 1)
+    return build(data), s7(data["m3"], 1)
 
 
 if __name__ == "__main__":

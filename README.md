@@ -803,3 +803,16 @@ On Exness, strategies 1-3, 8 and 9 give 28.4% / 28.6% / 26.4% / 32.9% TP across 
 - **Most trades and most SLs: New York.** It has the most strategies (NY opening range, sweep, RSI pullback).
 - **Best session: Late, mostly the M3 Heikin Ashi.** About 34% TP and +0.34R/trade on both datasets. The best hours were 21:00-22:59 on the strategy clock (00:00-01:59 Pakistan time in winter), with 35-36% TP.
 - **Most TPs are hit in the Asian session.** That is 533 of 1,506 on our data. The TP is far away, so evening trades often reach it overnight.
+
+Switching sessions off: the EA opens no new trade in them, and a limit order that fills there is dropped. These are profit and drawdown at 0.25% risk; the first value is our data, the second Exness:
+
+| Version | Trades / week | TP % | Profit a year | Max drawdown | Losing years |
+|---|---|---|---|---|---|
+| All sessions (now) | 19.1 / 11.1 | 30.2% / 30.0% | +54% / +30% | -11% / -17% | 0 / 0 |
+| Without London | 15.0 / 8.9 | 30.2% / 30.2% | +42% / +26% | -15% / -18% | 1 / 1 |
+| Without Late | 14.0 / 6.3 | 29.0% / 27.8% | +30% / +9% | -15% / -11% | 0 / 1 |
+| Without London and Late | 9.8 / 4.1 | 28.4% / 27.0% | +18% / +4% | -13% / -14% | 1 / 1 |
+| Without Asia | 16.9 / 9.4 | 30.6% / 30.3% | +51% / +27% | -11% / -16% | 0 / 1 |
+
+- **Every version without a session is worse.** Late holds the M3 Heikin Ashi, the best strategy. London holds the Asian breakouts and much of the sweep and RSI pullback.
+- **Dropping both London and Late:** the yearly profit falls from +54% to +18% (our data) and from +30% to +4% (Exness). The drawdown does not get smaller, and a losing year appears on both datasets.

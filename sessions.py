@@ -9,7 +9,8 @@ Pakistan time (UTC+5) = strategy clock + 3 h in winter, + 2 h in summer.
 Exness server time (UTC+0) = strategy clock - 2 h in winter, - 3 h in summer.
 
 A trade belongs to the session in which it was opened. The second table shows in which session
-the SL or TP was actually hit.
+the SL or TP was actually hit. The last table re-runs the EA with some sessions switched off (no
+new trades opened in them; a limit order that fills there is dropped too).
 
     python sessions.py      # -> results/sessions.txt
 """
@@ -18,7 +19,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from all_in_one_backtest import EXNESS, NAMES, OURS, exness_parts, ours_parts
+from all_in_one_backtest import EXNESS, NAMES, OURS, build, drawdown, exness_data, ours_data
 
 ORDER = ["Asia", "London", "New York", "Late"]
 PKT = {"Asia": "04:00-12:59", "London": "13:00-17:59", "New York": "18:00-22:59", "Late": "23:00-03:59"}
@@ -69,9 +70,31 @@ def run(label: str, parts: dict, start: pd.Timestamp, end: pd.Timestamp):
         f"{h:02d}h {int(v.trades)} tr {v.tp * 100:.0f}% {v.r:+.2f}R" for h, v in hr.iterrows()))
 
 
+def without(label: str, data: dict, start: pd.Timestamp, end: pd.Timestamp):
+    weeks, years = (end - start).days / 7, (end - start).days / 365.25
+    rows = []
+    for name, drop in (("all sessions (now)", []), ("without London", ["London"]), ("without Late", ["Late"]),
+                       ("without London + Late", ["London", "Late"]), ("without Asia", ["Asia"])):
+        hours = None if not drop else [h for h in range(24) if session(np.array([h]))[0] not in drop]
+        parts = build(data, hours, with7=False)
+        t = pd.concat([x.assign(s=k) for k, x in parts.items()])
+        t = t[(t.entry >= start) & (t.entry < end)].sort_values("exit")
+        dd = drawdown(t.R.cumsum(), t.exit)[0]
+        yr = t.groupby(t.exit.dt.year).R.sum()
+        rows.append({"version": name, "trades/week": round(len(t) / weeks, 1), "TP %": round(float(t.tp.mean() * 100), 1),
+                     "R/trade": round(float(t.R.mean()), 3), "net R a year": round(float(t.R.sum() / years), 0),
+                     "max DD R": round(float(dd), 0), "losing years": int((yr < 0).sum()),
+                     "worst year R": round(float(yr.min()), 0),
+                     "at 0.25%: a year": f"{t.R.sum() / years * 0.25:+.0f}%", "at 0.25%: max DD": f"{dd * 0.25:.0f}%"})
+    print(f"\n===== {label}: sessions switched off (EA defaults otherwise) =====")
+    print(pd.DataFrame(rows).to_string(index=False))
+
+
 if __name__ == "__main__":
-    parts, _ = ours_parts()
-    run("Our data (strategies 1-6, 8, 9)", parts, *OURS)
-    parts, _ = exness_parts()
-    if parts:
-        run("Exness data (strategies 1-3, 8, 9)", parts, *EXNESS)
+    data = ours_data()
+    run("Our data (strategies 1-6, 8, 9)", build(data), *OURS)
+    without("Our data", data, *OURS)
+    data = exness_data()
+    if data is not None:
+        run("Exness data (strategies 1-3, 8, 9)", build(data), *EXNESS)
+        without("Exness data", data, *EXNESS)
