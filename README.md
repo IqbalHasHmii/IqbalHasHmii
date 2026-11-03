@@ -869,3 +869,23 @@ These are perfect + strong engulfings at any POI. The same entry is tested with 
 - **With % risk sizing, as in the EA, the 1:3 TP is better on both datasets.** Measured in R (profit per trade relative to its SL), it is +0.34 against +0.11 on Exness and +0.35 against +0.28 on our data.
 - **With a fixed lot, the 150-pip TP has smaller pip drawdowns.** It makes about the same pips on our data and 41% fewer on Exness, and it loses in two years.
 - **A fixed 50-pip SL is the weakest of the three.**
+
+### Low-volume engulfing and removing the higher-highs rule (`h1_engulf_volume.py`)
+
+```bash
+python h1_engulf_volume.py   # -> results/h1_engulf_volume.txt
+```
+
+These are perfect + strong engulfings at any POI, with the same 25% entry, the SL at the engulfing high and TP 1:3. In each cell, the first value is Exness and the second is our data:
+
+| Version | Trades / month | TP % | R / trade | Net R | Losing years |
+|---|---|---|---|---|---|
+| now: 3 higher highs, any volume | 2.5 / 3.4 | 33.3% / 33.3% | +0.34 / +0.35 | +68 / +70 | 0 / 0 |
+| engulfing volume below the previous candle's | 1.0 / 1.4 | 31.2% / 30.6% | +0.26 / +0.23 | +20 / +19 | 3 / 2 |
+| higher-highs rule removed | 13 / 16 | 21.3% / 24.5% | -0.14 / -0.02 | -151 / -17 | 6 / 4 |
+| both changes | 4.2 / 5.3 | 19.8% / 21.3% | -0.19 / -0.14 | -64 / -45 | 5 / 4 |
+| engulfing volume at or above the previous candle's | 1.5 / 2.0 | 34.7% / 35.3% | +0.40 / +0.43 | +48 / +51 | 0 / 0 |
+
+- **The higher-highs rule is the edge.** Selling every bearish engulfing loses money on both datasets.
+- **A low-volume engulfing is weaker.** Exact body and every type show the same.
+- **A high-volume engulfing is a little more accurate.** It is better in every period of both datasets, including the never-used Exness 2020-21 data: +0.38R/trade against +0.07R for any volume. But it takes 40% fewer trades and makes less net R. It was found by looking at the opposite of the low-volume test on the same data.

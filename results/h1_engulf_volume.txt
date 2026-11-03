@@ -1,0 +1,112 @@
+
+===== Exness M3 2020-01..2026-11: 2020-01-15 -> 2026-11-02 =====
+
+perfect + strong engulfing, all setups (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     218      0.61  32.1    0.295   64.4     -12.0             1            +0.08            +0.31            +0.27            +0.48
+    3 HH (now)    low      87      0.25  29.9    0.211   18.4     -15.7             4            -0.29            +0.21            +0.47            +0.52
+    3 HH (now)   high     131      0.37  33.6    0.351   46.0      -9.0             0            +0.38            +0.37            +0.12            +0.45
+none (removed)    any    1316      3.71  21.3   -0.145 -190.4    -226.9             6            -0.27            -0.07            -0.23            -0.05
+none (removed)    low     418      1.18  20.6   -0.155  -64.7     -79.8             5            -0.26            -0.08            -0.27            -0.07
+none (removed)   high     898      2.53  21.6   -0.140 -125.7    -149.1             6            -0.28            -0.06            -0.22            -0.04
+
+perfect + strong engulfing, any POI (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     201      0.57  33.3    0.341   68.5     -11.0             0            +0.07            +0.39            +0.37            +0.51
+    3 HH (now)    low      80      0.23  31.2    0.256   20.5     -14.6             3            -0.29            +0.15            +0.65            +0.68
+    3 HH (now)   high     121      0.34  34.7    0.396   48.0      -8.0             0            +0.38            +0.55            +0.17            +0.42
+none (removed)    any    1064      3.00  21.3   -0.142 -151.3    -177.2             6            -0.32            -0.03            -0.20            -0.06
+none (removed)    low     344      0.97  19.8   -0.186  -64.1     -75.1             5            -0.43            -0.03            -0.30            -0.07
+none (removed)   high     720      2.03  22.1   -0.121  -87.2    -106.2             5            -0.27            -0.02            -0.16            -0.05
+
+exact body engulfing, all setups (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     335      0.94  29.0    0.175   58.7     -13.0             1            +0.10            +0.17            +0.15            +0.26
+    3 HH (now)    low     165      0.47  24.2   -0.002   -0.3     -15.3             4            -0.13            +0.08            -0.03            +0.07
+    3 HH (now)   high     170      0.48  33.5    0.347   59.0     -12.0             0            +0.37            +0.24            +0.33            +0.43
+none (removed)    any    2062      5.82  21.8   -0.125 -257.9    -323.3             6            -0.24            -0.05            -0.25            -0.02
+none (removed)    low     910      2.57  20.8   -0.152 -138.6    -170.1             6            -0.25            -0.06            -0.32            -0.06
+none (removed)   high    1152      3.25  22.6   -0.104 -119.3    -157.2             5            -0.23            -0.04            -0.20            +0.01
+
+exact body engulfing, any POI (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     311      0.88  29.9    0.212   65.8     -13.0             1            +0.11            +0.23            +0.23            +0.27
+    3 HH (now)    low     153      0.43  24.8    0.018    2.8     -17.0             3            -0.09            +0.07            +0.07            +0.06
+    3 HH (now)   high     158      0.45  34.8    0.399   63.0     -11.0             0            +0.37            +0.37            +0.38            +0.46
+none (removed)    any    1653      4.66  22.1   -0.112 -184.9    -235.1             5            -0.25            -0.01            -0.23            -0.00
+none (removed)    low     732      2.06  20.8   -0.155 -113.3    -137.1             5            -0.30            -0.02            -0.35            -0.04
+none (removed)   high     921      2.60  23.2   -0.078  -71.6    -103.0             5            -0.22            -0.01            -0.14            +0.03
+
+every type engulfing, all setups (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     754      2.13  26.3    0.059   44.7     -31.0             2            +0.11            +0.16            -0.07            -0.00
+    3 HH (now)    low     333      0.94  23.1   -0.056  -18.8     -29.7             3            -0.05            -0.02            -0.03            -0.12
+    3 HH (now)   high     421      1.19  28.7    0.151   63.5     -27.0             2            +0.29            +0.29            -0.09            +0.07
+none (removed)    any    4791     13.51  22.3   -0.105 -504.4    -539.4             5            -0.19            +0.00            -0.26            -0.06
+none (removed)    low    1908      5.38  21.9   -0.108 -206.5    -225.7             6            -0.19            +0.01            -0.23            -0.09
+none (removed)   high    2883      8.13  22.5   -0.103 -297.9    -325.3             5            -0.19            -0.00            -0.28            -0.04
+
+every type engulfing, any POI (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     690      1.95  26.8    0.081   55.8     -28.0             1            +0.12            +0.17            +0.01            +0.01
+    3 HH (now)    low     305      0.86  23.6   -0.038  -11.7     -30.0             4            -0.04            -0.04            +0.08            -0.10
+    3 HH (now)   high     385      1.09  29.4    0.175   67.5     -24.0             1            +0.30            +0.33            -0.04            +0.08
+none (removed)    any    3808     10.74  22.7   -0.087 -331.9    -361.3             5            -0.17            +0.02            -0.23            -0.04
+none (removed)    low    1509      4.26  21.9   -0.108 -162.8    -180.5             4            -0.21            +0.02            -0.20            -0.09
+none (removed)   high    2299      6.48  23.2   -0.074 -169.1    -196.9             6            -0.13            +0.01            -0.25            -0.01
+
+===== Our data M1 2021-11..2026-10: 2021-11-12 -> 2026-10-30 =====
+
+perfect + strong engulfing, all setups (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     221      0.85  32.1    0.297   65.5     -15.0             0            +0.38            +0.27            +0.24
+    3 HH (now)    low      92      0.36  29.3    0.179   16.4     -10.8             2            +0.42            +0.29            -0.10
+    3 HH (now)   high     129      0.50  34.1    0.380   49.1     -10.0             0            +0.35            +0.25            +0.49
+none (removed)    any    1161      4.48  23.2   -0.072  -84.1    -133.0             5            -0.02            -0.23            -0.03
+none (removed)    low     378      1.46  20.1   -0.189  -71.5     -81.8             5            +0.02            -0.49            -0.24
+none (removed)   high     783      3.02  24.6   -0.016  -12.6     -67.2             4            -0.05            -0.11            +0.07
+
+perfect + strong engulfing, any POI (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     204      0.79  33.3    0.346   70.5     -16.0             0            +0.48            +0.39            +0.20
+    3 HH (now)    low      85      0.33  30.6    0.229   19.4      -9.8             2            +0.43            +0.46            -0.08
+    3 HH (now)   high     119      0.46  35.3    0.429   51.1     -11.0             0            +0.51            +0.33            +0.42
+none (removed)    any     954      3.68  24.5   -0.018  -17.3     -76.0             4            +0.08            -0.18            -0.01
+none (removed)    low     319      1.23  21.3   -0.142  -45.4     -66.1             4            +0.13            -0.46            -0.22
+none (removed)   high     635      2.45  26.1    0.044   28.1     -39.0             1            +0.05            -0.05            +0.09
+
+exact body engulfing, all setups (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     321      1.24  28.3    0.155   49.7     -16.0             2            +0.15            +0.19            +0.14
+    3 HH (now)    low     155      0.60  23.9   -0.016   -2.4     -19.8             3            +0.07            +0.01            -0.12
+    3 HH (now)   high     166      0.64  32.5    0.314   52.1     -12.0             0            +0.21            +0.37            +0.37
+none (removed)    any    1793      6.92  23.5   -0.058 -103.8    -196.0             5            +0.03            -0.25            -0.04
+none (removed)    low     786      3.03  20.7   -0.162 -127.3    -157.2             5            -0.00            -0.43            -0.20
+none (removed)   high    1007      3.89  25.6    0.023   23.5     -73.1             2            +0.06            -0.12            +0.07
+
+exact body engulfing, any POI (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     297      1.15  29.6    0.204   60.5     -16.0             0            +0.24            +0.26            +0.13
+    3 HH (now)    low     144      0.56  25.0    0.023    3.4     -17.8             3            +0.10            +0.09            -0.09
+    3 HH (now)   high     153      0.59  34.0    0.373   57.1     -12.0             0            +0.38            +0.44            +0.33
+none (removed)    any    1450      5.60  24.8   -0.009  -13.1    -128.6             3            +0.11            -0.19            -0.02
+none (removed)    low     647      2.50  21.8   -0.126  -81.3    -114.4             5            +0.07            -0.41            -0.17
+none (removed)   high     803      3.10  27.1    0.085   68.1     -48.1             1            +0.15            -0.03            +0.09
+
+every type engulfing, all setups (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     536      2.07  26.1    0.057   30.7     -31.8             1            +0.18            -0.11            +0.05
+    3 HH (now)    low     227      0.88  23.3   -0.046  -10.3     -29.6             4            +0.08            -0.13            -0.12
+    3 HH (now)   high     309      1.19  28.2    0.133   41.1     -30.0             1            +0.26            -0.10            +0.15
+none (removed)    any    3295     12.72  23.0   -0.076 -251.6    -370.7             4            +0.02            -0.28            -0.07
+none (removed)    low    1235      4.77  21.6   -0.122 -150.5    -188.0             5            +0.01            -0.38            -0.12
+none (removed)   high    2060      7.95  23.8   -0.049 -101.1    -201.5             3            +0.02            -0.21            -0.03
+
+every type engulfing, any POI (period columns: R/trade)
+  higher highs volume  trades  per week  TP %  R/trade  net R  max DD R  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+    3 HH (now)    any     485      1.87  26.8    0.084   40.5     -26.0             2            +0.20            -0.05            +0.06
+    3 HH (now)    low     204      0.79  23.5   -0.042   -8.6     -27.7             4            +0.02            -0.03            -0.11
+    3 HH (now)   high     281      1.08  29.2    0.175   49.1     -29.0             1            +0.33            -0.06            +0.17
+none (removed)    any    2626     10.14  23.5   -0.056 -147.3    -289.9             3            +0.07            -0.26            -0.06
+none (removed)    low     999      3.86  22.0   -0.112 -111.5    -166.7             5            +0.09            -0.40            -0.16
+none (removed)   high    1627      6.28  24.5   -0.022  -35.8    -139.7             2            +0.06            -0.18            -0.01
