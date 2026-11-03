@@ -367,3 +367,21 @@ Results:
 | One at a time | 2.2 | -41R | |
 
 The Exness M3 files are not committed (about 50 MB); put them in `data/M3_exness/`.
+
+## MT5 EAs: M3 Heikin Ashi strategy, Exness and FTMO (`mql5/exness/XAUUSD_M3_HeikinAshi_EA_Exness.mq5`, `mql5/XAUUSD_M3_HeikinAshi_EA_FTMO.mq5`)
+
+These two EAs trade only the best 3-minute strategy from the 5M search. Both are generated from one template by `mql5/make_m3_ha_eas.py`, so their trading logic is identical.
+
+Rules:
+- **Entry:** buy after two strong bullish Heikin Ashi candles.
+- **Filters:** close above EMA(4000) on M3 (about the H1 EMA200), ATR(14) at or above its 9200-candle average, and a candle hour of 20:00-00:59 on the strategy clock.
+- **Exits:** SL 2 x ATR(14), TP 3 x SL (1:3), time stop after 2300 candles.
+- **Defaults:** up to 3 trades open at once, 0.25% risk per trade.
+
+Only the clock handling differs:
+- **Exness (UTC+0):** the EA converts the time itself (+2 h in winter, +3 h in European summer).
+- **FTMO:** the server time already is the strategy clock.
+
+The EA's windowed Heikin Ashi and ATR calculations match the backtest on 3,000 random candles.
+
+On the Exness data, with max 3 open, the EMA4000 trend filter beat the Supertrend and EMA50 variants. It was the only one profitable on the never-used 2020-01..2021-10 data (+0.19R/trade), and it had the smallest max drawdown (-63R, against -106R and -127R).
