@@ -385,3 +385,26 @@ Only the clock handling differs:
 The EA's windowed Heikin Ashi and ATR calculations match the backtest on 3,000 random candles.
 
 On the Exness data, with max 3 open, the EMA4000 trend filter beat the Supertrend and EMA50 variants. It was the only one profitable on the never-used 2020-01..2021-10 data (+0.19R/trade), and it had the smallest max drawdown (-63R, against -106R and -127R).
+
+## H1 higher highs + bearish engulfing, sell limit at the open (`h1_hh_engulf.py`)
+
+```bash
+python h1_hh_engulf.py   # -> results/h1_hh_engulf.txt (trend-filter check: results/h1_hh_engulf_trend.txt)
+```
+
+The user's rules for the sell:
+- **Setup:** 3 (or 4) H1 candles in a row make higher highs, then a bearish body engulfing closes.
+- **Entry:** a sell limit at the engulfing open.
+- **Exits:** SL at the engulfing high + 50 pips, TP 1:3.
+- **Cancel:** the order is removed only when an H1 candle closes below the engulfing low.
+
+The mirror buy is tested too. Signals come from H1; fills and exits run on M1 (our data) or M3 (the Exness export).
+
+Results:
+- **The sell loses.** With N = 3:
+  - Our data: 203 trades (0.8 a week), 20.7% TP, -0.17R/trade.
+  - Exness 2020-2026: 218 trades, 19.7% TP, -0.20R/trade (-0.42R/trade on the never-used 2020-21 data).
+  - N = 4: -0.08R and -0.12R per trade.
+  - About half the orders fill and the rest are cancelled.
+- **Only sells below the H1 EMA200:** still a loss.
+- **The mirror buy:** about break-even overall. Only above the H1 EMA200 it is slightly positive (+0.19R / +0.06R per trade), but that is about 1 trade a month.

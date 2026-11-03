@@ -1,0 +1,16 @@
+
+== Our data 2021-11..2026-10 ==
+  N=3 SELL only below EMA200                    :  70 trades (0.27/wk), TP 18.6%, -0.243R/trade, net  -17.0R, DD -26.9R
+  N=3 BUY only above EMA200                     :  81 trades (0.31/wk), TP 29.6%, +0.185R/trade, net  +15.0R, DD -15.0R
+  N=3 SELL only above EMA200 (against the trend): 129 trades (0.50/wk), TP 22.5%, -0.101R/trade, net  -13.0R, DD -27.0R
+  N=4 SELL only below EMA200                    :  31 trades (0.12/wk), TP 22.6%, -0.102R/trade, net   -3.2R, DD -8.0R
+  N=4 BUY only above EMA200                     :  37 trades (0.14/wk), TP 27.0%, +0.081R/trade, net   +3.0R, DD -18.0R
+  N=4 SELL only above EMA200 (against the trend):  77 trades (0.30/wk), TP 23.4%, -0.065R/trade, net   -5.0R, DD -16.0R
+
+== Exness 2020-01..2026-11 ==
+  N=3 SELL only below EMA200                    :  67 trades (0.19/wk), TP 20.9%, -0.135R/trade, net   -9.1R, DD -19.0R
+  N=3 BUY only above EMA200                     :  79 trades (0.22/wk), TP 26.6%, +0.062R/trade, net   +4.9R, DD -12.1R
+  N=3 SELL only above EMA200 (against the trend): 147 trades (0.41/wk), TP 19.7%, -0.211R/trade, net  -31.0R, DD -41.0R
+  N=4 SELL only below EMA200                    :  28 trades (0.08/wk), TP 25.0%, +0.000R/trade, net   +0.0R, DD -7.0R
+  N=4 BUY only above EMA200                     :  34 trades (0.10/wk), TP 29.4%, +0.176R/trade, net   +6.0R, DD -14.0R
+  N=4 SELL only above EMA200 (against the trend):  82 trades (0.23/wk), TP 22.0%, -0.122R/trade, net  -10.0R, DD -16.0R
