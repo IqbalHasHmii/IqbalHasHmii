@@ -1,0 +1,80 @@
+
+===== Exness M3 2020-01..2026-11 =====
+
+perfect + strong engulfing, all setups (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     218  32.1         193.0          -67.0    3627.0        534.0      -2167.0    0.295             0             +491             +843             +255            +2038
+SL high, TP 150 pips     218  29.8         150.0          -49.0    2193.0        323.0       -945.0    0.083             3             +299             -175             +194            +1875
+  SL 50, TP 150 pips     218  26.6         150.0          -49.0     805.0        119.0      -1345.0    0.074             2             -194             +102             -200            +1098
+
+perfect + strong engulfing, any POI (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     201  33.3         197.0          -68.0    4054.0        597.0      -2167.0    0.341             0             +496             +880             +379            +2299
+SL high, TP 150 pips     201  30.8         150.0          -50.0    2383.0        351.0       -754.0    0.114             2              +36              -75             +319            +2103
+  SL 50, TP 150 pips     201  26.9         150.0          -50.0     806.0        119.0      -1244.0    0.080             2             -244               +3              -50            +1098
+
+exact body engulfing, all setups (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     335  29.0         185.0          -60.0    3736.0        550.0      -1801.0    0.175             1             +658             +456             +109            +2514
+SL high, TP 150 pips     335  24.5         155.0          -47.0     892.0        131.0      -1817.0   -0.088             4             +285             -631             -222            +1459
+  SL 50, TP 150 pips     335  23.0         155.0          -50.0    -837.0       -123.0      -2795.0   -0.050             5             -591             -498             -900            +1152
+
+exact body engulfing, any POI (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     311  29.9         185.0          -61.0    3966.0        584.0      -1801.0    0.212             1             +680             +505             +292            +2489
+SL high, TP 150 pips     311  25.1         155.0          -47.0    1148.0        169.0      -1575.0   -0.063             4              +40             -519              -39            +1666
+  SL 50, TP 150 pips     311  22.5         156.0          -50.0   -1086.0       -160.0      -2844.0   -0.070             5             -741             -747             -700            +1102
+
+every engulfing type, all setups (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     754  26.3         171.0          -57.0    2321.0        342.0      -4162.0    0.059             2            +1048            +3138             -923             -940
+SL high, TP 150 pips     754  22.8         153.0          -46.0    -647.0        -95.0      -2773.0   -0.061             4            +1009              +34             -626            -1063
+  SL 50, TP 150 pips     754  22.8         152.0          -50.0   -2788.0       -410.0      -3736.0   -0.074             5             +167            -1336            -1450             -168
+
+every engulfing type, any POI (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2020-01..2021-10 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     690  26.8         175.0          -59.0    2679.0        394.0      -4379.0    0.081             2             +997            +3057             -586             -790
+SL high, TP 150 pips     690  23.2         153.0          -48.0    -729.0       -107.0      -2345.0   -0.078             3             +712             -374             -370             -697
+  SL 50, TP 150 pips     690  22.3         153.0          -50.0   -3237.0       -477.0      -4087.0   -0.094             5             +167            -1785            -1550              -68
+
+SL size of the perfect + strong POI trades (pips): median 45, 25-75% 27-81; by year: 2020 45, 2021 24, 2022 36, 2023 36, 2024 45, 2025 73, 2026 162
+
+===== Our data M1 2021-11..2026-10 =====
+
+perfect + strong engulfing, all setups (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     221  32.1         211.0          -78.0    3293.0        664.0      -2736.0    0.297             0            +1840              -22            +1475
+SL high, TP 150 pips     221  33.9         150.0          -54.0    3402.0        686.0       -612.0    0.242             2             +227             +636            +2539
+  SL 50, TP 150 pips     221  29.4         150.0          -50.0    1981.0        399.0       -800.0    0.179             2             -300             +360            +1921
+
+perfect + strong engulfing, any POI (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     204  33.3         211.0          -83.0    3036.0        612.0      -3160.0    0.346             0            +1911             +155             +969
+SL high, TP 150 pips     204  35.3         150.0          -57.0    3343.0        674.0       -607.0    0.278             2             +223             +813            +2306
+  SL 50, TP 150 pips     204  29.4         150.0          -50.0    1831.0        369.0       -850.0    0.180             3             -300             +410            +1721
+
+exact body engulfing, all setups (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     323  28.2         205.0          -67.0    3026.0        610.0      -3095.0    0.148             1            +1423              +62            +1542
+SL high, TP 150 pips     323  28.2         154.0          -50.0    2485.0        501.0      -1164.0    0.024             2             -456             +574            +2367
+  SL 50, TP 150 pips     323  24.8         154.0          -50.0     289.0         58.0      -2144.0    0.018             3            -1281               -3            +1573
+
+exact body engulfing, any POI (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     299  29.4         204.0          -71.0    2958.0        596.0      -3477.0    0.196             1            +1563             +239            +1156
+SL high, TP 150 pips     299  29.4         154.0          -52.0    2614.0        527.0       -964.0    0.056             2             -391             +752            +2254
+  SL 50, TP 150 pips     299  25.1         155.0          -50.0     437.0         88.0      -1997.0    0.029             3            -1084              +47            +1473
+
+every engulfing type, all setups (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     540  26.1         195.0          -67.0     685.0        138.0      -4767.0    0.057             4            +2829            -1507             -637
+SL high, TP 150 pips     540  25.7         153.0          -52.0     294.0         59.0      -1331.0   -0.030             2             -257             -259             +810
+  SL 50, TP 150 pips     540  23.9         153.0          -50.0    -764.0       -154.0      -3005.0   -0.028             4            -1232            -1313            +1781
+
+every engulfing type, any POI (period columns: net pips)
+             version  trades  TP %  avg win pips  avg loss pips  net pips  pips a year  max DD pips  R/trade  losing years 2021-11..2023-10 2023-11..2024-10 2024-11..2026-11
+now: SL high, TP 1:3     489  26.8         199.0          -71.0     720.0        145.0      -5128.0    0.083             3            +2749            -1214             -814
+SL high, TP 150 pips     489  26.6         153.0          -54.0     441.0         89.0      -1553.0   -0.045             3             -663              -50            +1153
+  SL 50, TP 150 pips     489  23.7         153.0          -50.0    -867.0       -175.0      -3258.0   -0.035             4            -1684            -1063            +1881
+
+SL size of the perfect + strong POI trades (pips): median 51, 25-75% 31-93; by year: 2021 53, 2022 38, 2023 34, 2024 42, 2025 71, 2026 188

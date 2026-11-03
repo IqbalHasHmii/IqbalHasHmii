@@ -850,3 +850,22 @@ Results for perfect + strong engulfing, the EA default. In each cell, the first 
 - **No single POI is better on both datasets.**
   - The order block is the best on our data and the worst on Exness, and the FVG is the reverse.
   - The 5-day high has the highest TP, but only 20-28 trades in 5-7 years.
+
+### The H1 engulfing sell with a fixed 150-pip TP (`h1_hh_engulf_tp150.py`)
+
+```bash
+python h1_hh_engulf_tp150.py   # -> results/h1_hh_engulf_tp150.txt
+```
+
+These are perfect + strong engulfings at any POI. The same entry is tested with three exits. In each cell, the first value is Exness and the second is our data:
+
+| Exit | TP % | Net pips (0.01 lot: x $0.10) | R / trade | Max drawdown (pips) | Losing years |
+|---|---|---|---|---|---|
+| now: SL at the engulfing high, TP 1:3 | 33.3% / 33.3% | +4,054 / +3,036 | +0.34 / +0.35 | -2,167 / -3,160 | 0 / 0 |
+| SL at the engulfing high, TP 150 pips | 30.8% / 35.3% | +2,383 / +3,343 | +0.11 / +0.28 | -754 / -607 | 2 / 2 |
+| SL 50 pips, TP 150 pips | 26.9% / 29.4% | +806 / +1,831 | +0.08 / +0.18 | -1,244 / -850 | 2 / 3 |
+
+- **A fixed 150-pip TP changes the reward-to-risk from trade to trade.** The median SL was 24-45 pips in 2020-24 but 73-188 pips in 2025-26. So 150 pips was 1:4 or 1:5 in the early years, and it lost there. Lately it was about 1:1 or less.
+- **With % risk sizing, as in the EA, the 1:3 TP is better on both datasets.** Measured in R (profit per trade relative to its SL), it is +0.34 against +0.11 on Exness and +0.35 against +0.28 on our data.
+- **With a fixed lot, the 150-pip TP has smaller pip drawdowns.** It makes about the same pips on our data and 41% fewer on Exness, and it loses in two years.
+- **A fixed 50-pip SL is the weakest of the three.**
