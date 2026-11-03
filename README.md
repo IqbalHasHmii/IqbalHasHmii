@@ -268,3 +268,19 @@ Rules (checked at every H1 close, any hour):
 | One at a time | 2.7 | 29.5% | +0.162 | +112.3R | -28.8R |
 
 Split by side, buys made +0.33R per trade and sells only +0.03R.
+
+## Exness versions (`mql5/exness/`)
+
+Exness runs its server on UTC+0 all year. The backtest data (and FTMO) uses UTC+2 in winter and UTC+3 in summer, following European DST.
+
+The three EAs that use session hours have Exness versions that convert every time automatically, with nothing to change between summer and winter:
+- `XAUUSD_M15_Breakout_Sweep_EA_Exness`
+- `XAUUSD_Combo_3Strategy_EA_Exness`
+- `XAUUSD_M5_3Strategy_EA_Exness`
+
+The new `InpServerUTC` input holds the broker's UTC offset (Exness = 0). The hour inputs stay on the backtest clock, so the defaults are unchanged. The previous-day high/low is built from M15 candles on that clock instead of the broker's D1 candle.
+
+The other three EAs use no session hours. Their `_Exness` copies are identical apart from the description:
+- `XAUUSD_H1_EMA20_Pullback_EA_Exness`
+- `XAUUSD_Extreme_OB_EA_Exness`
+- `XAUUSD_M15_Extreme_OB_EA_Exness`
