@@ -15,6 +15,13 @@
       "computedHash": "82eca9e2eadda210d66433497ff9d31bc1c0ea2dfcd7f0be4710e9b4ef53addd",
       "installMode": "copy"
     },
+    "ai-video-generation": {
+      "source": "101-skills/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/ai-video-generation/SKILL.md",
+      "computedHash": "8524cc49ad3dca2a4502903234061b307636e44b08496e982747cdb9590f5556",
+      "installMode": "copy"
+    },
     "azure-diagnostics": {
       "source": "microsoft/azure-skills",
       "sourceType": "github",
