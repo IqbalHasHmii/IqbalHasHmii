@@ -86,7 +86,8 @@ def trade_outcomes(o, h, l, c, spr, dist, idx, maxh):
     return r, ex
 
 
-def run(d: pd.DataFrame, label: str) -> pd.DataFrame:
+def ha_trades(d: pd.DataFrame) -> pd.DataFrame:
+    """Every signal of the strategy as its own trade: entry and exit time, R, TP hit."""
     o, h, l, c, spr = (d[k].to_numpy(np.float64) for k in ("open", "high", "low", "close", "spread_px"))
     a = atr(d)
     hac = (o + h + l + c) / 4
@@ -100,10 +101,27 @@ def run(d: pd.DataFrame, label: str) -> pd.DataFrame:
     sig = two & trend & hv & late
     sig[:min(12000, len(d) // 10)] = False
     idx = np.flatnonzero(sig)
-    r, ex = trade_outcomes(o, h, l, c, spr, 2 * a.to_numpy(np.float64), idx, 2300)
+    dist = 2 * a.to_numpy(np.float64)
+    r, ex = trade_outcomes(o, h, l, c, spr, dist, idx, 2300)
     ok = ex >= 0
-    t = pd.DataFrame({"entry": d.index[idx[ok] + 1], "exit": d.index[ex[ok]], "R": r[ok]})
+    t = pd.DataFrame({"entry": d.index[idx[ok] + 1], "exit": d.index[ex[ok]], "R": r[ok], "sl": dist[idx[ok]]})
     t["tp_hit"] = t.R >= RR - 0.001
+    return t
+
+
+def cap_open(t: pd.DataFrame, cap: int) -> pd.DataFrame:
+    """Keep a signal only while fewer than `cap` trades are open (0 = keep all)."""
+    keep, open_exits = [], []
+    for row in t.itertuples():
+        open_exits = [x for x in open_exits if x > row.entry]
+        if cap == 0 or len(open_exits) < cap:
+            keep.append(row.Index)
+            open_exits.append(row.exit)
+    return t.loc[keep]
+
+
+def run(d: pd.DataFrame, label: str) -> pd.DataFrame:
+    t = ha_trades(d)
     print(f"\n===== {label}: {d.index[0]:%Y-%m-%d} -> {d.index[-1]:%Y-%m-%d} (strategy clock), "
           f"median spread ${d.spread_px.median():.3f} =====")
     rows = []
@@ -120,13 +138,7 @@ def run(d: pd.DataFrame, label: str) -> pd.DataFrame:
     print("per year:", {k: f"{len(g)} tr, TP {g.tp_hit.mean() * 100:.0f}%, {g.R.sum():+.0f}R" for k, g in y})
     weeks = (t.entry.max() - t.entry.min()).days / 7
     for cap in (0, 1, 3, 5):
-        keep, open_exits = [], []
-        for row in t.itertuples():
-            open_exits = [x for x in open_exits if x > row.entry]
-            if cap == 0 or len(open_exits) < cap:
-                keep.append(row.Index)
-                open_exits.append(row.exit)
-        x = t.loc[keep].sort_values("exit")
+        x = cap_open(t, cap).sort_values("exit")
         eq = x.R.cumsum()
         ev = pd.concat([pd.DataFrame({"t": x.entry, "d": 1}), pd.DataFrame({"t": x.exit, "d": -1})]).sort_values(["t", "d"])
         print(f"  {'every signal' if cap == 0 else f'max {cap} open':12s}: {len(x)} trades ({len(x) / weeks:.1f}/wk), "

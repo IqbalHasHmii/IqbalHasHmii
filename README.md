@@ -601,3 +601,63 @@ The setup can now be any bearish engulfing type from `h1_hh_engulf_types.py`. Ea
 - **All types:** about twice as many trades, but a third of the profit per trade and more than twice the drawdown. Outside bars and tolerance-only candles add trades without an edge. 2023-11..2024-10 loses on both datasets, and 2026 loses -16R on Exness.
 - **Perfect + strong:** the most net R and the smallest drawdown on both datasets, positive in every period. The only losing year is 2021 on Exness (-2R).
 - **Caveat:** perfect + strong was chosen after seeing these same results, and each period holds only 44-86 trades. Expect less in live trading.
+
+## MT5 EA: all-in-one for Exness (`mql5/exness/XAUUSD_All_In_One_EA_Exness.mq5`)
+
+This EA runs the nine best strategies so far side by side. Each strategy has its own:
+- on/off switch;
+- magic number (902001-902009);
+- state and trades;
+- max-open setting.
+
+So the strategies never touch each other's trades.
+
+| # | Strategy | Default |
+|---|---|---|
+| 1 | M15 Asian breakout | on, 1 trade at a time |
+| 2 | M15 previous-day sweep | on, 1 at a time |
+| 3 | H1 EMA200 engulfing (limit order) | on, 1 at a time |
+| 4 | M5 RSI pullback | on, 1 at a time |
+| 5 | M5 NY opening range | on, 1 at a time |
+| 6 | M5 Asian breakout | on, 1 at a time |
+| 7 | H1 EMA20 pullback, buys and sells | **off** (max 5 when on) |
+| 8 | M3 Heikin Ashi, buy only | on, up to 3 open |
+| 9 | H1 3 higher highs + perfect/strong bearish engulfing, sell limit at 25% of the body | on, no limit |
+
+- **Clock:** for Exness, keep `InpClock = Fixed UTC offset` and `InpServerUTC = 0`. The session hours stay on the backtest clock (UTC+2/+3), and the EA converts them itself, summer and winter included. For FTMO, choose "Same as the backtest data".
+- **Risk:** 0.25% of equity per trade by default. When that lot rounds below the broker's minimum lot, the trade is skipped. `InpMinLotMaxRisk` lets the EA take the minimum lot instead, as long as that lot risks at most the given % of equity. The chart shows how many trades were skipped.
+- **History:** strategy 8 needs about 13,500 M3 candles. Set Tools > Options > Charts > Max bars in chart to 50000 or more.
+- **Strategy 9:** the engulfing type is an input: perfect or strong (default), perfect only, or any body engulfing.
+- **Strategy 7 is off:** on the Exness 2020-21 data it lost money. With it on, the combined Exness drawdown grows from -69R to -205R.
+
+### Backtest of the EA defaults (`all_in_one_backtest.py`)
+
+```bash
+python all_in_one_backtest.py   # -> results/all_in_one_backtest.txt
+```
+
+Each strategy's trades are rebuilt with the EA's rules and limits, then added up. Every trade risks the same %, and there is no compounding.
+
+| Data | Strategies | Trades / week | TP % | R / trade | Net per year | Max drawdown | Losing years |
+|---|---|---|---|---|---|---|---|
+| Ours 2021-11..2026-10 | 1-6, 8, 9 | 19.8 | 29.4% | +0.19 | +191R | -52R (Apr-Aug 2025) | none |
+| Exness 2020-01..2026-11 | 1-3, 8, 9 (the export has no M5 candles) | 11.6 | 29.0% | +0.17 | +104R | -69R (Jul 2021-Feb 2022) | none |
+
+- **At 0.25% risk per trade:** about +48% a year with a -13% max drawdown on our data, and about +26% a year with -17% on Exness.
+- **Exness 2020-01..2021-10:** +0.06R/trade, +57R. None of the strategies was picked on this data.
+- **With strategy 7 on (max 5 open):**
+
+| Data | Net per year | Max drawdown | Note |
+|---|---|---|---|
+| Ours | +293R | -85R | |
+| Exness | +168R | -205R | 2021 loses |
+
+- **Minimum balance:** below it, a 0.01 lot risks more than 0.25%. It comes from the median SL of the last 12 months: $9 for strategy 8, $10 for 3, $11 for 4, $15 for 2 and 9, $26 for 5, and $53-54 for the Asian breakouts 1 and 6.
+
+| Strategies | Balance for 0.01 lot at 0.25% risk |
+|---|---|
+| 8 | about $3,600 |
+| 3, 4 | about $4,000-4,300 |
+| 2, 9 | about $6,000 |
+| 5 | about $10,400 |
+| 1, 6 | about $21,500 |

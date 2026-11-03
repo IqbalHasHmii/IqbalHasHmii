@@ -52,8 +52,9 @@ def trades(fine: pd.DataFrame) -> pd.DataFrame:
                 if side == -1 and (h[j] + s[j] >= sl or l[j] + s[j] <= tp):
                     break
                 j += 1
-            rows.append((d.index[i + 1], d.index[j], "BUY" if side == 1 else "SELL", float(r[i])))
-    return pd.DataFrame(rows, columns=["entry", "exit", "side", "R"]).sort_values("entry").reset_index(drop=True)
+            rows.append((d.index[i + 1], d.index[j], "BUY" if side == 1 else "SELL", float(r[i]), dd))
+    return (pd.DataFrame(rows, columns=["entry", "exit", "side", "R", "sl"])   # sl = SL distance in $
+            .sort_values("entry").reset_index(drop=True))
 
 
 def stats(x, label):
