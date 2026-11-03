@@ -816,3 +816,37 @@ Switching sessions off: the EA opens no new trade in them, and a limit order tha
 
 - **Every version without a session is worse.** Late holds the M3 Heikin Ashi, the best strategy. London holds the Asian breakouts and much of the sweep and RSI pullback.
 - **Dropping both London and Late:** the yearly profit falls from +54% to +18% (our data) and from +30% to +4% (Exness). The drawdown does not get smaller, and a losing year appears on both datasets.
+
+### The H1 engulfing sell at a point of interest (`h1_hh_engulf_poi.py`)
+
+```bash
+python h1_hh_engulf_poi.py   # -> results/h1_hh_engulf_poi.txt
+```
+
+This is the same sell: 3 higher highs, an engulfing, a sell limit at 25% of the body, the SL at the engulfing high, TP 1:3 and the order removed on a close below the low. The engulfing must also be at a point of interest:
+- above the previous day's or week's high;
+- at a 5-day high;
+- touching an active bearish order block or FVG (`zones_v4.zone_touch`);
+- through a $50 round number;
+- above the Asian-session high.
+
+Results for perfect + strong engulfing, the EA default. In each cell, the first value is Exness and the second is our data:
+
+| POI | Trades | TP % | R / trade |
+|---|---|---|---|
+| no filter | 218 / 221 | 32.1% / 32.1% | +0.30 / +0.30 |
+| previous day high | 91 / 86 | 34.1% / 31.4% | +0.36 / +0.25 |
+| previous week high | 80 / 79 | 33.8% / 30.4% | +0.35 / +0.21 |
+| 5-day high | 28 / 20 | 46.4% / 35.0% | +0.86 / +0.38 |
+| bearish order block | 97 / 96 | 27.8% / 36.5% | +0.12 / +0.49 |
+| bearish FVG | 70 / 71 | 34.3% / 26.8% | +0.37 / +0.07 |
+| round number $50 | 39 / 41 | 30.8% / 31.7% | +0.26 / +0.26 |
+| Asian high | 87 / 91 | 33.3% / 34.1% | +0.33 / +0.39 |
+| any POI | 201 / 204 | 33.3% / 33.3% | +0.34 / +0.35 |
+| no POI | 17 / 17 | 17.6% / 17.6% | -0.24 / -0.29 |
+
+- **Almost every setup is already at a POI.** That is 92% of them. Three higher highs usually run into an old high.
+- **Setups with no POI are weak.** Skipping them lifts TP from 32.1% to 33.3% on both datasets. On exact body engulfing, TP goes from 29.0% to 29.9% (Exness) and 28.2% to 29.4% (our data).
+- **No single POI is better on both datasets.**
+  - The order block is the best on our data and the worst on Exness, and the FVG is the reverse.
+  - The 5-day high has the highest TP, but only 20-28 trades in 5-7 years.
