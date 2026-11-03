@@ -680,3 +680,24 @@ This runs the EA-default trades (strategy 7 off) on a $100 start. A 0.01 lot of 
 - **Fixed 0.02 lot:** surviving the biggest drop of the backtest needs more than $2,783 (our data) or $1,828 (Exness).
 - **Cent account:** one cent lot is 1/100 of a standard lot, so the EA can size the trades at 0.25%.
 - **Starting today on a cent account:** with $100 at the current gold price, strategies 1, 5 and 6 are mostly skipped until the balance reaches about $220.
+
+### Account size (`account_size.py`)
+
+```bash
+python account_size.py   # -> results/account_size.txt
+```
+
+This applies the EA's lot rule (0.25% risk per trade, the EA default) to the trades of the last 12 months, which have today's SL sizes, on a fixed balance. In each cell, the first value is our data and the second is Exness:
+
+| Balance (normal account) | Trades taken | Profit in 12 months | Max drawdown |
+|---|---|---|---|
+| $1,000-2,000 | 0-1% | - | - |
+| $3,000 | 9% | -2% / -1% | -5% / -3% |
+| $5,000 | 54% / 70% | +8% / +8% | -7% / -9% |
+| $10,000 | 78% / 90% | +27% / +13% | -8% / -10% |
+| $25,000 | 96% / 98% | +27% / +15% | -12% / -11% |
+| $50,000 | 100% | +33% / +18% | -11% |
+
+- **Cent account:** it sizes like a normal account 100 times bigger, so $100 on a cent account takes the same trades as $10,000 on a normal one.
+- **Exness:** the Exness values lack the M5 strategies.
+- **Longer run:** the drawdown at full size was -13% (our data) and -17% (Exness).
