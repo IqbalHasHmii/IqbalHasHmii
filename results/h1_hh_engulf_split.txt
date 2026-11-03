@@ -1,0 +1,16 @@
+
+===== Exness M3 2020-01..2026-11: 335 trades (0.94/wk), split 50% at 1:1 + 50% at 1:3, same SL =====
+  outcomes: 1:3 reached 97 | 1:1 reached then SL 72 | SL before 1:1 166
+             version  winning setups %  breakeven %  losing setups %  R/trade  net R  max drawdown R  longest losing run
+one position, TP 1:3              29.0          0.3             70.7    0.175   58.7           -13.0                  13
+one position, TP 1:1              50.4          0.3             49.3    0.015    5.1           -11.0                   7
+     split 1:1 + 1:3              29.0         21.8             49.3    0.095   31.9           -12.0                   7
+  by period (R/trade): 2020-01..2021-10: split +0.04R vs 1:3 +0.10R | 2021-11..2023-10: split +0.09R vs 1:3 +0.17R | 2023-11..2024-10: split +0.06R vs 1:3 +0.15R | 2024-11..2026-11: split +0.17R vs 1:3 +0.26R
+
+===== Our data M1 2021-11..2026-10: 323 trades (1.24/wk), split 50% at 1:1 + 50% at 1:3, same SL =====
+  outcomes: 1:3 reached 91 | 1:1 reached then SL 72 | SL before 1:1 160
+             version  winning setups %  breakeven %  losing setups %  R/trade  net R  max drawdown R  longest losing run
+one position, TP 1:3              28.2          0.0             71.8    0.148   47.7           -16.0                  12
+one position, TP 1:1              50.5          0.0             49.5    0.018    5.8           -18.7                   6
+     split 1:1 + 1:3              29.7         21.4             49.8    0.083   26.7           -11.7                   6
+  by period (R/trade): 2021-11..2023-10: split +0.10R vs 1:3 +0.13R | 2023-11..2024-10: split +0.03R vs 1:3 +0.19R | 2024-11..2026-11: split +0.10R vs 1:3 +0.14R

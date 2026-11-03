@@ -528,3 +528,23 @@ A breakeven stop does not help:
 | 1:2 | +0.18 | +0.10 | |
 
 Many winners come back to the entry before going on to the 1:3 TP.
+
+### Two positions: half at 1:1, half at 1:3, same SL (`h1_hh_engulf_split.py`)
+
+```bash
+python h1_hh_engulf_split.py   # -> results/h1_hh_engulf_split.txt
+```
+
+The two halves share the same entry and the same SL at the engulfing high:
+- if 1:3 is reached, the setup makes +2R;
+- if 1:1 is reached and then the SL, it is 0R (breakeven);
+- if the SL comes before 1:1, it loses -1R.
+
+| Data | Version | Losing setups | R / trade | Net | Max drawdown | Longest losing run |
+|---|---|---|---|---|---|---|
+| Exness | split | 49% | +0.10 | +31.9R | -12R | 7 |
+| Exness | single 1:3 | 71% | +0.18 | +58.7R | -13R | 13 |
+| Our data | split | | +0.08 | +26.7R | -11.7R | 6 |
+| Our data | single 1:3 | | +0.15 | +47.7R | -16R | 12 |
+
+The split is smoother but makes about half the profit, and less profit per R of drawdown.
