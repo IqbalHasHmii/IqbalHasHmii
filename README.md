@@ -132,3 +132,14 @@ python m15_search.py   # -> results/m15_search.csv
 ```
 
 The script tests three families on M15 with small parameter grids: Asian-range breakout, previous-day high/low sweep, and EMA trend pullback. SL limits are scaled by the average M15 candle range, so they follow volatility. Parameters are judged on 2021-11..2024-10 (in-sample) and then checked on 2024-11..2026-10 (out-of-sample). Times are broker server time (UTC+2 winter / UTC+3 summer).
+
+## MT5 EA: M15 Asian breakout + previous-day sweep, 1:3 (`mql5/XAUUSD_M15_Breakout_Sweep_EA.mq5`)
+
+This EA runs the two `m15_search.py` setups with TP = 3 x SL, and its defaults match the backtest:
+- **Asian breakout:** range from 01:00-09:45, breakout window 10:00-15:45, SL at the other side of the range.
+- **Sweep:** window 09:00-20:45, SL beyond the sweep wick + 0.2x the average range, SL size between 1x and 5x the average range.
+- Each setup has its own magic number and at most one open trade.
+- Risk is 1% of equity per trade, or a fixed lot size.
+- Hours are broker server time.
+
+In the backtest at 1:3, the two setups together made about 3.5 trades a week at a 28.5% win rate, +125.6R over 5 years.
