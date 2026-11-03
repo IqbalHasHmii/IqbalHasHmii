@@ -1,40 +1,40 @@
 
 ===== Our data: 2021-11-01 -> 2026-10-31, strategies [1, 2, 3, 4, 5, 6, 8, 9], start $100 =====
 A) normal account, fixed 0.02 lot (10 pips = $2):
-    one SL loses (last 12 months): median $23; by strategy S1 $107, S2 $30, S3 $20, S4 $21, S5 $52, S6 $108, S8 $18, S9 $29
+    one SL loses (last 12 months): median $25; by strategy S1 $107, S2 $30, S3 $20, S4 $21, S5 $52, S6 $108, S8 $22, S9 $29
     started on 2021-11-01: wiped out on 2021-12-08 after 53 closed trades
     48 start months tried: wiped out in 34 (71%), median 6 days after the start, fastest 0 days
-    the 14 that survived had a median $3,724 after one year
-    biggest drop from a high at this lot size: $2,783, so the account needs more than that to survive it
+    the 14 that survived had a median $4,244 after one year
+    biggest drop from a high at this lot size: $2,601, so the account needs more than that to survive it
 B) normal account, fixed 0.01 lot (10 pips = $1):
-    one SL loses (last 12 months): median $11; by strategy S1 $53, S2 $15, S3 $10, S4 $11, S5 $26, S6 $54, S8 $9, S9 $15
+    one SL loses (last 12 months): median $12; by strategy S1 $53, S2 $15, S3 $10, S4 $11, S5 $26, S6 $54, S8 $11, S9 $15
     started on 2021-11-01: wiped out on 2021-12-13 after 61 closed trades
-    48 start months tried: wiped out in 24 (50%), median 12 days after the start, fastest 1 days
-    the 24 that survived had a median $2,025 after one year
-    biggest drop from a high at this lot size: $1,391, so the account needs more than that to survive it
+    48 start months tried: wiped out in 23 (48%), median 12 days after the start, fastest 1 days
+    the 25 that survived had a median $2,209 after one year
+    biggest drop from a high at this lot size: $1,301, so the account needs more than that to survive it
 C) normal account, EA default 0.25% risk:
-    trades taken 0 (0.0/wk), skipped (lot below the minimum) 5154
+    trades taken 0 (0.0/wk), skipped (lot below the minimum) 4983
 D) cent account ($100 = 10,000 USC), EA default 0.25% risk (smallest trade 0.01 oz):
-    trades taken 5146 (19.7/wk), skipped (lot below the minimum) 8
-    $100 -> $813 after 5.0 years (about +52% a year compounded), max drawdown -11%
-    balance at the end of each year: 2021: $101, 2022: $120, 2023: $202, 2024: $377, 2025: $576, 2026: $813
+    trades taken 4975 (19.1/wk), skipped (lot below the minimum) 8
+    $100 -> $1,139 after 5.0 years (about +63% a year compounded), max drawdown -11%
+    balance at the end of each year: 2021: $101, 2022: $134, 2023: $228, 2024: $474, 2025: $780, 2026: $1,139
 
 ===== Exness data (no M5 strategies): 2020-01-02 -> 2026-11-03, strategies [1, 2, 3, 8, 9], start $100 =====
 A) normal account, fixed 0.02 lot (10 pips = $2):
-    one SL loses (last 12 months): median $20; by strategy S1 $108, S2 $31, S3 $20, S8 $18, S9 $29
-    started on 2020-01-02: never wiped out, ended at $13,664
-    70 start months tried: wiped out in 49 (70%), median 12 days after the start, fastest 1 days
-    the 21 that survived had a median $2,483 after one year
-    biggest drop from a high at this lot size: $1,828, so the account needs more than that to survive it
+    one SL loses (last 12 months): median $20; by strategy S1 $108, S2 $31, S3 $20, S8 $22, S9 $29
+    started on 2020-01-02: never wiped out, ended at $14,793
+    70 start months tried: wiped out in 46 (66%), median 12 days after the start, fastest 1 days
+    the 24 that survived had a median $2,771 after one year
+    biggest drop from a high at this lot size: $1,926, so the account needs more than that to survive it
 B) normal account, fixed 0.01 lot (10 pips = $1):
-    one SL loses (last 12 months): median $10; by strategy S1 $54, S2 $16, S3 $10, S8 $9, S9 $15
-    started on 2020-01-02: never wiped out, ended at $6,882
-    70 start months tried: wiped out in 41 (59%), median 52 days after the start, fastest 6 days
-    the 29 that survived had a median $1,227 after one year
-    biggest drop from a high at this lot size: $914, so the account needs more than that to survive it
+    one SL loses (last 12 months): median $10; by strategy S1 $54, S2 $16, S3 $10, S8 $11, S9 $15
+    started on 2020-01-02: never wiped out, ended at $7,447
+    70 start months tried: wiped out in 39 (56%), median 41 days after the start, fastest 3 days
+    the 31 that survived had a median $1,251 after one year
+    biggest drop from a high at this lot size: $963, so the account needs more than that to survive it
 C) normal account, EA default 0.25% risk:
-    trades taken 0 (0.0/wk), skipped (lot below the minimum) 4153
+    trades taken 0 (0.0/wk), skipped (lot below the minimum) 3943
 D) cent account ($100 = 10,000 USC), EA default 0.25% risk (smallest trade 0.01 oz):
-    trades taken 4137 (11.6/wk), skipped (lot below the minimum) 16
-    $100 -> $496 after 6.8 years (about +26% a year compounded), max drawdown -15%
-    balance at the end of each year: 2020: $111, 2021: $113, 2022: $123, 2023: $166, 2024: $287, 2025: $408, 2026: $496
+    trades taken 3930 (11.0/wk), skipped (lot below the minimum) 13
+    $100 -> $654 after 6.8 years (about +32% a year compounded), max drawdown -14%
+    balance at the end of each year: 2020: $123, 2021: $125, 2022: $147, 2023: $190, 2024: $357, 2025: $531, 2026: $654

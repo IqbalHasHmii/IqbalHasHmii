@@ -17,12 +17,14 @@
 //|  5  M5 New York opening range             on,  1 at a time       |
 //|  6  M5 Asian range breakout               on,  1 at a time       |
 //|  7  H1 EMA20 pullback, buys and sells     OFF, max 5 when on     |
-//|  8  M3 Heikin Ashi, buy only              on,  max 3             |
+//|  8  M3 Heikin Ashi, buy only              on,  max 5             |
 //|  9  H1 3 higher highs + perfect/strong    on,  no limit          |
 //|     bearish engulfing, sell limit at 25% of the body             |
 //|                                                                  |
 //| 7 is off by default: on the Exness 2020-21 data it lost money,   |
 //| and with it the EA's backtest drawdown was 3x bigger.            |
+//| v1.10: strategy 8 needs ATR >= 1.15x its average (was 1x) and    |
+//| may hold 5 trades (was 3), see m3_ha_improve.py.                 |
 //| all_in_one_backtest.py backtests these defaults.                 |
 //|                                                                  |
 //| EXNESS CLOCK: the server runs on UTC+0 all year. The session     |
@@ -37,7 +39,7 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026"
 #property link      "https://www.mql5.com"
-#property version   "1.00"
+#property version   "1.10"
 #property description "9 XAUUSD strategies in one EA, TP 1:3, Exness clock (UTC+0) converted automatically"
 
 #include <Trade\Trade.mqh>
@@ -103,7 +105,7 @@ input ulong  InpS7_Magic   = 902007;  // Magic number
 
 input group "8) M3 Heikin Ashi, buy only"
 input bool   InpS8_On      = true;    // On
-input int    InpS8_MaxOpen = 3;       // Max open trades of this strategy (0 = no limit)
+input int    InpS8_MaxOpen = 5;       // Max open trades of this strategy (0 = no limit)
 input ulong  InpS8_Magic   = 902008;  // Magic number
 
 input group "9) H1 higher highs + bearish engulfing, sell limit at 25% of the body"
@@ -115,7 +117,8 @@ input ulong          InpS9_Magic   = 902009;             // Magic number
 //--- fixed strategy settings (the backtested values)
 #define S8_EMA          4000   // M3 trend EMA (about the H1 EMA200)
 #define S8_ATR_PERIOD   14     // Wilder ATR period
-#define S8_ATR_AVG      9200   // "high volatility" = ATR >= its average over this many M3 candles
+#define S8_ATR_AVG      9200   // ATR average over this many M3 candles (about 20 days)
+#define S8_ATR_MIN      1.15   // "high volatility" = ATR >= 1.15 x that average
 #define S8_START_HOUR   20     // session start on the strategy clock
 #define S8_HOURS        5      // session length: 20:00-00:59
 #define S8_SL_ATR       2.0    // SL = 2 x ATR
@@ -717,8 +720,8 @@ void S7_TimeStop()
 //+------------------------------------------------------------------+
 //| Strategy 8: M3 Heikin Ashi buy. Two strong bullish HA candles    |
 //| (HA close > HA open, no lower wick), close above EMA(4000) on M3,|
-//| ATR(14) at or above its 9200-candle average, candle hour 20:00-  |
-//| 00:59 on the strategy clock. SL 2 x ATR, time stop 2300 candles. |
+//| ATR(14) at least 1.15x its 9200-candle average, candle hour      |
+//| 20:00-00:59 on the strategy clock. SL 2 x ATR, time stop 2300.   |
 //+------------------------------------------------------------------+
 bool S8_InSession(datetime serverTime)
 {
@@ -785,10 +788,11 @@ void S8_OnNewM3()
       return;
    }
    bool trendUp = r[0].close > e[0];
-   bool highVol = atrNow >= atrAvg;
+   bool highVol = atrNow >= S8_ATR_MIN * atrAvg;
    bool session = S8_InSession(r[0].time);
-   check8 = StringFormat("HA strong %s/%s, trend %s, volatility %s, session %s", s2 ? "yes" : "no", s1 ? "yes" : "no",
-                         trendUp ? "UP" : "down", highVol ? "HIGH" : "low", session ? "OPEN" : "closed");
+   check8 = StringFormat("HA strong %s/%s, trend %s, volatility %.2fx avg (%s), session %s", s2 ? "yes" : "no",
+                         s1 ? "yes" : "no", trendUp ? "UP" : "down", atrAvg > 0 ? atrNow / atrAvg : 0.0,
+                         highVol ? "HIGH" : "low", session ? "OPEN" : "closed");
    if(!(s1 && s2 && trendUp && highVol && session)) return;
    last8 = "BUY " + TimeToString(TimeCurrent(), TIME_DATE | TIME_MINUTES);
    OpenMarket(1, S8_SL_ATR * atrNow, InpS8_Magic, InpS8_MaxOpen, "S8_M3_HA_Buy");

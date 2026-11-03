@@ -10,7 +10,7 @@ Gold's SL distances in $ grew with its price and volatility, so this uses the tr
   ounces = floor(balance x risk / SL $ / step) x step   (skipped below one step)
 
 The trades come from all_in_one_backtest.py. One year is a short sample; the long-run drawdown of
-the EA defaults was 52R (our data) and 69R (Exness), i.e. 13% / 17% at 0.25% risk.
+the EA defaults was 45R (our data) and 66R (Exness), i.e. 11% / 17% at 0.25% risk.
 
     python account_size.py      # -> results/account_size.txt
 """

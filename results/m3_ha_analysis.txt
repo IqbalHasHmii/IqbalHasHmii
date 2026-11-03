@@ -1,0 +1,214 @@
+
+======== Exness M3 2020-01..2026-11: 3000 trades (every signal), 3000 tr, TP 31.8%, +0.307R/t, net   +922R ========
+  discovery 2021-11..2024-10  : 1587 tr, TP 32.3%, +0.345R/t, net   +548R
+  2020-01..2021-10 never used :  646 tr, TP 27.7%, +0.121R/t, net    +78R
+  2024-11..2026-11 P3         :  767 tr, TP 34.3%, +0.386R/t, net   +296R
+
+How the trades moved (all periods):
+  TP trades: median 3 h to the TP; 45% went -0.5R against first, 16% went -0.8R against first
+  SL trades: median 1 h to the SL; best point before the SL: 50% never reached +0.5R, 31% reached +1R, 11% reached +2R
+  time stop: 0 closed in profit, 0 in loss before the SL
+
+Conditions at the signal: median for TP trades vs SL trades (discovery period)
+                                          condition  TP trades  SL trades
+                       signal hour (strategy clock)      21.00      20.00
+                               weekday (0 = Monday)       2.00       2.00
+                           ATR / its 20-day average       1.32       1.23
+                       close above EMA4000, in ATRs      22.93      23.24
+                 EMA4000 rise over 5 hours, in ATRs       0.91       1.07
+           close above EMA20000 (~42 days), in ATRs      51.72      52.91
+                       last HA candle body, in ATRs       0.75       0.77
+                     last real candle body, in ATRs       0.22       0.21
+                   move over the last hour, in ATRs       2.76       2.34
+                move over the last 5 hours, in ATRs       5.01       5.44
+                    move over the last day, in ATRs       9.39      11.49
+position in the last 24 h range (0 = low, 1 = high)       0.82       0.78
+              distance below the 24 h high, in ATRs       4.08       4.78
+                                      RSI(14) on M3      63.58      63.21
+                                SL size, % of price       0.13       0.12
+               trades of this strategy already open       2.00       2.00
+                     R of the previous closed trade      -1.00      -1.00
+
+R per trade by fifth of each condition (edges from the discovery period):
+  signal hour (strategy clock)
+     <20.00: +0.19 / +0.19 | 20.00-21.00: +0.42 / +0.28 | 21.00-22.00: +0.56 / +0.40 | >22.00: +0.58 / +0.19   (discovery / check)
+  weekday (0 = Monday)
+     <1.00: +0.14 / +0.36 | 1.00-2.00: +0.47 / +0.24 | >2.00: +0.44 / +0.22   (discovery / check)
+  ATR / its 20-day average
+     <1.08: +0.12 / +0.19 | 1.08-1.17: +0.27 / +0.00 | 1.17-1.37: +0.35 / +0.46 | 1.37-1.75: +0.46 / +0.35 | >1.75: +0.53 / +0.27   (discovery / check)
+  close above EMA4000, in ATRs
+     <8.63: +0.55 / +0.31 | 8.63-18.03: +0.33 / -0.01 | 18.03-27.83: +0.34 / -0.10 | 27.83-40.68: +0.31 / +0.62 | >40.68: +0.20 / +0.52   (discovery / check)
+  EMA4000 rise over 5 hours, in ATRs
+     <0.36: +0.53 / +0.31 | 0.36-0.79: +0.27 / -0.23 | 0.79-1.25: +0.34 / +0.22 | 1.25-1.84: +0.37 / +0.55 | >1.84: +0.21 / +0.47   (discovery / check)
+  close above EMA20000 (~42 days), in ATRs
+     <24.08: +0.79 / +0.21 | 24.08-44.83: +0.30 / -0.07 | 44.83-60.52: -0.14 / +0.02 | 60.52-85.48: +0.03 / +0.21 | >85.48: +0.75 / +0.69   (discovery / check)
+  last HA candle body, in ATRs
+     <0.50: +0.27 / +0.52 | 0.50-0.68: +0.41 / +0.18 | 0.68-0.86: +0.31 / +0.17 | 0.86-1.13: +0.42 / +0.12 | >1.13: +0.30 / +0.32   (discovery / check)
+  last real candle body, in ATRs
+     <-0.15: +0.27 / +0.21 | -0.15-0.10: +0.33 / +0.23 | 0.10-0.35: +0.19 / +0.28 | 0.35-0.68: +0.42 / +0.25 | >0.68: +0.51 / +0.36   (discovery / check)
+  move over the last hour, in ATRs
+     <-0.13: +0.20 / +0.10 | -0.13-1.68: +0.42 / +0.50 | 1.68-3.22: +0.30 / +0.36 | 3.22-4.89: +0.36 / +0.08 | >4.89: +0.45 / +0.16   (discovery / check)
+  move over the last 5 hours, in ATRs
+     <-2.80: +0.44 / +0.23 | -2.80-3.09: +0.28 / +0.27 | 3.09-7.34: +0.59 / +0.14 | 7.34-13.49: +0.13 / +0.54 | >13.49: +0.28 / +0.05   (discovery / check)
+  move over the last day, in ATRs
+     <-1.18: +0.34 / +0.25 | -1.18-8.05: +0.53 / -0.02 | 8.05-13.93: +0.37 / +0.45 | 13.93-23.23: +0.09 / +0.33 | >23.23: +0.39 / +0.57   (discovery / check)
+  position in the last 24 h range (0 = low, 1 = high)
+     <0.44: +0.46 / +0.19 | 0.44-0.68: +0.21 / +0.10 | 0.68-0.89: +0.06 / +0.33 | 0.89-0.97: +0.57 / +0.34 | >0.97: +0.43 / +0.47   (discovery / check)
+  distance below the 24 h high, in ATRs
+     <0.67: +0.46 / +0.39 | 0.67-2.54: +0.53 / +0.33 | 2.54-6.63: +0.12 / +0.31 | 6.63-12.90: +0.09 / +0.08 | >12.90: +0.53 / +0.27   (discovery / check)
+  RSI(14) on M3
+     <54.34: +0.14 / +0.23 | 54.34-60.51: +0.41 / +0.50 | 60.51-66.24: +0.43 / +0.19 | 66.24-72.22: +0.27 / +0.23 | >72.22: +0.48 / -0.03   (discovery / check)
+  SL size, % of price
+     <0.10: +0.10 / +0.28 | 0.10-0.11: +0.29 / +0.07 | 0.11-0.14: +0.27 / +0.30 | 0.14-0.18: +0.43 / +0.20 | >0.18: +0.64 / +0.33   (discovery / check)
+  trades of this strategy already open
+     <2.00: +0.23 / +0.28 | 2.00-3.00: +0.35 / +0.27 | 3.00-5.00: +0.42 / +0.25 | >5.00: +0.64 / +0.24   (discovery / check)
+  R of the previous closed trade
+     <-1.00: +0.44 / +0.30 | -1.00--1.00: -0.09 / +0.46 | -1.00--1.00: +0.72 / -0.14 | -1.00-3.00: +0.19 / +0.28 | >3.00: +0.47 / +0.37   (discovery / check)
+
+Conditions ranked by how much R/trade changes across the fifths, and whether the check periods agree (correlation of the fifths, 1 = same pattern):
+  close above EMA20000 (~42 days), in ATRs             spread 0.93R, agreement +0.61
+  R of the previous closed trade                       spread 0.80R, agreement -0.79
+  SL size, % of price                                  spread 0.54R, agreement +0.22
+  position in the last 24 h range (0 = low, 1 = high)  spread 0.51R, agreement +0.25
+  move over the last 5 hours, in ATRs                  spread 0.47R, agreement -0.61
+  move over the last day, in ATRs                      spread 0.44R, agreement -0.37
+  distance below the 24 h high, in ATRs                spread 0.43R, agreement +0.61
+  trades of this strategy already open                 spread 0.41R, agreement -0.98
+  ATR / its 20-day average                             spread 0.40R, agreement +0.43
+  signal hour (strategy clock)                         spread 0.39R, agreement +0.43
+  close above EMA4000, in ATRs                         spread 0.35R, agreement -0.21
+  RSI(14) on M3                                        spread 0.34R, agreement -0.20
+  weekday (0 = Monday)                                 spread 0.33R, agreement -0.97
+  EMA4000 rise over 5 hours, in ATRs                   spread 0.33R, agreement +0.16
+  last real candle body, in ATRs                       spread 0.33R, agreement +0.59
+  move over the last hour, in ATRs                     spread 0.25R, agreement +0.32
+  last HA candle body, in ATRs                         spread 0.15R, agreement -0.78
+
+-------- Exness: candidate filters (every signal / max 3 open as in the EA) --------
+  no filter (current strategy)                 disc: +0.35R/t (1587) | 2020-01..2021-10: +0.12R/t (646) | 2024-11..2026-11: +0.39R/t (767)
+                                               all: 3000 tr, TP 31.8%, +0.307R/t, net   +922R | max 3 open: 1765 tr, TP 31.0%, +0.265R/t, net   +467R, DD -63R
+  skip hour 0 (00:00-00:59)                    disc: +0.34R/t (1561) | 2020-01..2021-10: +0.13R/t (640) | 2024-11..2026-11: +0.39R/t (766)
+                                               all: 2967 tr, TP 31.9%, +0.310R/t, net   +919R | max 3 open: 1740 tr, TP 31.3%, +0.276R/t, net   +480R, DD -65R
+  only 20:00-22:59                             disc: +0.33R/t (1460) | 2020-01..2021-10: +0.11R/t (538) | 2024-11..2026-11: +0.41R/t (695)
+                                               all: 2693 tr, TP 31.9%, +0.308R/t, net   +829R | max 3 open: 1637 tr, TP 31.0%, +0.257R/t, net   +421R, DD -62R
+  close at most 6 ATR above EMA4000            disc: +0.54R/t (214) | 2020-01..2021-10: +0.88R/t (87) | 2024-11..2026-11: +0.10R/t (70)
+                                               all:  371 tr, TP 38.3%, +0.535R/t, net   +198R | max 3 open:  267 tr, TP 36.3%, +0.458R/t, net   +122R, DD -18R
+  close at least 2 ATR above EMA4000           disc: +0.34R/t (1530) | 2020-01..2021-10: +0.07R/t (625) | 2024-11..2026-11: +0.39R/t (746)
+                                               all: 2901 tr, TP 31.5%, +0.295R/t, net   +855R | max 3 open: 1708 tr, TP 30.8%, +0.257R/t, net   +439R, DD -66R
+  ATR at most 1.6x its average                 disc: +0.30R/t (1185) | 2020-01..2021-10: +0.03R/t (447) | 2024-11..2026-11: +0.35R/t (552)
+                                               all: 2184 tr, TP 30.6%, +0.260R/t, net   +567R | max 3 open: 1453 tr, TP 29.9%, +0.213R/t, net   +310R, DD -91R
+  last hour move up at most 4 ATR              disc: +0.32R/t (1111) | 2020-01..2021-10: +0.19R/t (515) | 2024-11..2026-11: +0.40R/t (597)
+                                               all: 2223 tr, TP 32.1%, +0.312R/t, net   +694R | max 3 open: 1487 tr, TP 31.7%, +0.298R/t, net   +443R, DD -54R
+  at least 1 ATR below the 24 h high           disc: +0.30R/t (1189) | 2020-01..2021-10: +0.15R/t (552) | 2024-11..2026-11: +0.33R/t (626)
+                                               all: 2367 tr, TP 31.0%, +0.270R/t, net   +640R | max 3 open: 1504 tr, TP 31.6%, +0.294R/t, net   +443R, DD -58R
+  above EMA20000 (~42 days)                    disc: +0.33R/t (1462) | 2020-01..2021-10: +0.06R/t (565) | 2024-11..2026-11: +0.42R/t (726)
+                                               all: 2753 tr, TP 31.5%, +0.295R/t, net   +812R | max 3 open: 1590 tr, TP 31.1%, +0.270R/t, net   +429R, DD -67R
+  no other trade of the strategy open          disc: +0.16R/t (352) | 2020-01..2021-10: +0.31R/t (155) | 2024-11..2026-11: +0.15R/t (194)
+                                               all:  701 tr, TP 29.2%, +0.191R/t, net   +134R | max 3 open:  701 tr, TP 29.2%, +0.191R/t, net   +134R, DD -38R
+
+======== Our data, M1 -> M3, 2021-11..2026-10: 2330 trades (every signal), 2330 tr, TP 32.2%, +0.320R/t, net   +746R ========
+  discovery 2021-11..2024-10  : 1551 tr, TP 32.1%, +0.326R/t, net   +506R
+  2020-01..2021-10 never used : no trades
+  2024-11..2026-11 P3         :  779 tr, TP 32.5%, +0.309R/t, net   +241R
+
+How the trades moved (all periods):
+  TP trades: median 3 h to the TP; 44% went -0.5R against first, 16% went -0.8R against first
+  SL trades: median 1 h to the SL; best point before the SL: 50% never reached +0.5R, 31% reached +1R, 11% reached +2R
+  time stop: 0 closed in profit, 0 in loss before the SL
+
+Conditions at the signal: median for TP trades vs SL trades (discovery period)
+                                          condition  TP trades  SL trades
+                       signal hour (strategy clock)      21.00      21.00
+                               weekday (0 = Monday)       2.00       2.00
+                           ATR / its 20-day average       1.33       1.23
+                       close above EMA4000, in ATRs      24.15      23.33
+                 EMA4000 rise over 5 hours, in ATRs       1.01       1.08
+           close above EMA20000 (~42 days), in ATRs      53.85      54.17
+                       last HA candle body, in ATRs       0.77       0.76
+                     last real candle body, in ATRs       0.19       0.22
+                   move over the last hour, in ATRs       2.78       2.52
+                move over the last 5 hours, in ATRs       5.00       5.20
+                    move over the last day, in ATRs       9.70      11.20
+position in the last 24 h range (0 = low, 1 = high)       0.83       0.78
+              distance below the 24 h high, in ATRs       3.82       4.78
+                                      RSI(14) on M3      63.35      63.48
+                                SL size, % of price       0.13       0.12
+               trades of this strategy already open       3.00       2.00
+                     R of the previous closed trade      -1.00      -1.00
+
+R per trade by fifth of each condition (edges from the discovery period):
+  signal hour (strategy clock)
+     <21.00: +0.28 / +0.30 | 21.00-22.00: +0.43 / +0.47 | >22.00: +0.50 / -0.06   (discovery / check)
+  weekday (0 = Monday)
+     <1.00: +0.13 / +0.70 | 1.00-2.00: +0.42 / +0.24 | 2.00-3.00: +0.35 / +0.15 | >3.00: +0.53 / +0.06   (discovery / check)
+  ATR / its 20-day average
+     <1.08: +0.13 / +0.27 | 1.08-1.18: +0.19 / +0.11 | 1.18-1.38: +0.39 / +0.74 | 1.38-1.74: +0.31 / +0.13 | >1.74: +0.60 / +0.25   (discovery / check)
+  close above EMA4000, in ATRs
+     <8.61: +0.55 / -0.03 | 8.61-17.99: +0.23 / +0.17 | 17.99-28.28: +0.23 / -0.08 | 28.28-41.41: +0.28 / +0.57 | >41.41: +0.34 / +0.72   (discovery / check)
+  EMA4000 rise over 5 hours, in ATRs
+     <0.36: +0.53 / +0.22 | 0.36-0.79: +0.18 / -0.30 | 0.79-1.28: +0.28 / +0.30 | 1.28-1.86: +0.31 / +0.50 | >1.86: +0.35 / +0.53   (discovery / check)
+  close above EMA20000 (~42 days), in ATRs
+     <25.50: +0.78 / +0.06 | 25.50-46.25: +0.14 / -0.21 | 46.25-62.65: -0.13 / +0.37 | 62.65-87.40: +0.12 / +0.13 | >87.40: +0.71 / +0.74   (discovery / check)
+  last HA candle body, in ATRs
+     <0.50: +0.33 / +0.25 | 0.50-0.67: +0.33 / +0.19 | 0.67-0.86: +0.33 / +0.21 | 0.86-1.13: +0.40 / +0.26 | >1.13: +0.25 / +0.62   (discovery / check)
+  last real candle body, in ATRs
+     <-0.17: +0.31 / +0.25 | -0.17-0.09: +0.45 / +0.23 | 0.09-0.34: +0.12 / +0.20 | 0.34-0.69: +0.40 / +0.16 | >0.69: +0.35 / +0.71   (discovery / check)
+  move over the last hour, in ATRs
+     <-0.03: +0.28 / -0.01 | -0.03-1.75: +0.27 / +0.62 | 1.75-3.31: +0.34 / +0.40 | 3.31-5.00: +0.29 / +0.09 | >5.00: +0.45 / +0.38   (discovery / check)
+  move over the last 5 hours, in ATRs
+     <-2.96: +0.43 / +0.20 | -2.96-3.01: +0.22 / +0.23 | 3.01-7.21: +0.56 / +0.45 | 7.21-13.24: -0.00 / +0.58 | >13.24: +0.41 / -0.04   (discovery / check)
+  move over the last day, in ATRs
+     <-1.26: +0.39 / -0.01 | -1.26-7.79: +0.47 / -0.09 | 7.79-14.10: +0.22 / +0.81 | 14.10-23.37: +0.16 / +0.32 | >23.37: +0.40 / +0.77   (discovery / check)
+  position in the last 24 h range (0 = low, 1 = high)
+     <0.43: +0.35 / +0.05 | 0.43-0.69: +0.35 / -0.02 | 0.69-0.89: -0.05 / +0.39 | 0.89-0.97: +0.54 / +0.65 | >0.97: +0.44 / +0.67   (discovery / check)
+  distance below the 24 h high, in ATRs
+     <0.65: +0.45 / +0.66 | 0.65-2.53: +0.49 / +0.41 | 2.53-6.78: +0.04 / +0.50 | 6.78-12.68: +0.16 / -0.02 | >12.68: +0.49 / +0.05   (discovery / check)
+  RSI(14) on M3
+     <54.53: +0.23 / +0.17 | 54.53-60.49: +0.35 / +0.53 | 60.49-66.22: +0.48 / +0.17 | 66.22-72.25: +0.09 / +0.26 | >72.25: +0.48 / +0.40   (discovery / check)
+  SL size, % of price
+     <0.10: +0.10 / -0.88 | 0.10-0.12: +0.33 / +0.14 | 0.12-0.13: +0.24 / +0.33 | 0.13-0.18: +0.39 / +0.22 | >0.18: +0.58 / +0.50   (discovery / check)
+  trades of this strategy already open
+     <1.00: +0.18 / +0.22 | 1.00-3.00: +0.31 / +0.36 | 3.00-5.00: +0.43 / +0.32 | >5.00: +0.57 / +0.46   (discovery / check)
+  R of the previous closed trade
+     <-1.00: +0.22 / +0.17 | -1.00--1.00: +0.35 / +0.78 | -1.00--1.00: +0.58 / -0.32 | -1.00-3.00: +0.09 / +0.32 | >3.00: +0.39 / +0.60   (discovery / check)
+
+Conditions ranked by how much R/trade changes across the fifths, and whether the check periods agree (correlation of the fifths, 1 = same pattern):
+  close above EMA20000 (~42 days), in ATRs             spread 0.91R, agreement +0.27
+  position in the last 24 h range (0 = low, 1 = high)  spread 0.59R, agreement +0.24
+  move over the last 5 hours, in ATRs                  spread 0.56R, agreement -0.44
+  R of the previous closed trade                       spread 0.49R, agreement -0.38
+  SL size, % of price                                  spread 0.48R, agreement +0.79
+  ATR / its 20-day average                             spread 0.47R, agreement +0.26
+  distance below the 24 h high, in ATRs                spread 0.46R, agreement +0.06
+  weekday (0 = Monday)                                 spread 0.40R, agreement -0.94
+  RSI(14) on M3                                        spread 0.39R, agreement +0.20
+  trades of this strategy already open                 spread 0.39R, agreement +0.88
+  EMA4000 rise over 5 hours, in ATRs                   spread 0.35R, agreement +0.44
+  last real candle body, in ATRs                       spread 0.33R, agreement +0.13
+  close above EMA4000, in ATRs                         spread 0.32R, agreement -0.16
+  move over the last day, in ATRs                      spread 0.31R, agreement -0.44
+  signal hour (strategy clock)                         spread 0.22R, agreement -0.49
+  move over the last hour, in ATRs                     spread 0.18R, agreement +0.20
+  last HA candle body, in ATRs                         spread 0.15R, agreement -0.75
+
+-------- Our data: candidate filters (every signal / max 3 open as in the EA) --------
+  no filter (current strategy)                 disc: +0.33R/t (1551) | 2024-11..2026-11: +0.31R/t (779)
+                                               all: 2330 tr, TP 32.2%, +0.320R/t, net   +746R | max 3 open: 1375 tr, TP 30.8%, +0.247R/t, net   +339R, DD -65R
+  skip hour 0 (00:00-00:59)                    disc: +0.33R/t (1551) | 2024-11..2026-11: +0.31R/t (779)
+                                               all: 2330 tr, TP 32.2%, +0.320R/t, net   +746R | max 3 open: 1375 tr, TP 30.8%, +0.247R/t, net   +339R, DD -65R
+  only 20:00-22:59                             disc: +0.31R/t (1445) | 2024-11..2026-11: +0.35R/t (709)
+                                               all: 2154 tr, TP 32.2%, +0.324R/t, net   +697R | max 3 open: 1301 tr, TP 30.7%, +0.245R/t, net   +318R, DD -51R
+  close at most 6 ATR above EMA4000            disc: +0.53R/t (214) | 2024-11..2026-11: +0.09R/t (70)
+                                               all:  284 tr, TP 35.6%, +0.424R/t, net   +120R | max 3 open:  199 tr, TP 33.2%, +0.329R/t, net    +65R, DD -18R
+  close at least 2 ATR above EMA4000           disc: +0.32R/t (1494) | 2024-11..2026-11: +0.31R/t (760)
+                                               all: 2254 tr, TP 32.1%, +0.317R/t, net   +714R | max 3 open: 1326 tr, TP 30.8%, +0.247R/t, net   +328R, DD -67R
+  ATR at most 1.6x its average                 disc: +0.28R/t (1149) | 2024-11..2026-11: +0.28R/t (557)
+                                               all: 1706 tr, TP 31.1%, +0.278R/t, net   +474R | max 3 open: 1140 tr, TP 29.7%, +0.199R/t, net   +227R, DD -77R
+  last hour move up at most 4 ATR              disc: +0.30R/t (1068) | 2024-11..2026-11: +0.31R/t (601)
+                                               all: 1669 tr, TP 32.1%, +0.305R/t, net   +508R | max 3 open: 1135 tr, TP 31.5%, +0.275R/t, net   +313R, DD -32R
+  at least 1 ATR below the 24 h high           disc: +0.26R/t (1154) | 2024-11..2026-11: +0.24R/t (643)
+                                               all: 1797 tr, TP 30.7%, +0.254R/t, net   +457R | max 3 open: 1157 tr, TP 31.0%, +0.259R/t, net   +300R, DD -67R
+  above EMA20000 (~42 days)                    disc: +0.31R/t (1436) | 2024-11..2026-11: +0.34R/t (735)
+                                               all: 2171 tr, TP 32.2%, +0.319R/t, net   +692R | max 3 open: 1258 tr, TP 30.8%, +0.250R/t, net   +315R, DD -65R
+  no other trade of the strategy open          disc: +0.15R/t (349) | 2024-11..2026-11: +0.18R/t (193)
+                                               all:  542 tr, TP 28.8%, +0.160R/t, net    +87R | max 3 open:  542 tr, TP 28.8%, +0.160R/t, net    +87R, DD -34R

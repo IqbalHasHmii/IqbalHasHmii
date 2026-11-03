@@ -8,31 +8,31 @@
  5  M5 NY opening range     852       3.3  28.4    0.137  116.9      23.4     -27.7              26.1                          10400
  6    M5 Asian breakout     389       1.5  31.1    0.251   97.5      19.5     -21.0              54.2                          21700
  7    H1 EMA20 pullback    2540       9.7  29.1    0.200  508.5     101.8     -54.6              35.7                          14300
- 8   M3 Heikin Ashi buy    1375       5.3  30.8    0.247  339.3      67.9     -65.2               9.1                           3600
+ 8   M3 Heikin Ashi buy    1204       4.6  34.2    0.384  462.6      92.6     -50.0              10.8                           4300
  9 H1 HH engulfing sell     221       0.8  32.1    0.297   65.5      13.1     -15.0              14.7                           5900
 (SL $ = median SL distance of the last 12 months' trades. 0.01 lot of gold = 1 oz, so a $1 move is $1:
  below that balance the EA's lot size at 0.25% risk rounds under 0.01 and the trade is skipped.)
 
-EA DEFAULTS (7 off)   : 5154 trades (19.8/wk), TP 29.4%, +0.185R/trade, net +955.6R (+191.3R a year), max drawdown -52.2R (2025-04-22 -> 2025-08-26), longest losing run 32, most open at once 9
-7 ON, max 5 open      : 7694 trades (29.5/wk), TP 29.3%, +0.190R/trade, net +1464.2R (+293.0R a year), max drawdown -85.4R (2025-04-22 -> 2025-08-26), longest losing run 47, most open at once 14
-7 ON, max 1 open      : 5849 trades (22.4/wk), TP 29.3%, +0.183R/trade, net +1067.9R (+213.7R a year), max drawdown -64.3R (2025-04-22 -> 2025-08-26), longest losing run 34, most open at once 10
-by period (EA defaults): 2021-11..2023-10: 1945 tr +0.134R/t +261R | 2023-11..2024-10: 1208 tr +0.280R/t +338R | 2024-11..2026-11: 2001 tr +0.179R/t +357R
-by period (7 on, max 5): 2021-11..2023-10: 2948 tr +0.151R/t +444R | 2023-11..2024-10: 1726 tr +0.249R/t +430R | 2024-11..2026-11: 3020 tr +0.195R/t +590R
+EA DEFAULTS (7 off)   : 4983 trades (19.1/wk), TP 30.2%, +0.217R/trade, net +1078.9R (+215.9R a year), max drawdown -44.7R (2025-07-03 -> 2025-08-26), longest losing run 31, most open at once 11
+7 ON, max 5 open      : 7523 trades (28.9/wk), TP 29.8%, +0.211R/trade, net +1587.5R (+317.7R a year), max drawdown -82.6R (2026-06-24 -> 2026-09-23), longest losing run 46, most open at once 15
+7 ON, max 1 open      : 5678 trades (21.8/wk), TP 29.9%, +0.210R/trade, net +1191.2R (+238.4R a year), max drawdown -53.3R (2025-04-21 -> 2025-08-26), longest losing run 33, most open at once 12
+by period (EA defaults): 2021-11..2023-10: 1870 tr +0.154R/t +287R | 2023-11..2024-10: 1180 tr +0.336R/t +396R | 2024-11..2026-11: 1933 tr +0.205R/t +395R
+by period (7 on, max 5): 2021-11..2023-10: 2873 tr +0.164R/t +471R | 2023-11..2024-10: 1698 tr +0.288R/t +488R | 2024-11..2026-11: 2952 tr +0.213R/t +628R
 
 net R by year (exit year):
       S1  S2  S3  S4  S5  S6   S7   S8  S9  EA default  7 on
 year                                                        
-2021   2  -4  -2  -5   5  11    4   -1   1           7    11
-2022  -7  23   6  -2  41  20  109   -4   7          83   192
-2023  24  19  36  47  24  19  140   51  20         239   379
-2024  23  24   7   3   3  25   25  166  28         278   303
-2025   1  13   9  35  38  15  148   72   4         187   335
-2026  15  -6  46  31   7   8   83   54   6         161   244
+2021   2  -4  -2  -5   5  11    4    0   1           8    12
+2022  -7  23   6  -2  41  20  109   40   7         127   236
+2023  24  19  36  47  24  19  140   55  20         243   383
+2024  23  24   7   3   3  25   25  204  28         316   341
+2025   1  13   9  35  38  15  148  100   4         215   363
+2026  15  -6  46  31   7   8   83   63   6         170   253
 
-EA defaults: 60 months, losing months 18 (30%), worst month -32.0R (2022-01), best month +106.9R (2024-04)
-EA defaults at 0.10% risk per trade: about +19% a year, max drawdown about -5% (no compounding)
-EA defaults at 0.25% risk per trade: about +48% a year, max drawdown about -13% (no compounding)
-EA defaults at 0.50% risk per trade: about +96% a year, max drawdown about -26% (no compounding)
+EA defaults: 60 months, losing months 15 (25%), worst month -28.8R (2025-07), best month +105.0R (2025-10)
+EA defaults at 0.10% risk per trade: about +22% a year, max drawdown about -4% (no compounding)
+EA defaults at 0.25% risk per trade: about +54% a year, max drawdown about -11% (no compounding)
+EA defaults at 0.50% risk per trade: about +108% a year, max drawdown about -22% (no compounding)
 
 ===== Exness M3 data, strategies 1-3 and 7-9 (no M5 candles): 2020-01-02 -> 2026-11-03 (6.8 years) =====
  #             strategy  trades  per week  TP %  R/trade  net R  R a year  max DD R  SL $ (last year)  balance for 0.01 lot at 0.25%
@@ -40,29 +40,29 @@ EA defaults at 0.50% risk per trade: about +96% a year, max drawdown about -26% 
  2   M15 prev-day sweep     749       2.1  27.2    0.089   66.6       9.7     -27.0              15.6                           6200
  3  H1 EMA200 engulfing     908       2.5  26.5    0.062   55.9       8.2     -34.3              10.0                           4000
  7    H1 EMA20 pullback    3492       9.8  27.0    0.124  433.2      63.4    -177.7              36.2                          14500
- 8   M3 Heikin Ashi buy    1765       4.9  31.0    0.265  466.9      68.3     -62.8               9.2                           3700
+ 8   M3 Heikin Ashi buy    1555       4.4  33.8    0.376  584.9      85.6     -60.8              10.9                           4400
  9 H1 HH engulfing sell     218       0.6  32.1    0.295   64.4       9.4     -12.0              14.6                           5900
 (SL $ = median SL distance of the last 12 months' trades. 0.01 lot of gold = 1 oz, so a $1 move is $1:
  below that balance the EA's lot size at 0.25% risk rounds under 0.01 and the trade is skipped.)
 
-EA DEFAULTS (7 off)   : 4153 trades (11.6/wk), TP 29.0%, +0.172R/trade, net +713.5R (+104.4R a year), max drawdown -69.0R (2021-07-29 -> 2022-02-01), longest losing run 25, most open at once 7
-7 ON, max 5 open      : 7645 trades (21.4/wk), TP 28.1%, +0.150R/trade, net +1146.6R (+167.7R a year), max drawdown -205.2R (2020-08-07 -> 2022-02-02), longest losing run 45, most open at once 11
-7 ON, max 1 open      : 5111 trades (14.3/wk), TP 28.4%, +0.155R/trade, net +789.8R (+115.5R a year), max drawdown -88.0R (2023-03-23 -> 2023-08-07), longest losing run 27, most open at once 8
-by period (EA defaults): 2020-01..2021-10: 999 tr +0.058R/t +57R | 2021-11..2023-10: 1205 tr +0.079R/t +95R | 2023-11..2024-10: 763 tr +0.390R/t +297R | 2024-11..2026-11: 1186 tr +0.222R/t +263R
-by period (7 on, max 5): 2020-01..2021-10: 1898 tr -0.006R/t -11R | 2021-11..2023-10: 2270 tr +0.116R/t +264R | 2023-11..2024-10: 1280 tr +0.302R/t +387R | 2024-11..2026-11: 2197 tr +0.231R/t +507R
+EA DEFAULTS (7 off)   : 3943 trades (11.1/wk), TP 30.0%, +0.211R/trade, net +831.5R (+121.6R a year), max drawdown -66.0R (2021-07-29 -> 2022-02-01), longest losing run 32, most open at once 9
+7 ON, max 5 open      : 7435 trades (20.8/wk), TP 28.6%, +0.170R/trade, net +1264.7R (+185.0R a year), max drawdown -196.0R (2020-08-07 -> 2022-02-02), longest losing run 43, most open at once 13
+7 ON, max 1 open      : 4901 trades (13.7/wk), TP 29.2%, +0.185R/trade, net +907.8R (+132.8R a year), max drawdown -78.6R (2021-07-29 -> 2022-02-01), longest losing run 35, most open at once 10
+by period (EA defaults): 2020-01..2021-10: 960 tr +0.091R/t +88R | 2021-11..2023-10: 1133 tr +0.109R/t +123R | 2023-11..2024-10: 722 tr +0.461R/t +333R | 2024-11..2026-11: 1128 tr +0.255R/t +288R
+by period (7 on, max 5): 2020-01..2021-10: 1859 tr +0.010R/t +19R | 2021-11..2023-10: 2198 tr +0.133R/t +292R | 2023-11..2024-10: 1239 tr +0.341R/t +423R | 2024-11..2026-11: 2139 tr +0.248R/t +531R
 
 net R by year (exit year):
       S1  S2  S3   S7   S8  S9  EA default  7 on
 year                                            
-2020   1  14 -10  -41   39   9          53    12
-2021   0 -12  -1  -43   27  -2          12   -31
-2022   9  15  23  110  -15   6          38   148
-2023  17  13  10  142   85   6         130   272
-2024  16  35 -17   18  174  25         233   251
-2025   4  14  34  169   88  13         153   322
-2026  13 -13  17   77   69   7          94   171
+2020   1  14 -10  -41   81   9          95    54
+2021   0 -12  -1  -43   23  -2           8   -35
+2022   9  15  23  110   20   6          73   183
+2023  17  13  10  142   71   6         117   259
+2024  16  35 -17   18  209  25         269   287
+2025   4  14  34  169  107  13         171   340
+2026  13 -13  17   77   74   7          99   176
 
 EA defaults: 83 months, losing months 29 (35%), worst month -36.2R (2022-01), best month +110.8R (2024-04)
-EA defaults at 0.10% risk per trade: about +10% a year, max drawdown about -7% (no compounding)
-EA defaults at 0.25% risk per trade: about +26% a year, max drawdown about -17% (no compounding)
-EA defaults at 0.50% risk per trade: about +52% a year, max drawdown about -35% (no compounding)
+EA defaults at 0.10% risk per trade: about +12% a year, max drawdown about -7% (no compounding)
+EA defaults at 0.25% risk per trade: about +30% a year, max drawdown about -17% (no compounding)
+EA defaults at 0.50% risk per trade: about +61% a year, max drawdown about -33% (no compounding)

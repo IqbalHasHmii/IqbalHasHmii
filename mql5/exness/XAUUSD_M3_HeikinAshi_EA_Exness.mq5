@@ -9,12 +9,17 @@
 //|  BUY when the M3 candle that just closed and the one before are  |
 //|  both strong bullish Heikin Ashi candles (HA close > HA open and  |
 //|  no lower wick), the close is above EMA(4000) on M3 (about the    |
-//|  H1 EMA200), ATR(14) is at or above its average of the last 9200  |
-//|  candles (about 20 days), and the candle's hour is 20:00-00:59   |
-//|  on the strategy clock (UTC+2 winter / UTC+3 summer).            |
+//|  H1 EMA200), ATR(14) is at least 1.15x its average of the last   |
+//|  9200 candles (about 20 days), and the candle's hour is 20:00-   |
+//|  00:59 on the strategy clock (UTC+2 winter / UTC+3 summer).      |
 //|  Market buy right after that candle closes. SL = 2 x ATR(14),    |
 //|  TP = 3 x SL. Time stop after 2300 M3 candles (~5 days).          |
-//|  Up to InpMaxOpenTrades trades at once (default 3).              |
+//|  Up to InpMaxOpenTrades trades at once (default 5).              |
+//|                                                                  |
+//| v1.10: ATR filter 1.15x (was 1x) and max 5 open (was 3). In the  |
+//| backtest (m3_ha_improve.py): about 10% fewer trades a week, more |
+//| profit per trade and in total in every period of both data sets, |
+//| including the never-used Exness 2020-21 data.                    |
 //|                                                                  |
 //| EXNESS: the server runs on UTC+0 all year. The EA converts its   |
 //| time to the strategy clock itself (UTC+2 in winter, UTC+3 during  |
@@ -25,7 +30,7 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026"
 #property link      "https://www.mql5.com"
-#property version   "1.00"
+#property version   "1.10"
 #property description "M3 Heikin Ashi buy strategy, 1:3, Exness clock"
 
 #include <Trade\Trade.mqh>
@@ -35,13 +40,14 @@ input group "Risk"
 input double InpRiskPercent   = 0.25;   // Risk per trade, % of equity (0 = fixed lots)
 input double InpFixedLots     = 0.01;   // Fixed lots, used when risk % is 0
 input double InpRiskReward    = 3.0;    // TP = RR x SL distance
-input int    InpMaxOpenTrades = 3;      // Max trades open at once (0 = no limit)
+input int    InpMaxOpenTrades = 5;      // Max trades open at once (0 = no limit)
 
 input group "Strategy"
 input double InpSLATR         = 2.0;    // SL = this x ATR(14)
 input int    InpTrendEma      = 4000;   // Trend EMA on M3 (4000 = about the H1 EMA200)
 input int    InpAtrPeriod     = 14;     // ATR period (Wilder)
-input int    InpAtrAvgBars    = 9200;   // "High volatility" = ATR >= its average over this many M3 candles
+input int    InpAtrAvgBars    = 9200;   // ATR average over this many M3 candles (about 20 days)
+input double InpAtrMinRatio   = 1.15;   // "High volatility" = ATR >= this x its average (1.0 = v1.00 rule)
 input int    InpStartHour     = 20;     // Session start hour on the strategy clock (UTC+2 / UTC+3)
 input int    InpSessionHours  = 5;      // Session length in hours (20 + 5 -> 20:00-00:59)
 input int    InpMaxHoldBars   = 2300;   // Time stop in M3 candles (0 = off)
@@ -86,7 +92,7 @@ datetime ToRef(datetime server)                     // server time -> strategy c
 //+------------------------------------------------------------------+
 int OnInit()
 {
-   if(InpRiskReward <= 0 || InpSLATR <= 0 || InpAtrPeriod < 1 || InpAtrAvgBars < InpAtrPeriod ||
+   if(InpRiskReward <= 0 || InpSLATR <= 0 || InpAtrPeriod < 1 || InpAtrAvgBars < InpAtrPeriod || InpAtrMinRatio <= 0 ||
       InpSessionHours < 1 || InpSessionHours > 24 || (InpRiskPercent <= 0 && InpFixedLots <= 0))
       return(INIT_PARAMETERS_INCORRECT);
    hEma = iMA(_Symbol, PERIOD_M3, InpTrendEma, 0, MODE_EMA, PRICE_CLOSE);
@@ -239,11 +245,11 @@ void CheckSignal()
       return;
    }
    bool trendUp  = r[0].close > e[0];
-   bool highVol  = atrNow >= atrAvg;
+   bool highVol  = atrNow >= InpAtrMinRatio * atrAvg;
    bool session  = InSession(r[0].time);
-   lastCheck = StringFormat("HA strong %s/%s | trend %s | volatility %s | session %s",
+   lastCheck = StringFormat("HA strong %s/%s | trend %s | volatility %.2fx avg (%s) | session %s",
                             s2 ? "yes" : "no", s1 ? "yes" : "no", trendUp ? "UP" : "down",
-                            highVol ? "HIGH" : "low", session ? "OPEN" : "closed");
+                            atrAvg > 0 ? atrNow / atrAvg : 0.0, highVol ? "HIGH" : "low", session ? "OPEN" : "closed");
    if(!(s1 && s2 && trendUp && highVol && session)) return;
    lastSignal = "BUY at " + TimeToString(TimeCurrent(), TIME_DATE | TIME_MINUTES);
    OpenBuy(InpSLATR * atrNow);

@@ -621,14 +621,14 @@ So the strategies never touch each other's trades.
 | 5 | M5 NY opening range | on, 1 at a time |
 | 6 | M5 Asian breakout | on, 1 at a time |
 | 7 | H1 EMA20 pullback, buys and sells | **off** (max 5 when on) |
-| 8 | M3 Heikin Ashi, buy only | on, up to 3 open |
+| 8 | M3 Heikin Ashi, buy only (v1.10 rules: ATR at least 1.15x its average) | on, up to 5 open |
 | 9 | H1 3 higher highs + perfect/strong bearish engulfing, sell limit at 25% of the body | on, no limit |
 
 - **Clock:** for Exness, keep `InpClock = Fixed UTC offset` and `InpServerUTC = 0`. The session hours stay on the backtest clock (UTC+2/+3), and the EA converts them itself, summer and winter included. For FTMO, choose "Same as the backtest data".
 - **Risk:** 0.25% of equity per trade by default. When that lot rounds below the broker's minimum lot, the trade is skipped. `InpMinLotMaxRisk` lets the EA take the minimum lot instead, as long as that lot risks at most the given % of equity. The chart shows how many trades were skipped.
 - **History:** strategy 8 needs about 13,500 M3 candles. Set Tools > Options > Charts > Max bars in chart to 50000 or more.
 - **Strategy 9:** the engulfing type is an input: perfect or strong (default), perfect only, or any body engulfing.
-- **Strategy 7 is off:** on the Exness 2020-21 data it lost money. With it on, the combined Exness drawdown grows from -69R to -205R.
+- **Strategy 7 is off:** on the Exness 2020-21 data it lost money. With it on, the combined Exness drawdown grows from -66R to -196R.
 
 ### Backtest of the EA defaults (`all_in_one_backtest.py`)
 
@@ -640,24 +640,23 @@ Each strategy's trades are rebuilt with the EA's rules and limits, then added up
 
 | Data | Strategies | Trades / week | TP % | R / trade | Net per year | Max drawdown | Losing years |
 |---|---|---|---|---|---|---|---|
-| Ours 2021-11..2026-10 | 1-6, 8, 9 | 19.8 | 29.4% | +0.19 | +191R | -52R (Apr-Aug 2025) | none |
-| Exness 2020-01..2026-11 | 1-3, 8, 9 (the export has no M5 candles) | 11.6 | 29.0% | +0.17 | +104R | -69R (Jul 2021-Feb 2022) | none |
+| Ours 2021-11..2026-10 | 1-6, 8, 9 | 19.1 | 30.2% | +0.22 | +216R | -45R (Jul-Aug 2025) | none |
+| Exness 2020-01..2026-11 | 1-3, 8, 9 (the export has no M5 candles) | 11.1 | 30.0% | +0.21 | +122R | -66R (Jul 2021-Feb 2022) | none |
 
-- **At 0.25% risk per trade:** about +48% a year with a -13% max drawdown on our data, and about +26% a year with -17% on Exness.
-- **Exness 2020-01..2021-10:** +0.06R/trade, +57R. None of the strategies was picked on this data.
+- **At 0.25% risk per trade:** about +54% a year with a -11% max drawdown on our data, and about +30% a year with -17% on Exness.
+- **Exness 2020-01..2021-10:** +0.09R/trade, +88R. None of the strategies was picked on this data.
 - **With strategy 7 on (max 5 open):**
 
 | Data | Net per year | Max drawdown | Note |
 |---|---|---|---|
-| Ours | +293R | -85R | |
-| Exness | +168R | -205R | 2021 loses |
+| Ours | +318R | -83R | |
+| Exness | +185R | -196R | 2021 loses |
 
-- **Minimum balance:** below it, a 0.01 lot risks more than 0.25%. It comes from the median SL of the last 12 months: $9 for strategy 8, $10 for 3, $11 for 4, $15 for 2 and 9, $26 for 5, and $53-54 for the Asian breakouts 1 and 6.
+- **Minimum balance:** below it, a 0.01 lot risks more than 0.25%. It comes from the median SL of the last 12 months: $10 for strategy 3, $11 for 4 and 8, $15 for 2 and 9, $26 for 5, and $53-54 for the Asian breakouts 1 and 6.
 
 | Strategies | Balance for 0.01 lot at 0.25% risk |
 |---|---|
-| 8 | about $3,600 |
-| 3, 4 | about $4,000-4,300 |
+| 3, 4, 8 | about $4,000-4,400 |
 | 2, 9 | about $6,000 |
 | 5 | about $10,400 |
 | 1, 6 | about $21,500 |
@@ -668,16 +667,16 @@ Each strategy's trades are rebuilt with the EA's rules and limits, then added up
 python small_account.py   # -> results/small_account.txt
 ```
 
-This runs the EA-default trades (strategy 7 off) on a $100 start. A 0.01 lot of gold is 1 oz, so at 0.02 lot 10 pips = $2. At today's gold price, one SL at 0.02 lot costs $18 (strategy 8) to $108 (strategies 1 and 6).
+This runs the EA-default trades (strategy 7 off) on a $100 start. A 0.01 lot of gold is 1 oz, so at 0.02 lot 10 pips = $2. At today's gold price, one SL at 0.02 lot costs $20 (strategy 3) to $108 (strategies 1 and 6).
 
 | Setting | Our data 2021-26 | Exness 2020-26 |
 |---|---|---|
-| Normal account, fixed 0.02 lot | wiped out from 71% of the start months, a median 6 days after the start | 70%, median 12 days |
-| Normal account, fixed 0.01 lot | 50%, median 12 days | 59%, median 52 days |
+| Normal account, fixed 0.02 lot | wiped out from 71% of the start months, a median 6 days after the start | 66%, median 12 days |
+| Normal account, fixed 0.01 lot | 48%, median 12 days | 56%, median 41 days |
 | Normal account, 0.25% risk (EA default) | no trades: the lot rounds below 0.01 | no trades |
-| Cent account ($100 = 10,000 USC), 0.25% risk | $100 -> $813 in 5 years, max drawdown -11% | $100 -> $496 in 6.8 years, max drawdown -15% |
+| Cent account ($100 = 10,000 USC), 0.25% risk | $100 -> $1,139 in 5 years, max drawdown -11% | $100 -> $654 in 6.8 years, max drawdown -14% |
 
-- **Fixed 0.02 lot:** surviving the biggest drop of the backtest needs more than $2,783 (our data) or $1,828 (Exness).
+- **Fixed 0.02 lot:** surviving the biggest drop of the backtest needs more than $2,601 (our data) or $1,926 (Exness).
 - **Cent account:** one cent lot is 1/100 of a standard lot, so the EA can size the trades at 0.25%.
 - **Starting today on a cent account:** with $100 at the current gold price, strategies 1, 5 and 6 are mostly skipped until the balance reaches about $220.
 
@@ -692,12 +691,63 @@ This applies the EA's lot rule (0.25% risk per trade, the EA default) to the tra
 | Balance (normal account) | Trades taken | Profit in 12 months | Max drawdown |
 |---|---|---|---|
 | $1,000-2,000 | 0-1% | - | - |
-| $3,000 | 9% | -2% / -1% | -5% / -3% |
-| $5,000 | 54% / 70% | +8% / +8% | -7% / -9% |
-| $10,000 | 78% / 90% | +27% / +13% | -8% / -10% |
-| $25,000 | 96% / 98% | +27% / +15% | -12% / -11% |
-| $50,000 | 100% | +33% / +18% | -11% |
+| $3,000 | 4% / 3% | +0% / -0% | -2% / -1% |
+| $5,000 | 51% / 66% | +11% / +9% | -7% / -10% |
+| $10,000 | 77% / 89% | +29% / +13% | -8% / -12% |
+| $25,000 | 96% / 98% | +29% / +15% | -12% / -14% |
+| $50,000 | 100% | +36% / +18% | -11% / -14% |
 
 - **Cent account:** it sizes like a normal account 100 times bigger, so $100 on a cent account takes the same trades as $10,000 on a normal one.
 - **Exness:** the Exness values lack the M5 strategies.
-- **Longer run:** the drawdown at full size was -13% (our data) and -17% (Exness).
+- **Longer run:** the drawdown at full size was -11% (our data) and -17% (Exness).
+
+## M3 Heikin Ashi: TP trades vs SL trades, and EA v1.10 (`m3_ha_analysis.py`, `m3_ha_improve.py`)
+
+```bash
+python m3_ha_analysis.py   # -> results/m3_ha_analysis.txt
+python m3_ha_improve.py    # -> results/m3_ha_improve.txt
+```
+
+Each trade gets 17 conditions measured at its signal candle, such as trend distance, momentum, volatility, hour, position in the day's range and the previous trade's result. The conditions are compared between TP and SL trades:
+- **Finding:** Exness 2021-11..2024-10.
+- **Check:** Exness 2020-01..2021-10 (never used), Exness 2024-11..2026-11, and our data.
+
+How the trades move:
+- **SL trades fail fast.** The median time to the SL is 1 hour. Half of them never reach +0.5R, 31% reach +1R first and 11% reach +2R first.
+- **TP trades take about 3 hours.** 45% of them first go -0.5R against the trade, and 16% go -0.8R.
+- **No condition at the entry separates them clearly.** The medians of TP and SL trades are close. The clearest gap is volatility: ATR is 1.32x its average for TP trades against 1.23x for SL trades. On Exness, the two lowest fifths of the ATR ratio (below about 1.17x) made +0.19R and +0.00R per trade in the check periods, against +0.27R to +0.46R for the higher fifths.
+
+Exit changes, each with TP = 3 x SL. EA setting (max 3 open) on Exness:
+
+| Change | R / trade | Net | Max drawdown | Verdict |
+|---|---|---|---|---|
+| current | +0.265 | +467R | -63R | |
+| breakeven at +1R or +2R | +0.226 / +0.238 | +414R / +424R | | worse |
+| close after 1 or 2 hours if below the entry | +0.204 / +0.247 | +369R / +437R | | worse |
+| SL 1.5 ATR | +0.191 | +382R | | worse |
+| SL 2.5 or 3 ATR | +0.31 | +487-509R | -52R to -58R | better on P3 and on the max-3 setting, but worse on the never-used 2020-21 data |
+
+The ATR filter at 1.15x its average (instead of 1x) raised the profit per trade in every period of both datasets (every signal, R/trade):
+
+| Data and period | 1x (current) | 1.15x |
+|---|---|---|
+| Exness discovery | +0.345 | +0.428 |
+| Exness 2020-21 (never used) | +0.121 | +0.233 |
+| Exness P3 | +0.386 | +0.444 |
+| Our data discovery | +0.326 | +0.414 |
+| Our data P3 | +0.309 | +0.371 |
+
+The gain holds for thresholds from about 1.10x to 1.20x, so 1.15x is not a single lucky number.
+
+**EA v1.10:** ATR at least 1.15x its average, and max 5 open (was 3). This is in `mql5/make_m3_ha_eas.py`, both M3 EAs and strategy 8 of the all-in-one EA.
+
+| Version | Data | Trades / week | TP % | R / trade | Net | Max drawdown |
+|---|---|---|---|---|---|---|
+| v1.00 | Exness | 4.9 | 31.0% | +0.265 | +467R | -63R |
+| v1.10 | Exness | 4.4 | 33.8% | +0.376 | +585R | -61R |
+| v1.00 | Our data | 5.3 | 30.8% | +0.247 | +339R | -65R |
+| v1.10 | Our data | 4.6 | 34.2% | +0.384 | +463R | -50R |
+
+- **Exness by period:** v1.10 makes more in each of the discovery, 2020-21 and P3 periods: +300R / +104R / +181R, against +237R / +74R / +156R for v1.00.
+- **2022 turns positive:** +20R on Exness (was -15R) and +40R on our data (was -4R).
+- **All-in-one EA:** the backtest tables above already use v1.10 for strategy 8.

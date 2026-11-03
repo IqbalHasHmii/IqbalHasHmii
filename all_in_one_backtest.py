@@ -12,7 +12,7 @@ default limits, then adds them up. TP = 3 x SL everywhere.
   5  M5 New York opening-range breakout           1 at a time   m5_search.ny_orb (SL at the other side, range 2-15x)
   6  M5 Asian range breakout                      1 at a time   m15_search.asia_bo on M5 (range 3.5-25x)
   7  H1 EMA20 pullback, buys and sells            max 5 open    m60_ema20_pullback
-  8  M3 Heikin Ashi, buy only                     max 3 open    m3_ha_test
+  8  M3 Heikin Ashi, buy only (ATR >= 1.15x)     max 5 open    m3_ha_test (v1.10, m3_ha_improve.py)
   9  H1 3 higher highs + perfect/strong bearish   no limit      h1_hh_engulf_all_types
      engulfing, sell limit at 25% of the body
 
@@ -81,7 +81,7 @@ def s7(fine: pd.DataFrame, cap: int = 5) -> pd.DataFrame:
 
 
 def s8(m3d: pd.DataFrame) -> pd.DataFrame:
-    t = m3.cap_open(m3.ha_trades(m3d), 3)
+    t = m3.cap_open(m3.ha_trades(m3d, atr_min=1.15), 5)
     return t.assign(tp=t.tp_hit, move=t.R * t.sl)[COLS]
 
 

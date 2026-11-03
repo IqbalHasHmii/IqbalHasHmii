@@ -86,8 +86,10 @@ def trade_outcomes(o, h, l, c, spr, dist, idx, maxh):
     return r, ex
 
 
-def ha_trades(d: pd.DataFrame) -> pd.DataFrame:
-    """Every signal of the strategy as its own trade: entry and exit time, R, TP hit."""
+def ha_trades(d: pd.DataFrame, atr_min: float = 1.0) -> pd.DataFrame:
+    """Every signal of the strategy as its own trade: entry and exit time, R, TP hit.
+    atr_min: ATR must be at least this x its 9200-candle average (1.0 = the original rule,
+    1.15 = EA v1.10, see m3_ha_improve.py)."""
     o, h, l, c, spr = (d[k].to_numpy(np.float64) for k in ("open", "high", "low", "close", "spread_px"))
     a = atr(d)
     hac = (o + h + l + c) / 4
@@ -96,7 +98,7 @@ def ha_trades(d: pd.DataFrame) -> pd.DataFrame:
     strong = (hac > hao) & (hal >= np.minimum(hao, hac) - 1e-9)
     two = strong & np.r_[False, strong[:-1]]
     trend = (d.close > ema(d.close, 4000)).to_numpy()
-    hv = (a >= a.rolling(9200).mean()).to_numpy()
+    hv = (a >= atr_min * a.rolling(9200).mean()).to_numpy()
     late = np.isin(d.index.hour, [20, 21, 22, 23, 0])
     sig = two & trend & hv & late
     sig[:min(12000, len(d) // 10)] = False
@@ -104,7 +106,8 @@ def ha_trades(d: pd.DataFrame) -> pd.DataFrame:
     dist = 2 * a.to_numpy(np.float64)
     r, ex = trade_outcomes(o, h, l, c, spr, dist, idx, 2300)
     ok = ex >= 0
-    t = pd.DataFrame({"entry": d.index[idx[ok] + 1], "exit": d.index[ex[ok]], "R": r[ok], "sl": dist[idx[ok]]})
+    t = pd.DataFrame({"i": idx[ok], "entry": d.index[idx[ok] + 1], "exit": d.index[ex[ok]], "R": r[ok],
+                      "sl": dist[idx[ok]], "exit_i": ex[ok]})            # i = signal candle, exit_i = exit candle
     t["tp_hit"] = t.R >= RR - 0.001
     return t
 
