@@ -112,3 +112,15 @@ v2.10 fixes the reasons v2.00 took (almost) no trades:
 ```bash
 python ea_m15_replay.py   # replays v2.00 as written and the v2.10 logic on the M15 history
 ```
+
+## MT5 EA: XAUUSD H1 Extreme OB (`mql5/XAUUSD_Extreme_OB_EA.mq5`)
+
+The H1 version had its own problems in v2.00, fixed in v2.10:
+1. `tradeArmed` was never reset after an entry. After every TP or SL, the same setup was entered again whenever price came back to the engulfing open. When the wick SL was already on the wrong side of the price, the rejected order was re-sent on every tick.
+2. A setup never expired (only a newer one replaced it), so entries could come days later.
+3. The "H1 close" exit ran at minute 45 and looked at the previous H1 candle, and the hard SL on the wick fired before it anyway. Now the just-closed H1 candle is checked when the next one starts.
+4. It had the same account-wide `PositionsTotal()`, unchecked orders, FOK filling and `10 * _Point` pip issues as the M15 EA.
+
+```bash
+python ea_h1_replay.py    # replays H1 v2.00 as written (on M15 candles) and the v2.10 logic (on H1)
+```

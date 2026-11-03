@@ -91,7 +91,8 @@ def replay_v200(m, start=0, stop=None, first_trade_only=False):
     return st, None
 
 
-def replay_v210(m, expiry=10, min_sl=5, max_sl=30, rr=3.0, close_based=True, emergency_pips=300.0):
+def replay_v210(m, expiry=10, min_sl=5, max_sl=30, rr=3.0, close_based=True, emergency_pips=300.0, struct=20):
+    """Works on any timeframe: on H1 data the close-based exit is the H1-close rule."""
     o, h, l, c, v = (m[k].to_numpy() for k in ("open", "high", "low", "close", "tickvol"))
     spr = m.spread_px.to_numpy()
     armed = pos = None
@@ -103,7 +104,7 @@ def replay_v210(m, expiry=10, min_sl=5, max_sl=30, rr=3.0, close_based=True, eme
         trades.append((mv / PIP, why))
         pos = None
 
-    for i in range(23, len(m)):
+    for i in range(struct + 3, len(m)):
         # new candle: M15-close exit first, then the setup check
         if pos is not None and close_based:
             if pos["dir"] == 1 and c[i - 1] < pos["wick"]:
@@ -111,13 +112,13 @@ def replay_v210(m, expiry=10, min_sl=5, max_sl=30, rr=3.0, close_based=True, eme
             elif pos["dir"] == -1 and c[i - 1] > pos["wick"]:
                 close(o[i] + spr[i], "M15 close beyond wick")
         if pos is None:
-            d, wick = setup(o, h, l, c, v, i - 1)
+            d, wick = setup(o, h, l, c, v, i - 1, struct)
             new = bool(d) and min_sl * PIP <= abs(o[i - 1] - wick) <= max_sl * PIP
             if new:
                 armed = {"dir": d, "entry": o[i - 1], "wick": wick, "left": expiry}
             elif armed is not None:
                 k = i - 1
-                flipped = (c[k] < c[k - 20]) if armed["dir"] == 1 else (c[k] > c[k - 20])
+                flipped = (c[k] < c[k - struct]) if armed["dir"] == 1 else (c[k] > c[k - struct])
                 armed["left"] -= 1
                 if flipped or armed["left"] <= 0:
                     armed = None
