@@ -438,3 +438,27 @@ This looks at the setups whose limit at the open never filled but whose planned 
 
 - **How far they retraced:** a median of 44% of the engulfing body, or 48% of the whole candle. About 22% barely retraced at all (under 10% of the body).
 - **Other entry levels:** with the sell limit at 0-100% of the body, every level still loses. The least bad is 25-38%: -0.12R/trade on Exness and -0.02R to -0.05R on our data.
+
+### Entry on the confirming close instead of a retracement (`h1_hh_engulf_confirm.py`)
+
+```bash
+python h1_hh_engulf_confirm.py   # -> results/h1_hh_engulf_confirm.txt
+```
+
+Rules:
+- **Entry:** after the engulfing, sell at market once an H1 candle closes below the engulfing low.
+- **SL:** at the engulfing high (or high + 50 pips). TP is 1:3.
+- **Dropped:** a setup is dropped if price reaches the SL level before the confirming close. This happens to about 45% of setups.
+
+Results with 3 higher highs and the SL at the high:
+
+| Data | Trades | TP | R / trade |
+|---|---|---|---|
+| Exness 2020-26 | 222 | 18.9% | -0.24 |
+| Our data | 216 | 24.5% | -0.03 |
+
+- With the SL at high + 50 pips, both datasets do worse.
+- The median SL is about 100 pips, so the median TP is about 300 pips.
+- The mirror buy (close above the high of a bullish engulfing after lower lows, SL at the low) made +0.11R/trade on Exness and +0.26R/trade on our data. That is only about 0.5-0.7 trades a week, and it lost on the 2020-21 Exness data.
+
+**Engulfing on 3-decimal brokers:** our data has 2-decimal prices, so 36% of bearish engulfings there have an open exactly equal to the previous close. On Exness (3 decimals) that is 2%, and 1,309 candles failed the "open >= previous close" rule by only 1-5 cents. Engulfing rules without a small tolerance therefore find fewer, and different, setups on Exness.

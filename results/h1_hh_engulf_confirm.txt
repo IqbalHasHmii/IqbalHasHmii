@@ -1,0 +1,84 @@
+
+===== Exness M3 (2020-01..2026-11): 2020-01-02 -> 2026-11-03, entry on the close beyond the engulfing, TP 1:3 =====
+
+-- SELL, 3 higher highs, SL high: 404 setups -> traded 222, dropped (SL level touched first) 182, still waiting 0
+   222 trades (0.62/wk), TP hit 18.9%, -0.243R/trade, net -54.0R, max drawdown -64.0R, median SL 98 pips (TP 294), most open at once 2
+   2020-01..2021-10 (new data): 57 tr, TP 19%, -0.23R/t | 2021-11..2023-10: 54 tr, TP 17%, -0.33R/t | 2023-11..2024-10: 46 tr, TP 15%, -0.39R/t | 2024-11..2026-11: 65 tr, TP 23%, -0.08R/t
+   by year: 2020: 33 tr +3R, 2021: 27 tr -19R, 2022: 28 tr -8R, 2023: 25 tr -9R, 2024: 50 tr -14R, 2025: 32 tr +0R, 2026: 27 tr -7R
+
+-- SELL, 3 higher highs, SL high + 50 pips: 404 setups -> traded 282, dropped (SL level touched first) 122, still waiting 0
+   282 trades (0.79/wk), TP hit 16.7%, -0.336R/trade, net -94.8R, max drawdown -99.8R, median SL 134 pips (TP 402), most open at once 4
+   2020-01..2021-10 (new data): 74 tr, TP 16%, -0.36R/t | 2021-11..2023-10: 74 tr, TP 18%, -0.30R/t | 2023-11..2024-10: 56 tr, TP 14%, -0.43R/t | 2024-11..2026-11: 78 tr, TP 18%, -0.29R/t
+   by year: 2020: 40 tr -12R, 2021: 38 tr -18R, 2022: 40 tr -12R, 2023: 34 tr -10R, 2024: 61 tr -21R, 2025: 37 tr -17R, 2026: 32 tr -4R
+
+-- BUY, 3 lower lows, SL low: 361 setups -> traded 193, dropped (SL level touched first) 168, still waiting 0
+   193 trades (0.54/wk), TP hit 28.0%, +0.106R/trade, net +20.5R, max drawdown -18.0R, median SL 93 pips (TP 280), most open at once 3
+   2020-01..2021-10 (new data): 59 tr, TP 22%, -0.12R/t | 2021-11..2023-10: 57 tr, TP 25%, -0.02R/t | 2023-11..2024-10: 20 tr, TP 50%, +1.00R/t | 2024-11..2026-11: 57 tr, TP 30%, +0.15R/t
+   by year: 2020: 22 tr -2R, 2021: 44 tr -4R, 2022: 29 tr +3R, 2023: 23 tr -3R, 2024: 23 tr +17R, 2025: 22 tr +18R, 2026: 30 tr -9R
+
+-- BUY, 3 lower lows, SL low + 50 pips: 361 setups -> traded 253, dropped (SL level touched first) 108, still waiting 0
+   253 trades (0.71/wk), TP hit 24.1%, -0.043R/trade, net -11.0R, max drawdown -44.0R, median SL 134 pips (TP 401), most open at once 3
+   2020-01..2021-10 (new data): 78 tr, TP 28%, +0.13R/t | 2021-11..2023-10: 84 tr, TP 14%, -0.43R/t | 2023-11..2024-10: 23 tr, TP 39%, +0.57R/t | 2024-11..2026-11: 68 tr, TP 26%, +0.03R/t
+   by year: 2020: 27 tr +13R, 2021: 60 tr -4R, 2022: 44 tr -24R, 2023: 33 tr -9R, 2024: 29 tr +3R, 2025: 28 tr +12R, 2026: 32 tr -2R
+
+-- SELL, 4 higher highs, SL high: 204 setups -> traded 110, dropped (SL level touched first) 94, still waiting 0
+   110 trades (0.31/wk), TP hit 16.4%, -0.345R/trade, net -38.0R, max drawdown -45.0R, median SL 98 pips (TP 295), most open at once 2
+   2020-01..2021-10 (new data): 28 tr, TP 14%, -0.43R/t | 2021-11..2023-10: 24 tr, TP 12%, -0.50R/t | 2023-11..2024-10: 24 tr, TP 8%, -0.67R/t | 2024-11..2026-11: 34 tr, TP 26%, +0.06R/t
+   by year: 2020: 15 tr -7R, 2021: 16 tr -8R, 2022: 12 tr -4R, 2023: 11 tr -7R, 2024: 25 tr -17R, 2025: 16 tr +4R, 2026: 15 tr +1R
+
+-- SELL, 4 higher highs, SL high + 50 pips: 204 setups -> traded 148, dropped (SL level touched first) 56, still waiting 0
+   148 trades (0.42/wk), TP hit 14.2%, -0.438R/trade, net -64.8R, max drawdown -69.8R, median SL 126 pips (TP 379), most open at once 2
+   2020-01..2021-10 (new data): 42 tr, TP 10%, -0.63R/t | 2021-11..2023-10: 33 tr, TP 18%, -0.27R/t | 2023-11..2024-10: 32 tr, TP 9%, -0.62R/t | 2024-11..2026-11: 41 tr, TP 20%, -0.23R/t
+   by year: 2020: 20 tr -16R, 2021: 25 tr -13R, 2022: 17 tr -5R, 2023: 16 tr -4R, 2024: 34 tr -22R, 2025: 19 tr -7R, 2026: 17 tr +3R
+
+-- BUY, 4 lower lows, SL low: 176 setups -> traded 92, dropped (SL level touched first) 84, still waiting 0
+   92 trades (0.26/wk), TP hit 28.3%, +0.103R/trade, net +9.5R, max drawdown -12.0R, median SL 121 pips (TP 363), most open at once 2
+   2020-01..2021-10 (new data): 26 tr, TP 19%, -0.23R/t | 2021-11..2023-10: 21 tr, TP 29%, +0.14R/t | 2023-11..2024-10: 11 tr, TP 36%, +0.45R/t | 2024-11..2026-11: 34 tr, TP 32%, +0.22R/t
+   by year: 2020: 9 tr -1R, 2021: 20 tr +0R, 2022: 9 tr -1R, 2023: 9 tr -1R, 2024: 16 tr +4R, 2025: 10 tr +14R, 2026: 19 tr -6R
+
+-- BUY, 4 lower lows, SL low + 50 pips: 176 setups -> traded 122, dropped (SL level touched first) 54, still waiting 0
+   122 trades (0.34/wk), TP hit 19.7%, -0.229R/trade, net -28.0R, max drawdown -29.0R, median SL 153 pips (TP 460), most open at once 3
+   2020-01..2021-10 (new data): 37 tr, TP 22%, -0.14R/t | 2021-11..2023-10: 33 tr, TP 12%, -0.52R/t | 2023-11..2024-10: 11 tr, TP 27%, +0.09R/t | 2024-11..2026-11: 41 tr, TP 22%, -0.17R/t
+   by year: 2020: 12 tr -4R, 2021: 28 tr +0R, 2022: 15 tr -11R, 2023: 15 tr -7R, 2024: 18 tr -6R, 2025: 14 tr +6R, 2026: 20 tr -6R
+
+===== Our data M1 (2021-11..2026-10): 2021-11-01 -> 2026-10-30, entry on the close beyond the engulfing, TP 1:3 =====
+
+-- SELL, 3 higher highs, SL high: 388 setups -> traded 216, dropped (SL level touched first) 172, still waiting 0
+   216 trades (0.83/wk), TP hit 24.5%, -0.028R/trade, net -6.0R, max drawdown -34.0R, median SL 106 pips (TP 319), most open at once 3
+   2021-11..2023-10: 82 tr, TP 23%, -0.08R/t | 2023-11..2024-10: 52 tr, TP 17%, -0.31R/t | 2024-11..2026-11: 82 tr, TP 30%, +0.20R/t
+   by year: 2021: 5 tr -5R, 2022: 31 tr +1R, 2023: 51 tr -3R, 2024: 56 tr -12R, 2025: 41 tr +3R, 2026: 32 tr +10R
+
+-- SELL, 3 higher highs, SL high + 50 pips: 388 setups -> traded 269, dropped (SL level touched first) 119, still waiting 0
+   269 trades (1.03/wk), TP hit 21.2%, -0.158R/trade, net -42.4R, max drawdown -60.1R, median SL 148 pips (TP 443), most open at once 4
+   2021-11..2023-10: 105 tr, TP 22%, -0.13R/t | 2023-11..2024-10: 68 tr, TP 13%, -0.47R/t | 2024-11..2026-11: 96 tr, TP 26%, +0.03R/t
+   by year: 2021: 7 tr -7R, 2022: 44 tr -4R, 2023: 62 tr -10R, 2024: 73 tr -21R, 2025: 46 tr -14R, 2026: 37 tr +14R
+
+-- BUY, 3 lower lows, SL low: 337 setups -> traded 184, dropped (SL level touched first) 153, still waiting 0
+   184 trades (0.71/wk), TP hit 31.5%, +0.263R/trade, net +48.3R, max drawdown -16.7R, median SL 96 pips (TP 287), most open at once 3
+   2021-11..2023-10: 81 tr, TP 25%, -0.01R/t | 2023-11..2024-10: 30 tr, TP 43%, +0.73R/t | 2024-11..2026-11: 73 tr, TP 34%, +0.37R/t
+   by year: 2021: 9 tr -1R, 2022: 39 tr +9R, 2023: 37 tr -5R, 2024: 35 tr +17R, 2025: 36 tr +36R, 2026: 28 tr -8R
+
+-- BUY, 3 lower lows, SL low + 50 pips: 337 setups -> traded 236, dropped (SL level touched first) 101, still waiting 0
+   236 trades (0.91/wk), TP hit 28.4%, +0.135R/trade, net +32.0R, max drawdown -42.0R, median SL 140 pips (TP 419), most open at once 3
+   2021-11..2023-10: 109 tr, TP 17%, -0.30R/t | 2023-11..2024-10: 38 tr, TP 50%, +1.00R/t | 2024-11..2026-11: 89 tr, TP 33%, +0.30R/t
+   by year: 2021: 10 tr -6R, 2022: 55 tr -15R, 2023: 48 tr -8R, 2024: 43 tr +25R, 2025: 48 tr +32R, 2026: 32 tr +4R
+
+-- SELL, 4 higher highs, SL high: 193 setups -> traded 103, dropped (SL level touched first) 90, still waiting 0
+   103 trades (0.40/wk), TP hit 25.2%, +0.010R/trade, net +1.0R, max drawdown -19.0R, median SL 108 pips (TP 324), most open at once 2
+   2021-11..2023-10: 31 tr, TP 29%, +0.16R/t | 2023-11..2024-10: 28 tr, TP 18%, -0.29R/t | 2024-11..2026-11: 44 tr, TP 27%, +0.09R/t
+   by year: 2021: 2 tr -2R, 2022: 11 tr +5R, 2023: 22 tr +2R, 2024: 29 tr -9R, 2025: 22 tr -2R, 2026: 17 tr +7R
+
+-- SELL, 4 higher highs, SL high + 50 pips: 193 setups -> traded 132, dropped (SL level touched first) 61, still waiting 0
+   132 trades (0.51/wk), TP hit 23.5%, -0.062R/trade, net -8.1R, max drawdown -36.0R, median SL 154 pips (TP 463), most open at once 3
+   2021-11..2023-10: 39 tr, TP 36%, +0.43R/t | 2023-11..2024-10: 40 tr, TP 12%, -0.50R/t | 2024-11..2026-11: 53 tr, TP 23%, -0.09R/t
+   by year: 2021: 2 tr -2R, 2022: 16 tr +8R, 2023: 27 tr +5R, 2024: 42 tr -14R, 2025: 25 tr -13R, 2026: 20 tr +8R
+
+-- BUY, 4 lower lows, SL low: 175 setups -> traded 95, dropped (SL level touched first) 80, still waiting 0
+   95 trades (0.36/wk), TP hit 33.7%, +0.351R/trade, net +33.3R, max drawdown -11.0R, median SL 103 pips (TP 310), most open at once 2
+   2021-11..2023-10: 42 tr, TP 29%, +0.15R/t | 2023-11..2024-10: 16 tr, TP 25%, +0.00R/t | 2024-11..2026-11: 37 tr, TP 43%, +0.73R/t
+   by year: 2021: 5 tr +3R, 2022: 20 tr +4R, 2023: 17 tr -1R, 2024: 22 tr +2R, 2025: 17 tr +23R, 2026: 14 tr +2R
+
+-- BUY, 4 lower lows, SL low + 50 pips: 175 setups -> traded 122, dropped (SL level touched first) 53, still waiting 0
+   122 trades (0.47/wk), TP hit 28.7%, +0.148R/trade, net +18.0R, max drawdown -26.0R, median SL 150 pips (TP 451), most open at once 3
+   2021-11..2023-10: 56 tr, TP 18%, -0.29R/t | 2023-11..2024-10: 19 tr, TP 42%, +0.68R/t | 2024-11..2026-11: 47 tr, TP 36%, +0.45R/t
+   by year: 2021: 5 tr -1R, 2022: 29 tr -5R, 2023: 22 tr -10R, 2024: 25 tr +7R, 2025: 24 tr +20R, 2026: 17 tr +7R
