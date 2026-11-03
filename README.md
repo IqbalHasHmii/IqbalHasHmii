@@ -151,9 +151,20 @@ This EA runs three setups, each with TP = 3 x SL and its own magic number:
 - **Previous-day sweep (M15):** magic 777102.
 - **H1 EMA200 engulfing:** magic 777103. A limit order goes at the engulfing open with SL 100 pips. It stays valid for 5 H1 candles and is deleted if the H1 close crosses the EMA the other way.
 
-`InpEmaMode` selects how the H1 setup takes trades: one at a time (default), or every engulfing (trades can overlap, bigger drawdown).
+`InpMultipleTrades = true` (default) lets every setup trade even when trades are already open. `false` limits each setup to one trade at a time. `InpMaxOpenTrades` caps the EA's total open trades (0 = no limit). The default risk is 0.5% per trade.
 
-Backtest (5 years, 1:3):
+Backtest with multiple trades (5 years, 1:3):
+
+| Setup | Trades / week | Win rate | Net | Max drawdown |
+|---|---|---|---|---|
+| Asian breakout | 4.1 | 27.4% | +100.3R | -44.1R |
+| Previous-day sweep | 2.2 | 28.1% | +71.2R | -18.0R |
+| H1 EMA200 engulfing | 5.4 | 27.5% | +146.1R | -56.0R |
+| All three | 11.7 | 27.5% | +317.6R | -60.7R |
+
+All three together had up to 16 trades open at once.
+
+Backtest with one trade per setup (5 years, 1:3):
 
 | Setup | Trades / week | Win rate | Net | Max drawdown |
 |---|---|---|---|---|

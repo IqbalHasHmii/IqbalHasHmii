@@ -24,9 +24,10 @@
 //|    engulfing in that direction -> limit order at the engulfing   |
 //|    OPEN, valid for 5 H1 candles, deleted if the close crosses    |
 //|    the EMA the other way. SL 100 pips, TP 300 pips from the open.|
-//|    Mode "one trade at a time": a newer setup replaces an unfilled |
-//|    order, no new setups while a trade is open. Mode "every       |
-//|    engulfing": every setup gets its own order (bigger drawdown). |
+//|                                                                  |
+//| InpMultipleTrades = true (default): every setup trades, even when |
+//| trades are already open. false: one trade per setup at a time    |
+//| (and a newer H1 setup replaces an unfilled H1 order).            |
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026"
 #property link      "https://www.mql5.com"
@@ -35,17 +36,13 @@
 #include <Trade\Trade.mqh>
 CTrade trade;
 
-enum ENUM_H1_MODE
-{
-   H1_ONE_AT_A_TIME = 0,   // One trade at a time
-   H1_EVERY_SETUP   = 1    // Every engulfing (trades can overlap)
-};
-
 input group "Risk"
-input double InpRiskPercent    = 1.0;    // Risk per trade, % of equity (0 = fixed lots)
+input double InpRiskPercent    = 0.5;    // Risk per trade, % of equity (0 = fixed lots)
 input double InpFixedLots      = 0.10;   // Fixed lots, used when risk % is 0
 input double InpRiskReward     = 3.0;    // TP = RR x SL distance
 input double InpPipSize        = 0.10;   // Price value of 1 pip (gold: 0.10)
+input bool   InpMultipleTrades = true;   // Every setup trades, even if trades are already open
+input int    InpMaxOpenTrades  = 0;      // Safety cap: max open trades of this EA (0 = no limit)
 
 input group "Setup 1: Asian range breakout (M15)"
 input bool   InpUseAsia        = true;   // Trade the Asian range breakout
@@ -68,7 +65,6 @@ input ulong  InpMagicSweep     = 777102; // Magic number, setup 2
 
 input group "Setup 3: H1 EMA200 engulfing"
 input bool         InpUseEma      = true;              // Trade the H1 EMA200 engulfing
-input ENUM_H1_MODE InpEmaMode     = H1_ONE_AT_A_TIME;  // Mode
 input int          InpEmaPeriod   = 200;               // EMA period (H1)
 input double       InpEmaSLPips   = 100.0;             // SL distance from the engulfing open (pips)
 input int          InpEmaValidBars = 5;                // Limit order valid for N H1 candles
@@ -174,6 +170,22 @@ int CountPositions(ulong magic)
          n++;
    }
    return(n);
+}
+
+//+------------------------------------------------------------------+
+//| All open trades of this EA (all three setups)                    |
+//+------------------------------------------------------------------+
+int CountAllMine()
+{
+   return(CountPositions(InpMagicAsia) + CountPositions(InpMagicSweep) + CountPositions(InpMagicEma));
+}
+
+//+------------------------------------------------------------------+
+bool MaxOpenReached(string what)
+{
+   if(InpMaxOpenTrades <= 0 || CountAllMine() < InpMaxOpenTrades) return(false);
+   PrintFormat("%s skipped: %d trades already open (InpMaxOpenTrades)", what, InpMaxOpenTrades);
+   return(true);
 }
 
 //+------------------------------------------------------------------+
@@ -364,7 +376,7 @@ void EvaluateH1()
    else if(bearEngulf && trend == -1) dir = -1;
    if(dir == 0) return;
 
-   if(InpEmaMode == H1_ONE_AT_A_TIME)
+   if(!InpMultipleTrades)
    {
       if(CountPositions(InpMagicEma) > 0) return;          // no new setups while a trade is open
       for(int i = OrdersTotal() - 1; i >= 0; i--)          // a newer setup replaces the unfilled order
@@ -391,6 +403,7 @@ void PlaceEmaOrder(int dir, double openPrice)
    double sl     = NormalizeDouble(p - dir * dist, _Digits);
    double tp     = NormalizeDouble(p + dir * dist * InpRiskReward, _Digits);
    double minGap = (SymbolInfoInteger(_Symbol, SYMBOL_TRADE_STOPS_LEVEL) + 2) * _Point;
+   if(MaxOpenReached("EMA setup")) return;
    double lots   = LotSize(dist);
    if(lots <= 0) return;
    trade.SetExpertMagicNumber(InpMagicEma);
@@ -455,11 +468,12 @@ double LotSize(double slDist)
 void OpenMarket(int dir, double slDist, ulong magic, string comment)
 {
    if(slDist <= 0) return;
-   if(CountPositions(magic) > 0)
+   if(!InpMultipleTrades && CountPositions(magic) > 0)
    {
       PrintFormat("%s skipped: this setup already has an open trade", comment);
       return;
    }
+   if(MaxOpenReached(comment)) return;
    MqlTick tk;
    if(!SymbolInfoTick(_Symbol, tk)) return;
 
@@ -493,7 +507,8 @@ void OpenMarket(int dir, double slDist, ulong magic, string comment)
 //+------------------------------------------------------------------+
 void ShowStatus()
 {
-   string s = "XAUUSD 3-strategy EA (TP 1:" + DoubleToString(InpRiskReward, 1) + ")\n";
+   string s = "XAUUSD 3-strategy EA (TP 1:" + DoubleToString(InpRiskReward, 1) + ", " +
+              (InpMultipleTrades ? "multiple trades" : "one trade per setup") + ")\n";
    datetime now = TimeCurrent();
    if(InpUseAsia)
    {
