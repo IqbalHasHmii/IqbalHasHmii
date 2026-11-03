@@ -661,3 +661,22 @@ Each strategy's trades are rebuilt with the EA's rules and limits, then added up
 | 2, 9 | about $6,000 |
 | 5 | about $10,400 |
 | 1, 6 | about $21,500 |
+
+### A $100 account (`small_account.py`)
+
+```bash
+python small_account.py   # -> results/small_account.txt
+```
+
+This runs the EA-default trades (strategy 7 off) on a $100 start. A 0.01 lot of gold is 1 oz, so at 0.02 lot 10 pips = $2. At today's gold price, one SL at 0.02 lot costs $18 (strategy 8) to $108 (strategies 1 and 6).
+
+| Setting | Our data 2021-26 | Exness 2020-26 |
+|---|---|---|
+| Normal account, fixed 0.02 lot | wiped out from 71% of the start months, a median 6 days after the start | 70%, median 12 days |
+| Normal account, fixed 0.01 lot | 50%, median 12 days | 59%, median 52 days |
+| Normal account, 0.25% risk (EA default) | no trades: the lot rounds below 0.01 | no trades |
+| Cent account ($100 = 10,000 USC), 0.25% risk | $100 -> $813 in 5 years, max drawdown -11% | $100 -> $496 in 6.8 years, max drawdown -15% |
+
+- **Fixed 0.02 lot:** surviving the biggest drop of the backtest needs more than $2,783 (our data) or $1,828 (Exness).
+- **Cent account:** one cent lot is 1/100 of a standard lot, so the EA can size the trades at 0.25%.
+- **Starting today on a cent account:** with $100 at the current gold price, strategies 1, 5 and 6 are mostly skipped until the balance reaches about $220.

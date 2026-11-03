@@ -55,31 +55,34 @@ NAMES = {1: "M15 Asian breakout", 2: "M15 prev-day sweep", 3: "H1 EMA200 engulfi
          9: "H1 HH engulfing sell"}
 
 
-# Every trade list has: entry, exit (times), R, tp (the TP was hit) and sl (SL distance in $).
-COLS = ["entry", "exit", "R", "tp", "sl"]
+# Every trade list has: entry, exit (times), R, tp (the TP was hit), sl (SL distance in $) and
+# move (the trade's price move in $ per ounce after the spread; profit in $ = move x ounces).
+COLS = ["entry", "exit", "R", "tp", "sl", "move"]
 
 
 def from_run(sig: pd.DataFrame) -> pd.DataFrame:
     """backtest.run: market entry at the next candle's open, one trade at a time."""
     t, _ = b.run(sig, 10_000, 1.0, 0.0, False)
     return pd.DataFrame({"entry": pd.to_datetime(t.entry_time), "exit": pd.to_datetime(t.exit_time),
-                         "R": t.r_multiple.astype(float), "tp": t.reason == "TP", "sl": (t.entry - t.sl).abs()})
+                         "R": t.r_multiple.astype(float), "tp": t.reason == "TP", "sl": (t.entry - t.sl).abs(),
+                         "move": (t.exit - t.entry) * np.where(t.direction == "BUY", 1, -1)})
 
 
 def s3(h1: pd.DataFrame) -> pd.DataFrame:
     t = one_order_at_a_time(ema200_setups(h1, "both", "fixed", 100, volume_filter=False), 5, hard_sl=True)
     return pd.DataFrame({"entry": pd.to_datetime(t.entry_time), "exit": pd.to_datetime(t.exit_time),
-                         "R": t.r_multiple.astype(float), "tp": t.reason == "TP", "sl": t.sl_pips * 0.10})
+                         "R": t.r_multiple.astype(float), "tp": t.reason == "TP", "sl": t.sl_pips * 0.10,
+                         "move": t.pips * 0.10})
 
 
 def s7(fine: pd.DataFrame, cap: int = 5) -> pd.DataFrame:
     t = capped(ema20_trades(fine), cap)
-    return t.assign(tp=t.R >= RR - 0.001)[COLS]
+    return t.assign(tp=t.R >= RR - 0.001, move=t.R * t.sl)[COLS]
 
 
 def s8(m3d: pd.DataFrame) -> pd.DataFrame:
     t = m3.cap_open(m3.ha_trades(m3d), 3)
-    return t.assign(tp=t.tp_hit)[COLS]
+    return t.assign(tp=t.tp_hit, move=t.R * t.sl)[COLS]
 
 
 def s9(fine: pd.DataFrame) -> pd.DataFrame:
@@ -94,7 +97,8 @@ def s9(fine: pd.DataFrame) -> pd.DataFrame:
         st, fj, xj, r = limit_trade(fo, fh, fl, fs, fh1, flast, c, int(np.searchsorted(fh1, i + 1)),
                                     c[i] + 0.25 * (o[i] - c[i]), h[i], l[i], -1, RR)
         if st == 1:
-            rows.append((fine.index[fj], fine.index[xj], r, r >= RR - 0.001, h[i] - (c[i] + 0.25 * (o[i] - c[i]))))
+            d = h[i] - (c[i] + 0.25 * (o[i] - c[i]))
+            rows.append((fine.index[fj], fine.index[xj], r, r >= RR - 0.001, d, r * d))
     return pd.DataFrame(rows, columns=COLS)
 
 
@@ -175,18 +179,33 @@ def report(label: str, parts: dict, start: pd.Timestamp, end: pd.Timestamp, s7_o
               f"max drawdown about {dd * risk:.0f}% (no compounding)")
 
 
+OURS = (pd.Timestamp("2021-11-01"), pd.Timestamp("2026-10-31"))
+EXNESS = (pd.Timestamp("2020-01-02"), pd.Timestamp("2026-11-03"))
+
+
+def ours_parts():
+    """Trades of all 9 strategies on our data, and strategy 7 with one trade at a time."""
+    m1 = b.load_data("M1")
+    parts = {**m15_strategies(b.load_data("M15")), 3: s3(b.load_data("H1")), **m5_strategies(b.load_data("M5")),
+             7: s7(m1), 8: s8(resample(m1, 3)), 9: s9(m1)}
+    return dict(sorted(parts.items())), s7(m1, 1)
+
+
+def exness_parts():
+    """Trades of strategies 1-3 and 7-9 on the Exness M3 export (None if it is not there)."""
+    files = sorted(glob.glob("data/M3_exness/*.csv"))
+    if not files:
+        return None, None
+    ex = m3.load_mt5(files)
+    ex.index = m3.utc_to_backtest_clock(ex.index)          # Exness UTC+0 -> strategy clock, as the EA does
+    parts = {**m15_strategies(resample(ex, 15)), 3: s3(resample(ex, 60)), 7: s7(ex), 8: s8(ex), 9: s9(ex)}
+    return parts, s7(ex, 1)
+
+
 if __name__ == "__main__":
     pd.set_option("display.width", 220)
-    m1 = b.load_data("M1")
-    ours = {**m15_strategies(b.load_data("M15")), 3: s3(b.load_data("H1")), **m5_strategies(b.load_data("M5")),
-            7: s7(m1), 8: s8(resample(m1, 3)), 9: s9(m1)}
-    report("Our data, all 9 strategies", dict(sorted(ours.items())), pd.Timestamp("2021-11-01"), pd.Timestamp("2026-10-31"),
-           s7(m1, 1))
-
-    files = sorted(glob.glob("data/M3_exness/*.csv"))
-    if files:
-        ex = m3.load_mt5(files)
-        ex.index = m3.utc_to_backtest_clock(ex.index)      # Exness UTC+0 -> strategy clock, as the EA does
-        exn = {**m15_strategies(resample(ex, 15)), 3: s3(resample(ex, 60)), 7: s7(ex), 8: s8(ex), 9: s9(ex)}
-        report("Exness M3 data, strategies 1-3 and 7-9 (no M5 candles)", exn,
-               pd.Timestamp("2020-01-02"), pd.Timestamp("2026-11-03"), s7(ex, 1))
+    parts, one = ours_parts()
+    report("Our data, all 9 strategies", parts, *OURS, one)
+    parts, one = exness_parts()
+    if parts:
+        report("Exness M3 data, strategies 1-3 and 7-9 (no M5 candles)", parts, *EXNESS, one)
