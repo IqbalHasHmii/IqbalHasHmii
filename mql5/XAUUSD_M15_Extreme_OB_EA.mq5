@@ -93,6 +93,11 @@ void OnTick()
       ShowStatus();
    }
 
+   // refresh the chart status right away when Algo Trading is switched on or off
+   static bool lastAllowed = true;
+   bool allowed = AlgoTradingAllowed();
+   if(allowed != lastAllowed) { lastAllowed = allowed; ShowStatus(); }
+
    if(tradeArmed && CountMyPositions() == 0)
       MonitorLimitEntry();
 }
