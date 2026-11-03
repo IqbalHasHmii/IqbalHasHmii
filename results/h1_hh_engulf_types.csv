@@ -1,0 +1,73 @@
+engulfing,higher highs,setups,trades,per week,TP %,R/trade,net R,data
+body,"3 HH, consecutive",404,335,0.94,29.0,0.175,58.7,Exness 2020-26
+body,"3 HH, 1 pause ok",630,515,1.44,22.1,-0.102,-52.5,Exness 2020-26
+body,"3 HH, 2 pauses ok",775,630,1.77,21.9,-0.118,-74.3,Exness 2020-26
+body,"4 HH, consecutive",204,167,0.47,29.3,0.175,29.3,Exness 2020-26
+body,"4 HH, 1 pause ok",359,289,0.81,26.0,0.056,16.1,Exness 2020-26
+body,"4 HH, 2 pauses ok",508,413,1.16,22.0,-0.109,-44.8,Exness 2020-26
+body_tol,"3 HH, consecutive",748,626,1.76,27.3,0.103,64.7,Exness 2020-26
+body_tol,"3 HH, 1 pause ok",1124,931,2.61,23.6,-0.044,-41.4,Exness 2020-26
+body_tol,"3 HH, 2 pauses ok",1410,1158,3.25,23.1,-0.067,-77.9,Exness 2020-26
+body_tol,"4 HH, consecutive",381,325,0.91,27.1,0.085,27.6,Exness 2020-26
+body_tol,"4 HH, 1 pause ok",660,547,1.53,25.8,0.042,22.9,Exness 2020-26
+body_tol,"4 HH, 2 pauses ok",935,777,2.18,22.1,-0.108,-83.9,Exness 2020-26
+perfect,"3 HH, consecutive",104,90,0.25,37.8,0.511,46.0,Exness 2020-26
+perfect,"3 HH, 1 pause ok",148,120,0.34,25.8,0.033,4.0,Exness 2020-26
+perfect,"3 HH, 2 pauses ok",197,162,0.45,19.1,-0.243,-39.3,Exness 2020-26
+perfect,"4 HH, consecutive",51,44,0.12,34.1,0.364,16.0,Exness 2020-26
+perfect,"4 HH, 1 pause ok",88,70,0.2,30.0,0.2,14.0,Exness 2020-26
+perfect,"4 HH, 2 pauses ok",135,112,0.31,19.6,-0.226,-25.3,Exness 2020-26
+outside,"3 HH, consecutive",314,283,0.79,28.6,0.143,40.4,Exness 2020-26
+outside,"3 HH, 1 pause ok",516,449,1.26,22.9,-0.08,-35.7,Exness 2020-26
+outside,"3 HH, 2 pauses ok",685,592,1.66,20.9,-0.162,-95.7,Exness 2020-26
+outside,"4 HH, consecutive",160,141,0.4,24.1,-0.035,-5.0,Exness 2020-26
+outside,"4 HH, 1 pause ok",315,275,0.77,23.6,-0.054,-15.0,Exness 2020-26
+outside,"4 HH, 2 pauses ok",462,405,1.14,22.2,-0.114,-46.3,Exness 2020-26
+strong,"3 HH, consecutive",240,189,0.53,30.2,0.219,41.4,Exness 2020-26
+strong,"3 HH, 1 pause ok",367,287,0.8,22.3,-0.098,-28.0,Exness 2020-26
+strong,"3 HH, 2 pauses ok",456,355,1.0,23.7,-0.05,-17.9,Exness 2020-26
+strong,"4 HH, consecutive",124,94,0.26,34.0,0.364,34.2,Exness 2020-26
+strong,"4 HH, 1 pause ok",222,171,0.48,26.3,0.063,10.8,Exness 2020-26
+strong,"4 HH, 2 pauses ok",323,253,0.71,22.5,-0.096,-24.3,Exness 2020-26
+multi2,"3 HH, consecutive",162,124,0.35,29.8,0.194,24.1,Exness 2020-26
+multi2,"3 HH, 1 pause ok",257,189,0.53,20.6,-0.173,-32.6,Exness 2020-26
+multi2,"3 HH, 2 pauses ok",309,229,0.64,22.7,-0.095,-21.7,Exness 2020-26
+multi2,"4 HH, consecutive",87,64,0.18,31.2,0.25,16.0,Exness 2020-26
+multi2,"4 HH, 1 pause ok",156,110,0.31,29.1,0.164,18.0,Exness 2020-26
+multi2,"4 HH, 2 pauses ok",225,165,0.46,22.4,-0.109,-18.0,Exness 2020-26
+body,"3 HH, consecutive",388,323,1.24,28.2,0.148,47.7,Ours 2021-26
+body,"3 HH, 1 pause ok",549,447,1.72,27.7,0.124,55.4,Ours 2021-26
+body,"3 HH, 2 pauses ok",693,556,2.13,25.9,0.042,23.5,Ours 2021-26
+body,"4 HH, consecutive",193,165,0.63,26.7,0.065,10.7,Ours 2021-26
+body,"4 HH, 1 pause ok",341,276,1.06,32.2,0.309,85.3,Ours 2021-26
+body,"4 HH, 2 pauses ok",469,386,1.48,25.9,0.044,16.8,Ours 2021-26
+body_tol,"3 HH, consecutive",523,437,1.68,27.9,0.132,57.7,Ours 2021-26
+body_tol,"3 HH, 1 pause ok",745,612,2.35,27.3,0.103,63.0,Ours 2021-26
+body_tol,"3 HH, 2 pauses ok",943,769,2.95,26.4,0.064,49.0,Ours 2021-26
+body_tol,"4 HH, consecutive",268,226,0.87,26.1,0.043,9.7,Ours 2021-26
+body_tol,"4 HH, 1 pause ok",453,367,1.41,30.5,0.235,86.3,Ours 2021-26
+body_tol,"4 HH, 2 pauses ok",625,522,2.0,25.7,0.035,18.2,Ours 2021-26
+perfect,"3 HH, consecutive",90,81,0.31,37.0,0.478,38.8,Ours 2021-26
+perfect,"3 HH, 1 pause ok",129,104,0.4,31.7,0.271,28.2,Ours 2021-26
+perfect,"3 HH, 2 pauses ok",180,145,0.56,27.6,0.1,14.6,Ours 2021-26
+perfect,"4 HH, consecutive",47,42,0.16,35.7,0.433,18.2,Ours 2021-26
+perfect,"4 HH, 1 pause ok",87,67,0.26,40.3,0.612,41.0,Ours 2021-26
+perfect,"4 HH, 2 pauses ok",123,100,0.38,27.0,0.076,7.6,Ours 2021-26
+outside,"3 HH, consecutive",235,216,0.83,26.9,0.073,15.8,Ours 2021-26
+outside,"3 HH, 1 pause ok",387,337,1.29,22.3,-0.109,-36.7,Ours 2021-26
+outside,"3 HH, 2 pauses ok",503,435,1.67,22.1,-0.116,-50.7,Ours 2021-26
+outside,"4 HH, consecutive",127,115,0.44,24.3,-0.025,-2.8,Ours 2021-26
+outside,"4 HH, 1 pause ok",241,207,0.79,24.2,-0.034,-7.1,Ours 2021-26
+outside,"4 HH, 2 pauses ok",333,292,1.12,21.9,-0.123,-35.8,Ours 2021-26
+strong,"3 HH, consecutive",244,194,0.74,32.0,0.291,56.5,Ours 2021-26
+strong,"3 HH, 1 pause ok",348,271,1.04,28.4,0.149,40.5,Ours 2021-26
+strong,"3 HH, 2 pauses ok",437,337,1.29,26.4,0.064,21.7,Ours 2021-26
+strong,"4 HH, consecutive",122,99,0.38,34.3,0.376,37.2,Ours 2021-26
+strong,"4 HH, 1 pause ok",222,170,0.65,35.3,0.427,72.5,Ours 2021-26
+strong,"4 HH, 2 pauses ok",305,238,0.91,25.6,0.037,8.7,Ours 2021-26
+multi2,"3 HH, consecutive",160,126,0.48,26.2,0.07,8.8,Ours 2021-26
+multi2,"3 HH, 1 pause ok",240,185,0.71,26.5,0.075,13.8,Ours 2021-26
+multi2,"3 HH, 2 pauses ok",286,213,0.82,25.8,0.045,9.6,Ours 2021-26
+multi2,"4 HH, consecutive",83,66,0.25,25.8,0.035,2.3,Ours 2021-26
+multi2,"4 HH, 1 pause ok",146,109,0.42,34.9,0.418,45.5,Ours 2021-26
+multi2,"4 HH, 2 pauses ok",196,149,0.57,25.5,0.038,5.6,Ours 2021-26

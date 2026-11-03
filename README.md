@@ -485,3 +485,23 @@ This is the first version of the user's engulfing idea that is profitable on bot
 - **By period:** every period is positive, including the never-used 2020-21 Exness data (+0.10R/trade).
 - **Entry level:** the result is a smooth hump, positive from about 15% to 38% of the body, with 25-30% best on both datasets.
 - **Failing variants:** the same rules with SL at high + 50 pips lose, and the mirror buy loses.
+
+### Engulfing types and non-consecutive higher highs (`h1_hh_engulf_types.py`)
+
+```bash
+python h1_hh_engulf_types.py   # -> results/h1_hh_engulf_types.txt / .csv, periods: results/h1_hh_engulf_types_periods.txt
+```
+
+All tests use the 25% limit, SL at the engulfing high and TP 1:3. The script tries 6 bearish-engulfing types (body, body with a 5-cent tolerance, perfect, outside bar, strong, two-candle) and 6 higher-high rules. A higher high here is a new high above all earlier highs of the run, with 0, 1 or 2 pauses allowed.
+
+- **Allowing pauses:** this gives more trades, but the results are not consistent. On Exness it turns the body engulfing negative (3 HH with 1 pause: -0.10R/trade). Consecutive higher highs are the reliable choice.
+- **Results with 3 consecutive higher highs:**
+
+| Type | Rule | Exness 2020-26 | Our data 2021-26 |
+|---|---|---|---|
+| Perfect | body + takes the previous high and low | 90 trades, 37.8% TP, +0.51R/trade, DD -6R | 81 trades, 37.0% TP, +0.48R/trade |
+| Strong | body + close below the previous low | 189 trades, +0.22R/trade | 194 trades, +0.29R/trade |
+| Body (baseline) | | 335 trades, +0.18R/trade | 323 trades, +0.15R/trade |
+
+- **Perfect engulfing:** positive in every Exness period, including 2020-21, but it gives only about one trade a month. On our data, 2024-11..2026-10 was weak (+0.06R/trade).
+- **Outside bar (wick engulfing):** loses.
