@@ -284,3 +284,23 @@ The other three EAs use no session hours. Their `_Exness` copies are identical a
 - `XAUUSD_H1_EMA20_Pullback_EA_Exness`
 - `XAUUSD_Extreme_OB_EA_Exness`
 - `XAUUSD_M15_Extreme_OB_EA_Exness`
+
+## MT5 EA: all strategies in one (`mql5/XAUUSD_All_Strategies_EA.mq5`)
+
+This EA runs nine strategies side by side. Each strategy has its own on/off switch, magic number, state, trades and max-open setting, so they never touch each other's trades. `InpMaxOpenTotal` is the only shared limit, and it is off by default.
+
+| # | Strategy | Default |
+|---|---|---|
+| 1 | M15 Asian breakout | on, 1 trade at a time |
+| 2 | M15 previous-day sweep | on, 1 at a time |
+| 3 | H1 EMA200 engulfing (limit order) | on, 1 at a time |
+| 4 | M5 RSI pullback | on, 1 at a time |
+| 5 | M5 NY opening range | on, 1 at a time |
+| 6 | M5 Asian breakout | on, 1 at a time |
+| 7 | H1 EMA20 pullback, buys and sells | on, up to 5 open |
+| 8 | M15 Extreme OB v2.10 | off (lost money in the backtest) |
+| 9 | H1 Extreme OB v2.10 | off (lost money in the backtest) |
+
+Set `InpClock` to match the broker:
+- **Exness and other fixed-UTC brokers:** `Fixed UTC offset` with `InpServerUTC` (Exness = 0). The session hours are converted automatically.
+- **FTMO and other brokers on the backtest clock (UTC+2/+3):** `Same as the backtest data`.
