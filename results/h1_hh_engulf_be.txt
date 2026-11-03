@@ -1,0 +1,38 @@
+
+===== Exness M3 2020-01..2026-11: 335 trades -> TP 97, SL 238 =====
+How far the SL trades went into profit first (on the ask):
+   below 0.5R: 117 (49.2%)
+   0.5-1R    :  49 (20.6%)
+   1-1.5R    :  27 (11.3%)
+   1.5-2R    :  18 ( 7.6%)
+   2-2.5R    :  16 ( 6.7%)
+   2.5-3R    :  11 ( 4.6%)
+   reached at least 1:1 and then hit the SL: 72 of 238 SL trades (30%), 21% of all trades
+   reached at least 1:1.5 and then hit the SL: 45 of 238 SL trades (19%), 13% of all trades
+   reached at least 1:2 and then hit the SL: 27 of 238 SL trades (11%), 8% of all trades
+
+Move the stop to the entry (breakeven) once the trade reaches +X R:
+              rule  trades  TP  breakeven exits  SL (-1R)  TP %  R/trade  net R
+      no breakeven     335  97                0       238  29.0    0.175   58.7
+  breakeven at 1:1     335  62              109       164  18.5    0.077   25.7
+breakeven at 1:1.5     335  76               68       191  22.7    0.121   40.7
+  breakeven at 1:2     335  88               38       209  26.3    0.175   58.7
+
+===== Our data M1 2021-11..2026-10: 323 trades -> TP 91, SL 232 =====
+How far the SL trades went into profit first (on the ask):
+   below 0.5R: 119 (51.3%)
+   0.5-1R    :  41 (17.7%)
+   1-1.5R    :  21 ( 9.1%)
+   1.5-2R    :  23 ( 9.9%)
+   2-2.5R    :  19 ( 8.2%)
+   2.5-3R    :   9 ( 3.9%)
+   reached at least 1:1 and then hit the SL: 72 of 232 SL trades (31%), 22% of all trades
+   reached at least 1:1.5 and then hit the SL: 51 of 232 SL trades (22%), 16% of all trades
+   reached at least 1:2 and then hit the SL: 28 of 232 SL trades (12%), 9% of all trades
+
+Move the stop to the entry (breakeven) once the trade reaches +X R:
+              rule  trades  TP  breakeven exits  SL (-1R)  TP %  R/trade  net R
+      no breakeven     323  91                0       232  28.2    0.148   47.7
+  breakeven at 1:1     323  59              106       158  18.3    0.066   21.4
+breakeven at 1:1.5     323  68               76       179  21.1    0.085   27.4
+  breakeven at 1:2     323  77               44       202  23.8    0.096   31.0

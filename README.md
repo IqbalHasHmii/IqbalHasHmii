@@ -505,3 +505,26 @@ All tests use the 25% limit, SL at the engulfing high and TP 1:3. The script tri
 
 - **Perfect engulfing:** positive in every Exness period, including 2020-21, but it gives only about one trade a month. On our data, 2024-11..2026-10 was weak (+0.06R/trade).
 - **Outside bar (wick engulfing):** loses.
+
+### Losing trades that were in profit first, and breakeven stops (`h1_hh_engulf_be.py`)
+
+```bash
+python h1_hh_engulf_be.py   # -> results/h1_hh_engulf_be.txt
+```
+
+How far the SL trades went into profit before the stop was hit (25% sell, 3 consecutive higher highs):
+
+| Data | SL trades | Reached 1:1 first | Reached 1:2 first |
+|---|---|---|---|
+| Exness | 238 | 72 (30%) | 27 (11%) |
+| Our data | 232 | 72 (31%) | 28 (12%) |
+
+A breakeven stop does not help:
+
+| Breakeven at | Exness R / trade | Our data R / trade | Effect |
+|---|---|---|---|
+| none | +0.18 | +0.15 | |
+| 1:1 | +0.08 | +0.07 | Exness TPs drop from 97 to 62 |
+| 1:2 | +0.18 | +0.10 | |
+
+Many winners come back to the entry before going on to the 1:3 TP.
