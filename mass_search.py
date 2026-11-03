@@ -2,7 +2,8 @@
 1 to 60 minutes.
 
     pip install numba
-    python mass_search.py         # ~10-15 minutes -> results/mass_search.csv.gz + summaries
+    python mass_search.py                                  # ~1 minute -> results/mass_search.csv.gz
+    python mass_search.py --tfs 1,2,3,4,5,6,7,8,9,10 --tag _m1_m10
 
 Data: the M1 history in data/M1/ (2021-11..2026-10), resampled to 1, 2, 3, 5, 10, 15, 20, 30,
 45 and 60 minutes. Each candle keeps its average spread.
@@ -199,6 +200,12 @@ def search_tf(m1: pd.DataFrame, tf: int) -> tuple[pd.DataFrame, dict]:
 
 
 if __name__ == "__main__":
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--tfs", default=",".join(map(str, TFS)), help="comma-separated minutes, e.g. 1,2,3")
+    ap.add_argument("--tag", default="", help="suffix for the output files")
+    args = ap.parse_args()
+    TFS = [int(x) for x in args.tfs.split(",")]
     t0 = time.time()
     m1 = b.load_data("M1")
     parts, bases = [], {}
@@ -213,6 +220,6 @@ if __name__ == "__main__":
     for p in ("IS", "OOS"):
         res[f"{p}_win%"] = res[f"{p}_w"] / res[f"{p}_n"].clip(lower=1) * 100
         res[f"{p}_R/trade"] = res[f"{p}_R"] / res[f"{p}_n"].clip(lower=1)
-    res.drop(columns=["IS_w", "OOS_w"]).round(4).to_csv("results/mass_search.csv.gz", index=False)
-    pd.DataFrame(bases).T.mul(100).round(2).rename_axis("tf").to_csv("results/mass_search_baseline.csv")
+    res.drop(columns=["IS_w", "OOS_w"]).round(4).to_csv(f"results/mass_search{args.tag}.csv.gz", index=False)
+    pd.DataFrame(bases).T.mul(100).round(2).rename_axis("tf").to_csv(f"results/mass_search{args.tag}_baseline.csv")
     print(f"total {len(res):,} strategies in {time.time() - t0:.0f}s")
