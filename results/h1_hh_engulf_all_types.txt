@@ -1,0 +1,46 @@
+
+===== Exness M3 2020-01..2026-11: every engulfing type, 3 consecutive higher highs, 25% limit, SL engulfing high, TP 1:3 =====
+ALL TYPES: 883 setups -> 754 trades (2.11/wk), TP 198, TP hit 26.3%, +0.059R/trade, net +44.7R, max drawdown -31.0R, most open at once 3
+    type  setups  trades  TP %  R/trade  net R
+ perfect     104      90  37.8    0.511   46.0
+  strong     168     128  28.1    0.144   18.4
+  multi2      24      21  28.6    0.143    3.0
+    body     108      96  21.9   -0.090   -8.7
+body_tol     344     291  25.4    0.021    6.0
+ outside     135     128  21.1   -0.156  -20.0
+by period: 2020-01..2021-10: 173 tr +0.11R | 2021-11..2023-10: 223 tr +0.16R | 2023-11..2024-10: 137 tr -0.07R | 2024-11..2026-11: 221 tr -0.00R
+by year (R): 2020: +15, 2021: -6, 2022: +15, 2023: +24, 2024: +1, 2025: +11, 2026: -16
+
+Groups of types (same trades, subsets):
+  perfect + strong                        : 218 trades (0.61/wk), TP 32.1%, +0.295R/trade, net +64.4R, max drawdown -12.0R, longest losing run 12
+                                            2020-01..2021-10: 52 tr +0.08R | 2021-11..2023-10: 59 tr +0.31R | 2023-11..2024-10: 44 tr +0.27R | 2024-11..2026-11: 63 tr +0.48R
+                                            by year (R): 2020: +9, 2021: -2, 2022: +6, 2023: +6, 2024: +25, 2025: +13, 2026: +7
+  exact body (perfect+strong+multi2+body) : 335 trades (0.94/wk), TP 29.0%, +0.175R/trade, net +58.7R, max drawdown -13.0R, longest losing run 13
+                                            2020-01..2021-10: 84 tr +0.10R | 2021-11..2023-10: 83 tr +0.17R | 2023-11..2024-10: 66 tr +0.15R | 2024-11..2026-11: 102 tr +0.26R
+                                            by year (R): 2020: +5, 2021: +4, 2022: +8, 2023: +2, 2024: +21, 2025: +20, 2026: -1
+  all types                               : 754 trades (2.11/wk), TP 26.3%, +0.059R/trade, net +44.7R, max drawdown -31.0R, longest losing run 20
+                                            2020-01..2021-10: 173 tr +0.11R | 2021-11..2023-10: 223 tr +0.16R | 2023-11..2024-10: 137 tr -0.07R | 2024-11..2026-11: 221 tr -0.00R
+                                            by year (R): 2020: +15, 2021: -6, 2022: +15, 2023: +24, 2024: +1, 2025: +11, 2026: -16
+
+===== Our data M1 2021-11..2026-10: every engulfing type, 3 consecutive higher highs, 25% limit, SL engulfing high, TP 1:3 =====
+ALL TYPES: 631 setups -> 540 trades (2.07/wk), TP 141, TP hit 26.1%, +0.057R/trade, net +30.7R, max drawdown -31.8R, most open at once 3
+    type  setups  trades  TP %  R/trade  net R
+ perfect      90      81  37.0    0.478   38.8
+  strong     182     140  29.3    0.191   26.8
+  multi2      24      22   9.1   -0.632  -13.9
+    body      92      80  22.5   -0.049   -3.9
+body_tol     135     114  27.2    0.088   10.0
+ outside     108     103  18.4   -0.262  -27.0
+by period: 2021-11..2023-10: 202 tr +0.18R | 2023-11..2024-10: 126 tr -0.11R | 2024-11..2026-11: 212 tr +0.05R
+by year (R): 2021: -3, 2022: +16, 2023: +14, 2024: +1, 2025: +2, 2026: +1
+
+Groups of types (same trades, subsets):
+  perfect + strong                        : 221 trades (0.85/wk), TP 32.1%, +0.297R/trade, net +65.5R, max drawdown -15.0R, longest losing run 9
+                                            2021-11..2023-10: 78 tr +0.38R | 2023-11..2024-10: 57 tr +0.27R | 2024-11..2026-11: 86 tr +0.24R
+                                            by year (R): 2021: +1, 2022: +7, 2023: +20, 2024: +28, 2025: +4, 2026: +6
+  exact body (perfect+strong+multi2+body) : 323 trades (1.24/wk), TP 28.2%, +0.148R/trade, net +47.7R, max drawdown -16.0R, longest losing run 12
+                                            2021-11..2023-10: 115 tr +0.13R | 2023-11..2024-10: 84 tr +0.19R | 2024-11..2026-11: 124 tr +0.14R
+                                            by year (R): 2021: -3, 2022: -1, 2023: +15, 2024: +27, 2025: +4, 2026: +6
+  all types                               : 540 trades (2.07/wk), TP 26.1%, +0.057R/trade, net +30.7R, max drawdown -31.8R, longest losing run 17
+                                            2021-11..2023-10: 202 tr +0.18R | 2023-11..2024-10: 126 tr -0.11R | 2024-11..2026-11: 212 tr +0.05R
+                                            by year (R): 2021: -3, 2022: +16, 2023: +14, 2024: +1, 2025: +2, 2026: +1

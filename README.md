@@ -548,3 +548,39 @@ The two halves share the same entry and the same SL at the engulfing high:
 | Our data | single 1:3 | | +0.15 | +47.7R | -16R | 12 |
 
 The split is smoother but makes about half the profit, and less profit per R of drawdown.
+
+### Every engulfing type at once (`h1_hh_engulf_all_types.py`)
+
+```bash
+python h1_hh_engulf_all_types.py   # -> results/h1_hh_engulf_all_types.txt
+```
+
+This uses the same trade as above:
+- 3 consecutive higher highs;
+- a sell limit at 25% of the body, the SL at the engulfing high and TP 1:3;
+- the order is removed when an H1 candle closes below the engulfing low.
+
+The setup can now be any bearish engulfing type from `h1_hh_engulf_types.py`. Each candle is counted once, under the first type it matches, in this order: perfect, strong, multi2, body, body_tol, outside. In the tables:
+- "strong" means strong but not perfect;
+- "body" is a plain body engulfing;
+- "body_tol" only engulfs within the 5-cent tolerance;
+- "outside" engulfs with the wick only.
+
+| Types traded | Exness 2020-26 | Our data 2021-26 |
+|---|---|---|
+| All types | 754 trades (2.1/wk), 26.3% TP, +0.06R/trade, +44.7R, DD -31R | 540 trades (2.1/wk), 26.1% TP, +0.06R/trade, +30.7R, DD -32R |
+| Exact body (earlier tests) | 335 trades (0.9/wk), 29.0% TP, +0.18R/trade, +58.7R, DD -13R | 323 trades (1.2/wk), 28.2% TP, +0.15R/trade, +47.7R, DD -16R |
+| Perfect + strong | 218 trades (0.6/wk), 32.1% TP, +0.30R/trade, +64.4R, DD -12R | 221 trades (0.85/wk), 32.1% TP, +0.30R/trade, +65.5R, DD -15R |
+
+| Type (trades, TP %, R/trade, net) | Exness | Our data |
+|---|---|---|
+| perfect | 90, 37.8%, +0.51, +46.0R | 81, 37.0%, +0.48, +38.8R |
+| strong (not perfect) | 128, 28.1%, +0.14, +18.4R | 140, 29.3%, +0.19, +26.8R |
+| multi2 | 21, 28.6%, +0.14, +3.0R | 22, 9.1%, -0.63, -13.9R |
+| body (plain) | 96, 21.9%, -0.09, -8.7R | 80, 22.5%, -0.05, -3.9R |
+| body_tol only | 291, 25.4%, +0.02, +6.0R | 114, 27.2%, +0.09, +10.0R |
+| outside only | 128, 21.1%, -0.16, -20.0R | 103, 18.4%, -0.26, -27.0R |
+
+- **All types:** about twice as many trades, but a third of the profit per trade and more than twice the drawdown. Outside bars and tolerance-only candles add trades without an edge. 2023-11..2024-10 loses on both datasets, and 2026 loses -16R on Exness.
+- **Perfect + strong:** the most net R and the smallest drawdown on both datasets, positive in every period. The only losing year is 2021 on Exness (-2R).
+- **Caveat:** perfect + strong was chosen after seeing these same results, and each period holds only 44-86 trades. Expect less in live trading.
