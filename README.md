@@ -717,6 +717,19 @@ This applies the EA's lot rule (0.25% risk per trade, the EA default) to the tra
 | Worst month | -$3.93 | -$6.90 |
 | Losing months | 3 of 13 | 6 of 13 |
 
+Trades per month over the last 12 months, every trade / $100 cent account. Our data had 75 / 58 in total (a whole month had 42 to 142 trades at full size), and Exness without the M5 strategies 45 / 40:
+
+| Strategy | Trades a month |
+|---|---|
+| 1 | 2.4 / 0.1 |
+| 2 | 8.2 / 6.9 |
+| 3 | 19.8 / 19.8 |
+| 4 | 9.3 / 8.6 |
+| 5 | 16.1 / 7.2 |
+| 6 | 2.5 / 0.1 |
+| 8 | 14.8 / 13.8 |
+| 9 | 2.3 / 1.9 |
+
 ## M3 Heikin Ashi: TP trades vs SL trades, and EA v1.10 (`m3_ha_analysis.py`, `m3_ha_improve.py`)
 
 ```bash

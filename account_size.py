@@ -59,6 +59,16 @@ def run(label: str, parts: dict, end: pd.Timestamp):
           ", ".join(f"{m.strftime('%b %y')} {v:+.2f}" for m, v in mo.profit.items()))
     print(f"   average {mo.profit.mean():+.2f}/month, best {mo.profit.max():+.2f}, worst {mo.profit.min():+.2f}, "
           f"losing months {(mo.profit < 0).sum()} of {len(mo)}")
+    # trades per month, by strategy: every trade (balance big enough) and $100 on a cent account
+    months = 12.0
+    full = t.groupby("s").size() / months
+    small = x.groupby("s").size().reindex(full.index).fillna(0) / months
+    print("trades per month (last 12 months), every trade / $100 cent account: " +
+          ", ".join(f"S{k} {a:.1f}/{b:.1f}" for k, a, b in zip(full.index, full, small)) +
+          f" | total {full.sum():.0f} / {small.sum():.0f}")
+    per_m = t.groupby(t.entry.dt.to_period("M")).size()
+    per_m = per_m[(per_m.index > start.to_period("M")) & (per_m.index < end.to_period("M"))]
+    print(f"   whole months: fewest {per_m.min()}, most {per_m.max()} trades (every trade)")
 
 
 if __name__ == "__main__":
