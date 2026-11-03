@@ -912,3 +912,31 @@ The all-in-one EA (defaults) was close to break-even in the same 6 months:
 
 - **July lost on both datasets:** -12R on Exness and -20R on our data.
 - **The drawdown on our data almost matches the worst of the whole backtest (-45R).** The NY opening range lost -16.7R and the M3 Heikin Ashi -2R.
+
+## MT5 EA: all-in-one for FTMO (`mql5/XAUUSD_All_In_One_EA_FTMO.mq5`)
+
+`python mql5/make_all_in_one_ftmo.py` writes this EA from the Exness version, so the nine strategies and their rules stay identical. Only these differ:
+- **Clock:** `InpClock = Same as the backtest data`, because FTMO's server time already is UTC+2 in winter and UTC+3 in summer.
+- **Magic numbers:** 903001-903009, against 902001-902009 for Exness.
+- **Risk:** 0.10% per trade by default.
+- **FTMO protection:** when equity falls a set share of the initial balance below the day's start, every position and pending order of the EA is closed and nothing new opens.
+  - **Daily stop:** `InpDailyLossPct`, default 4% (FTMO: 5%). Trading resumes the next server day.
+  - **Final stop:** `InpMaxLossPct`, default 9% below the initial balance (FTMO: 10%). The EA stays off until the `AIO_<login>_STOP` global variable is deleted (F3).
+  - **Initial balance:** `InpInitialBalance`, or the balance when the EA first ran. The day's start is kept in terminal global variables, so it survives a restart.
+
+Why 0.10% (`python ftmo_check.py` -> `results/ftmo_check.txt`, EA defaults):
+
+| | Our data | Exness |
+|---|---|---|
+| Worst day | -14.5R | -14.3R |
+| Worst day plus every trade open at its end | -24.5R | -22.3R |
+| Max drawdown | -44.7R | -66.0R |
+
+| Risk per trade | Worst day | Max drawdown | Profit a year | FTMO 5% / 10% |
+|---|---|---|---|---|
+| 0.10% | -1.4% | -4.5% / -6.6% | +22% / +12% | ok |
+| 0.15% | -2.2% | -6.7% / -9.9% | +32% / +18% | ok, but close to 10% on Exness |
+| 0.20% | -2.9% | -8.9% / -13.2% | +43% / +24% | breached on Exness |
+| 0.25% | -3.6% | -11.2% / -16.5% | +54% / +30% | breached |
+
+**Account size:** at 0.10% risk, a $10,000 account can open 0.01 lot only when the SL is $10 or less, so it skips most trades. See `account_size.py`: 0.10% on $25,000 sizes like 0.25% on $10,000.
