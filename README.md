@@ -99,3 +99,16 @@ v3 plus a zone filter. Zones are built on H1 from closed candles only:
 - A zone stays active until a candle closes through it, or for at most 100 candles.
 
 A buy needs a bullish engulfing whose two-candle range touches an active bullish zone and closes above the zone bottom; sells are the mirror. The EMA(200) trend, limit at the engulfing open (valid 5 candles), every-setup trading and the SL versions are the same as v3. The table compares OB only, FVG only and OB-or-FVG, each with and without the volume filter.
+
+## MT5 EA: XAUUSD M15 Extreme OB (`mql5/XAUUSD_M15_Extreme_OB_EA.mq5`)
+
+v2.10 fixes the reasons v2.00 took (almost) no trades:
+1. An armed setup never expired. If price did not come back to the engulfing open, the EA waited forever and never looked for a new setup. Now the entry stays valid for `InpSetupExpiryBars` candles (default 10), a newer setup replaces it, and it is cancelled when the trend turns.
+2. `PositionsTotal()` counted every position on the account. Now only this EA's trades on the chart symbol count.
+3. Order results were never checked, and rejected orders silently dropped the setup. Now the filling mode comes from the symbol, the SL is validated before sending, and every error is printed in the Experts tab. A status line on the chart shows what the EA is waiting for.
+4. The hard SL on the wick made the M15-close exit useless, and after a restart any SELL was closed at the next M15 close. Now `InpCloseBasedSL` chooses between the M15-close exit (with a far `InpEmergencySLPips` broker SL) and a normal stop at the wick.
+5. The pip size is an input (`InpPipSize`, 0.10 for gold) instead of `10 * _Point`, which was 10x off on 3-digit gold quotes.
+
+```bash
+python ea_m15_replay.py   # replays v2.00 as written and the v2.10 logic on the M15 history
+```
