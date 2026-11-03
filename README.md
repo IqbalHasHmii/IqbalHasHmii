@@ -940,3 +940,35 @@ Why 0.10% (`python ftmo_check.py` -> `results/ftmo_check.txt`, EA defaults):
 | 0.25% | -3.6% | -11.2% / -16.5% | +54% / +30% | breached |
 
 **Account size:** at 0.10% risk, a $10,000 account can open 0.01 lot only when the SL is $10 or less, so it skips most trades. See `account_size.py`: 0.10% on $25,000 sizes like 0.25% on $10,000.
+
+## Pure candlestick patterns, M5 to D1 (`candles_scan.py`)
+
+```bash
+python candles_scan.py   # -> results/candles_scan.txt, results/candles_scan.csv (every combination)
+```
+
+This scan uses no indicators. A pattern closes, then:
+- **Entry:** the next candle's open.
+- **SL:** the pattern's own extreme.
+- **TP:** 1, 2 or 3 times the risk.
+- **Exits:** checked on the same timeframe with real spread, SL first when both are hit in one candle, and a time stop after 100 candles.
+
+It covers 19 patterns, in three contexts (alone, after 3 candles against, after 3 candles with) and both directions, on M5-D1. That makes 338 combinations per reward-to-risk on our data, each also checked on Exness (M15-D1).
+
+**Baseline:** a buy after every candle wins 40-42% at 1:1, 29-32% at 1:2 and 23-26% at 1:3 on H1/H4.
+
+**Patterns that beat it in both halves of our data and on Exness.** In each cell, the first value is our data and the second is Exness:
+
+| Pattern (buy) | Trades / week | Win 1:1 | Win 1:2 | Win 1:3 | R / trade at 1:3 |
+|---|---|---|---|---|---|
+| H4 three white soldiers | 0.8 | 57.9% / 55.4% | 44.2% / 39.1% | 34.0% / 29.1% | +0.54 / +0.34 |
+| H4 three outside up | 0.9 | 54.7% / 52.4% | 42.9% / 36.1% | 33.5% / 29.1% | +0.42 / +0.21 |
+| H4 inside bar breakout | 0.8 | 53.9% / 53.4% | 40.7% / 37.5% | 33.3% / 29.9% | +0.36 / +0.23 |
+| H4 belt hold | 0.7 | 53.8% / 53.2% | 41.8% / 40.3% | 31.5% / 31.3% | +0.31 / +0.31 |
+| H1 belt hold | 2.3 | 53.8% / 52.4% | 38.4% / 37.0% | 32.0% / 30.2% | +0.33 / +0.26 |
+| H1 three white soldiers | 2.6 | 51.7% / 52.4% | 38.1% / 36.2% | 28.5% / 26.7% | +0.29 / +0.21 |
+
+- **The highest win rate a pattern reaches is about 55-58% at 1:1, 40-44% at 1:2 and 30-34% at 1:3.** Only 7 of the 338 combinations were profitable everywhere at 1:1, 24 at 1:2 and 36 at 1:3.
+- **The winners are bullish momentum patterns on H1/H4.** They gain from gold's uptrend.
+- **Classic reversal patterns are close to the baseline.** These are hammer, morning star, doji, harami and piercing line.
+- **Sells by candles alone do not pay at 1:1.** The best are about 50% with about 0R per trade. Only a shooting star or pin bar after 3 lower lows on H1 works at 1:3 (31.7% / 29.4%).
