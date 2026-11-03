@@ -1,0 +1,3 @@
+tf,rule,trend,SL,direction,session,volatility,adx,days,P1 trades/wk,P1 win%,P1 R/trade,P2 trades/wk,P2 win%,P2 R/trade,P3 trades/wk,P3 win%,P3 R/trade
+M5,pivot_pp_cross,ema50>ema200,2xATR,sell_only,london+ny,all,ranging,all,1.2,43.8,0.754,1.3,50.0,1.0,1.5,32.1,0.276
+M4,weekly_open_cross,none,2xATR,buy_only,late,all,all,all,1.1,40.0,0.595,1.0,50.0,1.0,0.8,15.0,-0.402

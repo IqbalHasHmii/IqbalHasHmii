@@ -132,9 +132,12 @@ for k, tf in enumerate(TFS):
     allp = e & (rpt[sl_, 0] > 0) & (rpt[sl_, 1] > 0) & (rpt[sl_, 2] > 0)
     pool = np.flatnonzero(e & (rpt[sl_, 0] > 0) & (rpt[sl_, 1] > 0)) + k * PER_TF
     top = pool[np.argsort(-t12[pool])][:50]
-    rows.append({"tf": f"M{tf}", "eligible": int(e.sum()), "% profitable in all 3 periods": round(allp.sum() / max(e.sum(), 1) * 100, 2),
-                 "top50 P1+P2 win%": round(np.mean(p12[top]) * 100, 1), "top50 P3 win%": round(np.nanmean(win[top, 2]) * 100, 1),
-                 "top50 P3 R/trade": round(np.nanmean(rpt[top, 2]), 3), "top50 % P3 profitable": round(np.mean(rpt[top, 2] > 0) * 100)})
+    rows.append({"tf": f"M{tf}", "eligible": int(e.sum()),
+                 "% profitable in all 3 periods": round(float(allp.sum() / max(e.sum(), 1) * 100), 2),
+                 "top50 P1+P2 win%": round(float(np.mean(p12[top])) * 100, 1),
+                 "top50 P3 win%": round(float(np.nanmean(win[top, 2])) * 100, 1),
+                 "top50 P3 R/trade": round(float(np.nanmean(rpt[top, 2])), 3),
+                 "top50 % P3 profitable": round(float(np.mean(rpt[top, 2] > 0)) * 100)})
 bytf = pd.DataFrame(rows)
 bytf.to_csv(out("by_tf.csv"), index=False)
 say("=== Per timeframe (top 50 = best P1+P2 t-stat among strategies profitable in P1 and P2) ===")

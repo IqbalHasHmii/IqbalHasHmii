@@ -18,7 +18,8 @@ SL type (5) x direction (3) x session (8) x volatility (3) x ADX (3) x days (2):
   days      : all, Tuesday-Thursday only
 Every signal is its own trade: market entry at the next candle's open (buys pay the spread),
 exits on bid / ask with the candle's spread, SL first when SL and TP share a candle, time stop
-after ~5 trading days.
+after ~5 trading days. Win rate = share of trades that hit the 1:3 take-profit; R/trade includes
+the trades closed by the time stop.
 
 The data is split in three periods and every number is kept per period:
   P1 2021-11 .. 2023-10 (choose), P2 2023-11 .. 2024-10 (confirm), P3 2024-11 .. 2026-10 (test).
@@ -39,6 +40,7 @@ from strategy_library import adx_di, atr, ema, library, supertrend_dir
 TFS = [1, 2, 3, 4, 5]
 EDGES = [pd.Timestamp("2023-11-01"), pd.Timestamp("2024-11-01")]
 RR = 3.0
+TP_HIT = RR - 0.001          # a "win" = the take-profit was hit (a trade closed by the time stop is not a win)
 SLS = ["0.5xATR", "1xATR", "1.5xATR", "2xATR", "swing5"]
 TRENDS = ["none", "c>ema50", "c>ema200", "ema50>ema200", "c>H1ema200", "supertrend_up"]
 # base buckets -> options (unions)
@@ -145,7 +147,8 @@ def run_tf(m1: pd.DataFrame, tf: int) -> None:
                 dist = float(sl.split("x")[0]) * a
             R[(si, side)] = outcomes(o, h, l, c, spr, dist, side, maxh)
         both = np.concatenate([R[(si, 1)][warm:], R[(si, -1)][warm:]])
-        base[sl] = float(np.nanmean(both > 0)) if np.isfinite(both).any() else np.nan
+        both = both[np.isfinite(both)]
+        base[sl] = float(np.mean(both >= TP_HIT)) if both.size else np.nan
     t1 = time.time()
 
     trig = library(d)
@@ -168,7 +171,7 @@ def run_tf(m1: pd.DataFrame, tf: int) -> None:
                     sel = ok & tm[idx]
                     k2, rr = kk[sel], r[sel].astype(np.float64)
                     bins = np.stack([np.bincount(k2, minlength=324),
-                                     np.bincount(k2, weights=(rr > 0).astype(np.float64), minlength=324),
+                                     np.bincount(k2, weights=(rr >= TP_HIT).astype(np.float64), minlength=324),
                                      np.bincount(k2, weights=rr, minlength=324)], -1).reshape(3, 6, 2, 3, 3, 3)
                     A[ti, tri, si, sdi] = np.einsum("psvadk,Ss,Vv,Aa,Dd->pSVADk", bins, M_SESS, M_VOL, M_ADX, M_DOW)
     os.makedirs(OUT, exist_ok=True)

@@ -1,0 +1,168 @@
+Strategies tested: 3,227,040 (3 timeframes x 1,075,680); 83 entry rules
+Periods: P1 2021-11-01..2023-10-31 (104 wk) choose | P2 2023-11..2024-10 (52 wk) confirm | P3 2024-11..2026-10-30 (104 wk) test. Every trade 1:3 (break-even win rate 25%).
+Eligible (>= 1 trade/week in P1, >= 0.5/week in P2 and P3): 702,096; with >= 3 trades/week: 216,825
+
+No-skill win rate at 1:3 (a trade after every candle):
+    0.5xATR  1xATR 1.5xATR  2xATR swing5
+M15   22.2%  23.6%   24.6%  25.1%  24.0%
+M30   23.1%  24.6%   25.1%  25.3%  24.4%
+M60   23.6%  25.0%   25.2%  24.1%  24.4%
+
+=== The 40%-win question (win = TP hit at 1:3) ===
+           group  strategies  >=40% in P1  and >=40% in P2  and >=40% in P3 (test)  P3 avg win% of P1+P2 40% club  P3 avg R/trade  P3 % profitable
+    all eligible      702096          310               19                       1                           31.1           0.246             89.0
+>= 3 trades/week      216825            0                0                       0                            NaN             NaN              NaN
+
+Best 15 of the strategies with >= 40% wins in BOTH P1 and P2, and what happened in P3:
+ tf                   rule        trend      SL direction   session volatility     adx    days  P1 trades/wk  P1 win%  P1 R/trade  P2 trades/wk  P2 win%  P2 R/trade  P3 trades/wk  P3 win%  P3 R/trade
+M30 heikin_ashi_two_strong      c>ema50   2xATR  buy_only      late        all ranging     all           1.1     44.2       0.770           1.7     47.1       0.885           1.5     28.9       0.178
+M30  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only      asia        all ranging tue-thu           1.6     40.1       0.605           2.5     42.7       0.710           1.6     34.7       0.390
+M30                 pinbar ema50>ema200 1.5xATR  buy_only       all   high_vol ranging     all           1.0     40.7       0.648           1.5     51.2       1.050           1.3     32.1       0.282
+M30 heikin_ashi_two_strong ema50>ema200 1.5xATR  buy_only       all   high_vol ranging     all           1.5     42.5       0.703           2.1     40.7       0.630           2.1     38.2       0.531
+M30   three_soldiers_crows ema50>ema200   2xATR  buy_only       all   high_vol ranging     all           1.5     40.3       0.618           1.7     46.0       0.839           1.8     41.2       0.647
+M30  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only      asia    low_vol ranging tue-thu           1.3     40.5       0.618           2.2     44.0       0.758           1.2     34.1       0.366
+M30 heikin_ashi_two_strong         none   2xATR  buy_only      late        all ranging     all           1.3     40.3       0.612           1.9     45.5       0.818           1.6     29.8       0.210
+M30          vwap_pullback         none 1.5xATR  buy_only      late        all     all     all           1.4     42.1       0.717           1.6     42.2       0.687           1.7     26.8       0.067
+M30 heikin_ashi_two_strong      c>ema50 1.5xATR  buy_only      late        all ranging     all           1.1     40.7       0.624           1.7     48.3       0.931           1.5     31.4       0.250
+M30 heikin_ashi_two_strong   c>H1ema200 1.5xATR  buy_only       all   high_vol ranging tue-thu           1.0     41.7       0.668           1.7     47.1       0.885           1.4     35.1       0.413
+M30 heikin_ashi_two_strong         none   1xATR  buy_only      late        all ranging     all           1.3     43.2       0.727           1.9     40.4       0.616           1.6     32.7       0.291
+M15         ema20_pullback   c>H1ema200   1xATR  buy_only london+ny   high_vol ranging tue-thu           1.2     41.5       0.659           1.7     44.9       0.798           1.8     25.9       0.038
+M15         ema20_pullback   c>H1ema200   1xATR  buy_only        ny        all ranging tue-thu           1.1     42.4       0.695           2.1     41.4       0.658           2.0     26.4       0.058
+M30 heikin_ashi_two_strong      c>ema50   1xATR  buy_only      late        all ranging     all           1.1     45.1       0.805           1.7     40.2       0.609           1.5     32.1       0.264
+M30          ema200_bounce ema50>ema200   2xATR  buy_only       all   high_vol     all     all           1.1     43.6       0.746           1.7     40.4       0.618           1.3     32.1       0.306
+
+=== Per timeframe (top 50 = best P1+P2 t-stat among strategies profitable in P1 and P2) ===
+ tf  eligible  % profitable in all 3 periods  top50 P1+P2 win%  top50 P3 win%  top50 P3 R/trade  top50 % P3 profitable
+M15    373560                          10.46              33.8           28.9             0.153                     98
+M30    221697                          18.14              35.1           30.8             0.229                     98
+M60    106839                          22.55              33.5           29.7             0.224                     98
+
+=== TOP 30 overall (>= 1 trade/week), ranked on P1+P2 only ===
+Top 100: P3 profitable 98%, P3 avg win 30.3%, P3 avg +0.213R/trade (P1+P2 avg win 34.3%)
+ tf                   rule        trend      SL direction session volatility     adx    days  P1 trades/wk  P1 win%  P1 R/trade  P2 trades/wk  P2 win%  P2 R/trade  P3 trades/wk  P3 win%  P3 R/trade
+M30  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only     all        all ranging     all           5.5     34.3       0.379           8.6     40.1       0.605           7.2     35.2       0.399
+M30  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           3.3     38.2       0.530           5.7     41.3       0.653           4.5     32.8       0.315
+M60          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all     all     all          11.9     29.5       0.211          16.2     35.7       0.450          12.6     29.8       0.227
+M60          vwap_pullback     c>ema200   2xATR  buy_only     all        all     all     all          11.9     29.5       0.211          16.2     35.7       0.450          12.6     29.8       0.227
+M30          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all ranging     all           6.9     31.1       0.244          10.1     40.5       0.621           7.3     33.6       0.333
+M30  ema9_pullback_9over21 ema50>ema200   2xATR  buy_only     all        all ranging     all           5.0     33.0       0.325           7.3     41.4       0.656           6.3     38.0       0.521
+M15         ema20_pullback   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           7.3     31.4       0.254          10.9     38.7       0.546           8.6     29.9       0.192
+M30          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           4.2     33.7       0.351           6.8     41.9       0.676           4.5     29.0       0.161
+M30          vwap_pullback ema50>ema200  swing5  buy_only     all        all ranging tue-thu           3.9     34.7       0.394           6.1     41.9       0.675           3.8     30.6       0.224
+M30  ema9_pullback_9over21     c>ema200   2xATR  buy_only     all        all ranging     all           5.9     31.9       0.281           8.5     40.3       0.613           7.4     35.1       0.400
+M15          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           6.8     33.7       0.348          10.6     35.6       0.422           6.7     33.1       0.326
+M60          vwap_pullback ema50>ema200   2xATR  buy_only     all        all     all tue-thu           6.7     34.2       0.396           9.7     33.7       0.364           7.2     25.9       0.083
+M30          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all     all     all          16.4     28.4       0.137          22.6     34.7       0.390          17.9     29.5       0.176
+M30         ema20_pullback   c>H1ema200   2xATR  buy_only     all        all ranging     all           5.9     30.8       0.240           8.8     40.7       0.630           7.1     30.6       0.215
+M30  ema9_pullback_9over21     c>ema200   2xATR  buy_only     all        all ranging tue-thu           3.5     34.7       0.390           5.6     42.5       0.699           4.6     33.2       0.330
+M30  ema9_pullback_9over21 ema50>ema200   2xATR  buy_only     all        all ranging tue-thu           2.9     35.1       0.406           4.8     44.4       0.778           3.9     36.6       0.467
+M30          vwap_pullback ema50>ema200  swing5  buy_only     all        all ranging     all           6.5     32.2       0.293           9.2     37.6       0.510           6.5     32.0       0.272
+M15         ema20_pullback   c>H1ema200   2xATR  buy_only     all        all ranging     all          12.6     29.2       0.168          17.2     35.5       0.419          14.8     28.5       0.125
+M30          vwap_pullback ema50>ema200   2xATR  buy_only     all        all ranging tue-thu           4.0     32.0       0.284           6.1     43.6       0.744           3.9     31.6       0.264
+M30          vwap_pullback   c>H1ema200 1.5xATR  buy_only     all        all ranging     all           6.9     31.6       0.266          10.1     37.5       0.500           7.3     30.6       0.216
+M15  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           6.3     30.8       0.230          10.1     38.8       0.550           9.0     28.6       0.139
+M60          vwap_pullback ema50>ema200   2xATR  buy_only     all        all     all     all          10.7     30.4       0.239          15.3     33.5       0.354          12.0     28.6       0.179
+M30          vwap_pullback   c>H1ema200 1.5xATR  buy_only     all        all ranging tue-thu           4.2     34.2       0.367           6.8     39.4       0.575           4.5     28.6       0.144
+M30          vwap_pullback ema50>ema200   2xATR  buy_only     all        all ranging     all           6.6     29.9       0.199           9.3     40.5       0.620           6.5     35.3       0.402
+M15 three_candles_reversal   c>H1ema200   2xATR  buy_only     all        all     all tue-thu          12.4     27.7       0.105          17.1     37.4       0.496          15.4     27.6       0.101
+M60          vwap_pullback   c>H1ema200 1.5xATR  buy_only     all        all     all     all          11.9     29.6       0.192          16.2     34.7       0.387          12.6     28.8       0.154
+M60          vwap_pullback     c>ema200 1.5xATR  buy_only     all        all     all     all          11.9     29.6       0.192          16.2     34.7       0.387          12.6     28.8       0.154
+M60          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all     all tue-thu           7.4     31.3       0.286          10.3     35.3       0.431           7.6     27.5       0.134
+M60          vwap_pullback     c>ema200   2xATR  buy_only     all        all     all tue-thu           7.4     31.3       0.286          10.3     35.3       0.431           7.6     27.5       0.134
+M30          vwap_pullback ema50>ema200 1.5xATR  buy_only     all        all ranging tue-thu           4.0     34.5       0.379           6.1     39.9       0.594           3.9     30.1       0.204
+
+=== TOP 30 with >= 3 trades/week, ranked on P1+P2 only ===
+Top 100: P3 profitable 98%, P3 avg win 30.2%, P3 avg +0.209R/trade (P1+P2 avg win 34.0%)
+ tf                   rule        trend      SL direction session volatility     adx    days  P1 trades/wk  P1 win%  P1 R/trade  P2 trades/wk  P2 win%  P2 R/trade  P3 trades/wk  P3 win%  P3 R/trade
+M30  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only     all        all ranging     all           5.5     34.3       0.379           8.6     40.1       0.605           7.2     35.2       0.399
+M30  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           3.3     38.2       0.530           5.7     41.3       0.653           4.5     32.8       0.315
+M60          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all     all     all          11.9     29.5       0.211          16.2     35.7       0.450          12.6     29.8       0.227
+M60          vwap_pullback     c>ema200   2xATR  buy_only     all        all     all     all          11.9     29.5       0.211          16.2     35.7       0.450          12.6     29.8       0.227
+M30          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all ranging     all           6.9     31.1       0.244          10.1     40.5       0.621           7.3     33.6       0.333
+M30  ema9_pullback_9over21 ema50>ema200   2xATR  buy_only     all        all ranging     all           5.0     33.0       0.325           7.3     41.4       0.656           6.3     38.0       0.521
+M15         ema20_pullback   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           7.3     31.4       0.254          10.9     38.7       0.546           8.6     29.9       0.192
+M30          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           4.2     33.7       0.351           6.8     41.9       0.676           4.5     29.0       0.161
+M30          vwap_pullback ema50>ema200  swing5  buy_only     all        all ranging tue-thu           3.9     34.7       0.394           6.1     41.9       0.675           3.8     30.6       0.224
+M30  ema9_pullback_9over21     c>ema200   2xATR  buy_only     all        all ranging     all           5.9     31.9       0.281           8.5     40.3       0.613           7.4     35.1       0.400
+M15          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           6.8     33.7       0.348          10.6     35.6       0.422           6.7     33.1       0.326
+M60          vwap_pullback ema50>ema200   2xATR  buy_only     all        all     all tue-thu           6.7     34.2       0.396           9.7     33.7       0.364           7.2     25.9       0.083
+M30          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all     all     all          16.4     28.4       0.137          22.6     34.7       0.390          17.9     29.5       0.176
+M30         ema20_pullback   c>H1ema200   2xATR  buy_only     all        all ranging     all           5.9     30.8       0.240           8.8     40.7       0.630           7.1     30.6       0.215
+M30  ema9_pullback_9over21     c>ema200   2xATR  buy_only     all        all ranging tue-thu           3.5     34.7       0.390           5.6     42.5       0.699           4.6     33.2       0.330
+M30          vwap_pullback ema50>ema200  swing5  buy_only     all        all ranging     all           6.5     32.2       0.293           9.2     37.6       0.510           6.5     32.0       0.272
+M15         ema20_pullback   c>H1ema200   2xATR  buy_only     all        all ranging     all          12.6     29.2       0.168          17.2     35.5       0.419          14.8     28.5       0.125
+M30          vwap_pullback ema50>ema200   2xATR  buy_only     all        all ranging tue-thu           4.0     32.0       0.284           6.1     43.6       0.744           3.9     31.6       0.264
+M30          vwap_pullback   c>H1ema200 1.5xATR  buy_only     all        all ranging     all           6.9     31.6       0.266          10.1     37.5       0.500           7.3     30.6       0.216
+M15  ema9_pullback_9over21   c>H1ema200   2xATR  buy_only     all        all ranging tue-thu           6.3     30.8       0.230          10.1     38.8       0.550           9.0     28.6       0.139
+M60          vwap_pullback ema50>ema200   2xATR  buy_only     all        all     all     all          10.7     30.4       0.239          15.3     33.5       0.354          12.0     28.6       0.179
+M30          vwap_pullback   c>H1ema200 1.5xATR  buy_only     all        all ranging tue-thu           4.2     34.2       0.367           6.8     39.4       0.575           4.5     28.6       0.144
+M30          vwap_pullback ema50>ema200   2xATR  buy_only     all        all ranging     all           6.6     29.9       0.199           9.3     40.5       0.620           6.5     35.3       0.402
+M15 three_candles_reversal   c>H1ema200   2xATR  buy_only     all        all     all tue-thu          12.4     27.7       0.105          17.1     37.4       0.496          15.4     27.6       0.101
+M60          vwap_pullback     c>ema200 1.5xATR  buy_only     all        all     all     all          11.9     29.6       0.192          16.2     34.7       0.387          12.6     28.8       0.154
+M60          vwap_pullback   c>H1ema200 1.5xATR  buy_only     all        all     all     all          11.9     29.6       0.192          16.2     34.7       0.387          12.6     28.8       0.154
+M60          vwap_pullback   c>H1ema200   2xATR  buy_only     all        all     all tue-thu           7.4     31.3       0.286          10.3     35.3       0.431           7.6     27.5       0.134
+M60          vwap_pullback     c>ema200   2xATR  buy_only     all        all     all tue-thu           7.4     31.3       0.286          10.3     35.3       0.431           7.6     27.5       0.134
+M30          vwap_pullback ema50>ema200 1.5xATR  buy_only     all        all ranging tue-thu           4.0     34.5       0.379           6.1     39.9       0.594           3.9     30.1       0.204
+M30  ema9_pullback_9over21      c>ema50   2xATR  buy_only     all        all ranging tue-thu           5.0     29.2       0.171           7.7     43.4       0.737           6.4     28.1       0.133
+
+=== Best combination of each entry rule (chosen on P1+P2), top 25 rules ===
+ tf                        rule        trend      SL direction   session volatility     adx    days  P1 trades/wk  P1 win%  P1 R/trade  P2 trades/wk  P2 win%  P2 R/trade  P3 trades/wk  P3 win%  P3 R/trade
+M30       ema9_pullback_9over21   c>H1ema200   2xATR  buy_only       all        all ranging     all           5.5     34.3       0.379           8.6     40.1       0.605           7.2     35.2       0.399
+M60               vwap_pullback     c>ema200   2xATR  buy_only       all        all     all     all          11.9     29.5       0.211          16.2     35.7       0.450          12.6     29.8       0.227
+M15              ema20_pullback   c>H1ema200   2xATR  buy_only       all        all ranging tue-thu           7.3     31.4       0.254          10.9     38.7       0.546           8.6     29.9       0.192
+M15      three_candles_reversal   c>H1ema200   2xATR  buy_only       all        all     all tue-thu          12.4     27.7       0.105          17.1     37.4       0.496          15.4     27.6       0.101
+M30              ema50_pullback   c>H1ema200   2xATR  buy_only       all        all     all     all           7.2     30.5       0.220           9.5     38.8       0.550           8.7     28.4       0.131
+M15               roc10_cross_0   c>H1ema200   2xATR  buy_only       all        all     all tue-thu          10.4     29.6       0.185          14.4     35.8       0.430          11.8     27.2       0.088
+M60                  vwap_cross     c>ema200   2xATR  buy_only       all        all     all     all           6.1     30.3       0.240           8.1     38.4       0.552           6.5     29.7       0.224
+M15    smc_trend_ema20_pullback   c>H1ema200   2xATR  buy_only       all        all ranging tue-thu           3.7     33.7       0.347           6.8     38.6       0.543           5.3     28.4       0.128
+M30        three_soldiers_crows ema50>ema200  swing5  buy_only       all   high_vol     all     all           5.4     31.3       0.371           7.4     33.9       0.386           7.2     36.0       0.490
+M30              rsi14_cross_50   c>H1ema200   2xATR  buy_only       all        all     all tue-thu           3.8     34.2       0.367           5.1     40.1       0.606           4.7     26.7       0.075
+M30      heikin_ashi_two_strong     c>ema200   2xATR  buy_only       all   high_vol     all     all           9.1     31.4       0.269          11.3     32.6       0.309          10.9     34.5       0.382
+M30                      pinbar ema50>ema200 1.5xATR  buy_only       all        all ranging     all           2.9     34.4       0.384           4.8     40.4       0.616           3.6     30.6       0.218
+M30                     tweezer ema50>ema200   2xATR  buy_only       all        all ranging tue-thu           1.9     37.3       0.494           2.8     45.2       0.808           2.0     34.0       0.360
+M15                nr7_breakout   c>H1ema200   2xATR  buy_only       all        all ranging     all           4.1     33.3       0.340           5.3     38.9       0.555           5.2     29.3       0.147
+M15     williams_r_back_from_80   c>H1ema200   2xATR  buy_only       all        all     all tue-thu           8.0     31.1       0.241          10.9     34.2       0.368           8.8     28.1       0.120
+M60              momentum_burst ema50>ema200  swing5  buy_only london+ny        all     all     all           2.3     27.6       0.400           3.5     34.3       0.685           2.7     30.1       0.440
+M30            donchian_fade_10   c>H1ema200   2xATR  buy_only       all   high_vol     all     all           2.7     38.8       0.555           3.6     36.3       0.459           3.5     34.2       0.381
+M15           macd_signal_cross   c>H1ema200   2xATR  buy_only       all        all ranging tue-thu           2.2     34.9       0.397           3.2     44.0       0.759           2.6     29.6       0.185
+M30                   engulfing   c>H1ema200   2xATR  buy_only       all        all     all tue-thu           5.3     30.9       0.234           7.8     37.2       0.487           5.9     30.0       0.196
+M30 triple_ema_8_21_55_pullback ema50>ema200   2xATR  buy_only       all        all ranging tue-thu           1.7     36.2       0.453           2.4     46.8       0.873           2.1     32.3       0.292
+M15               cci20_cross_0   c>H1ema200   2xATR  buy_only       all        all ranging tue-thu           3.1     31.4       0.255           4.8     41.4       0.657           3.7     28.2       0.131
+M30         round_number_bounce ema50>ema200   2xATR  buy_only        ny   high_vol     all     all           2.2     34.8       0.410           3.3     41.5       0.661           3.7     33.4       0.378
+M15           macd_5_35_5_cross   c>H1ema200   2xATR  buy_only       all        all ranging tue-thu           3.6     31.9       0.277           5.3     38.5       0.541           4.3     29.1       0.165
+M60        donchian_breakout_10     c>ema200  swing5  buy_only       all   high_vol     all     all           2.2     27.9       0.361           3.1     32.1       0.626           3.5     32.9       0.523
+M30               ema200_bounce   c>H1ema200  swing5  buy_only       all        all     all tue-thu           2.0     37.6       0.548           2.7     37.3       0.494           2.5     18.4      -0.217
+Rules with no combination profitable in both P1 and P2: 0 of 83
+
+=== Highest P1+P2 win rates (>= 1.5 trades/week), and their P3 ===
+ tf                        rule         trend      SL direction   session volatility     adx    days  P1 trades/wk  P1 win%  P1 R/trade  P2 trades/wk  P2 win%  P2 R/trade  P3 trades/wk  P3 win%  P3 R/trade
+M30      heikin_ashi_two_strong          none   2xATR  buy_only      late        all ranging     all           1.3     40.3       0.612           1.9     45.5       0.818           1.6     29.8       0.210
+M30      heikin_ashi_two_strong          none 1.5xATR  buy_only      late        all ranging     all           1.3     38.8       0.550           1.9     47.5       0.899           1.6     32.1       0.278
+M30        three_soldiers_crows  ema50>ema200   2xATR  buy_only       all   high_vol ranging     all           1.5     40.3       0.618           1.7     46.0       0.839           1.8     41.2       0.647
+M30       ema9_pullback_9over21    c>H1ema200   2xATR  buy_only      asia    low_vol ranging tue-thu           1.3     40.5       0.618           2.2     44.0       0.758           1.2     34.1       0.366
+M30            donchian_fade_10 supertrend_up 1.5xATR  buy_only       all    low_vol ranging tue-thu           1.4     37.9       0.517           2.0     47.7       0.907           1.4     22.1      -0.108
+M30            donchian_fade_10 supertrend_up   2xATR  buy_only       all    low_vol ranging tue-thu           1.4     37.2       0.490           2.0     48.6       0.944           1.4     26.2       0.047
+M30      heikin_ashi_two_strong          none   1xATR  buy_only      late        all ranging     all           1.3     43.2       0.727           1.9     40.4       0.616           1.6     32.7       0.291
+M30      heikin_ashi_two_strong  ema50>ema200 1.5xATR  buy_only       all   high_vol ranging     all           1.5     42.5       0.703           2.1     40.7       0.630           2.1     38.2       0.531
+M30      heikin_ashi_two_strong  ema50>ema200   1xATR  buy_only       all   high_vol ranging     all           1.5     44.4       0.775           2.1     37.0       0.479           2.1     32.7       0.300
+M30      heikin_ashi_two_strong  ema50>ema200   2xATR  buy_only       all   high_vol ranging     all           1.5     42.5       0.719           2.1     39.8       0.593           2.1     42.9       0.710
+M30       ema9_pullback_9over21    c>H1ema200   2xATR  buy_only      asia        all ranging tue-thu           1.6     40.1       0.605           2.5     42.7       0.710           1.6     34.7       0.390
+M15    smc_trend_ema20_pullback    c>H1ema200  swing5  buy_only london+ny        all ranging tue-thu           1.6     37.5       0.506           2.2     46.2       0.846           2.3     25.5       0.021
+M30      heikin_ashi_two_strong      c>ema200   2xATR  buy_only       all   high_vol ranging     all           1.9     41.9       0.692           2.4     39.1       0.562           2.4     40.6       0.626
+M30      heikin_ashi_two_strong supertrend_up 1.5xATR  buy_only      late        all     all tue-thu           1.9     32.7       0.304           2.6     52.6       1.104           2.2     32.8       0.318
+M30 triple_ema_8_21_55_pullback  ema50>ema200   2xATR  buy_only       all        all ranging tue-thu           1.7     36.2       0.453           2.4     46.8       0.873           2.1     32.3       0.292
+M30                     tweezer  ema50>ema200   2xATR  buy_only       all        all ranging tue-thu           1.9     37.3       0.494           2.8     45.2       0.808           2.0     34.0       0.360
+M60       ema9_pullback_9over21  ema50>ema200   2xATR  buy_only       all        all ranging tue-thu           1.6     37.7       0.551           2.4     44.4       0.778           2.0     35.1       0.454
+M30      heikin_ashi_two_strong          none 1.5xATR  buy_only       all   high_vol ranging tue-thu           1.4     34.3       0.371           2.3     47.9       0.917           1.9     32.8       0.319
+M60       ema9_pullback_9over21  ema50>ema200 1.5xATR  buy_only       all        all ranging tue-thu           1.6     34.6       0.389           2.4     47.6       0.905           2.0     31.3       0.252
+M30              ema20_pullback  ema50>ema200  swing5  buy_only       all   high_vol ranging     all           1.9     38.4       0.555           2.0     43.8       0.780           2.1     28.0       0.109
+M15              ema20_pullback    c>H1ema200   1xATR  buy_only        ny   high_vol ranging     all           1.7     40.6       0.625           2.0     39.6       0.585           1.8     20.5      -0.188
+M30        three_soldiers_crows    c>H1ema200   2xATR  buy_only       all   high_vol ranging     all           1.8     37.7       0.514           2.1     44.0       0.761           2.0     40.6       0.622
+M15                nr7_breakout    c>H1ema200   2xATR  buy_only london+ny        all ranging     all           1.5     38.9       0.567           1.5     42.3       0.690           1.8     27.1       0.037
+M30 triple_ema_8_21_55_pullback  ema50>ema200   2xATR  buy_only london+ny        all ranging     all           1.4     34.7       0.398           1.8     47.9       0.917           1.6     32.7       0.305
+M30      heikin_ashi_two_strong      c>ema200 1.5xATR  buy_only       all   high_vol ranging     all           1.9     40.9       0.639           2.4     38.3       0.531           2.4     38.2       0.528
+M30       ema9_pullback_9over21      c>ema200   2xATR  buy_only      asia    low_vol ranging tue-thu           1.4     35.9       0.434           2.1     45.0       0.802           1.3     36.3       0.453
+M30        three_soldiers_crows  ema50>ema200 1.5xATR  buy_only       all   high_vol ranging     all           1.5     40.9       0.638           1.7     37.9       0.517           1.8     40.1       0.608
+M60                      pinbar      c>ema200 1.5xATR  buy_only       all   high_vol     all tue-thu           1.4     36.5       0.465           1.7     45.1       0.801           1.5     26.3       0.056
+M60                      pinbar    c>H1ema200 1.5xATR  buy_only       all   high_vol     all tue-thu           1.4     36.5       0.465           1.7     45.1       0.801           1.5     26.3       0.056
+M30                nr7_breakout       c>ema50   2xATR  buy_only       all        all ranging tue-thu           1.5     32.3       0.290           2.2     49.6       0.983           1.9     27.8       0.113

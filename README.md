@@ -304,3 +304,35 @@ This EA runs nine strategies side by side. Each strategy has its own on/off swit
 Set `InpClock` to match the broker:
 - **Exness and other fixed-UTC brokers:** `Fixed UTC offset` with `InpServerUTC` (Exness = 0). The session hours are converted automatically.
 - **FTMO and other brokers on the backtest clock (UTC+2/+3):** `Same as the backtest data`.
+
+## 5-million-strategy search, 1:3 (`strategy_library.py`, `mass5m.py`, `mass5m_analyze.py`)
+
+```bash
+pip install numba
+python mass5m.py && python mass5m_analyze.py                         # 1-5 minutes: 5,378,400 strategies
+python mass5m.py 15,30,60 && python mass5m_analyze.py 15,30,60 _htf  # same rules on 15/30/60 minutes: 3,227,040
+```
+
+`strategy_library.py` holds 83 entry rules collected from common online strategies:
+- candle patterns
+- RSI, Stochastic, MACD, CCI, Williams %R, MFI, ROC, Aroon and ADX
+- moving-average crosses and pullbacks
+- Donchian, Bollinger and Keltner channels
+- Supertrend, Parabolic SAR, Ichimoku and Heikin Ashi
+- VWAP, pivots, previous-day levels, round numbers and the weekly open
+- Asian, London and New York breakouts
+- SMC: break of structure, change of character, liquidity sweep, FVG and order-block retests
+
+Each rule is combined with 6 trend filters, 5 SL types, 3 directions, 8 sessions, 3 volatility filters, 3 ADX filters and 2 day filters. TP is always 3 x SL.
+
+The data is split into three periods:
+- **P1 (2021-11..2023-10):** choose.
+- **P2 (2023-11..2024-10):** confirm.
+- **P3 (2024-11..2026-10):** test. It is never used for selection.
+
+A win means the take-profit was hit.
+
+Findings:
+- **No strategy keeps a 40%+ TP rate.** On 1-5 minutes, 268 strategies had >= 40% wins in P1, 2 of them also in P2, and none in P3. On 15-60 minutes it was 310, then 19, then 1: M30 three soldiers in an uptrend, about 1.5 trades a week. With >= 3 trades a week, none reached 40% in both P1 and P2.
+- **Best 1-5 minute strategies (ranked on P1+P2):** buy-only momentum entries in an uptrend (above the H1 EMA200) when volatility is high, in the late (20:00-00:59) or New York session. Examples are Heikin Ashi two strong candles and three soldiers. The top 100 kept 29.8% TP and +0.20R/trade in P3, and 99% were profitable. By timeframe, M3 is best and M1 has no edge.
+- **Best overall (15-60 minutes):** M30 EMA9 pullback (EMA9 > EMA21, the candle touches EMA9 and closes bullish above it), buy only, close above the H1 EMA200, ADX(14) < 20, SL 2 ATR. The TP rate was 34.3% / 40.1% / 35.2% (P1 / P2 / P3), with +0.40R/trade and about 7 trades a week in P3. It lost money in 2026 (-25R) while gold fell.
