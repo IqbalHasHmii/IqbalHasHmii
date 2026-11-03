@@ -143,3 +143,19 @@ This EA runs the two `m15_search.py` setups with TP = 3 x SL, and its defaults m
 - Hours are broker server time.
 
 In the backtest at 1:3, the two setups together made about 3.5 trades a week at a 28.5% win rate, +125.6R over 5 years.
+
+## MT5 EA: all three setups in one (`mql5/XAUUSD_Combo_3Strategy_EA.mq5`)
+
+This EA runs three setups, each with TP = 3 x SL and its own magic number:
+- **Asian breakout (M15):** magic 777101.
+- **Previous-day sweep (M15):** magic 777102.
+- **H1 EMA200 engulfing:** magic 777103. A limit order goes at the engulfing open with SL 100 pips. It stays valid for 5 H1 candles and is deleted if the H1 close crosses the EMA the other way.
+
+`InpEmaMode` selects how the H1 setup takes trades: one at a time (default), or every engulfing (trades can overlap, bigger drawdown).
+
+Backtest (5 years, 1:3):
+
+| Setup | Trades / week | Win rate | Net | Max drawdown |
+|---|---|---|---|---|
+| Asian breakout + sweep | 3.5 | 28.5% | +125.6R | -27R |
+| H1 EMA200 engulfing (one at a time) | 3.0 | 28.0% | +101.9R | -30.7R |
