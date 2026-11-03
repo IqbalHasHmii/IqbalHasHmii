@@ -427,3 +427,14 @@ With 3 higher highs, most unfilled setups reached the planned TP first:
 Of the filled orders, only about 20% reached TP. The limit entry fills mostly on the setups that go against the trade.
 
 Selling at market at the engulfing close does not fix this. Across all setups (same SL at the engulfing high + 50 pips, TP 1:3) it still loses: -0.10R/trade on our data and -0.25R/trade on Exness. The setups that later retrace lose heavily (about 11-12% TP, -0.53R/trade), and there is no way to know in advance which setups will retrace.
+
+### Retracement of the unfilled setups (`h1_hh_engulf_retrace.py`)
+
+```bash
+python h1_hh_engulf_retrace.py   # -> results/h1_hh_engulf_retrace.txt
+```
+
+This looks at the setups whose limit at the open never filled but whose planned TP was reached first (114 on Exness, 120 on our data). For each, it measures the highest retracement before the TP.
+
+- **How far they retraced:** a median of 44% of the engulfing body, or 48% of the whole candle. About 22% barely retraced at all (under 10% of the body).
+- **Other entry levels:** with the sell limit at 0-100% of the body, every level still loses. The least bad is 25-38%: -0.12R/trade on Exness and -0.02R to -0.05R on our data.
