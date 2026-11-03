@@ -1,0 +1,61 @@
+
+===== Exness data: last 6 months, 2026-05-03 -> 2026-11-03 =====
+H1 engulfing sell, every setup:
+  engulfing (H1)    type volume                                                                             POI   entry      SL      TP  SL pips    result      filled      closed     R   pips
+2026-05-07 11:00 perfect  lower previous day high, previous week high, 5-day high, round number $50, Asian high 4734.33 4753.54 4676.72      192        SL 05-07 12:09 05-07 16:30 -1.00 -192.0
+2026-05-07 18:00 perfect higher previous day high, previous week high, 5-day high, round number $50, Asian high 4737.69 4764.85 4656.22      272 cancelled           - 05-07 19:57   NaN    NaN
+2026-05-19 03:00 perfect higher                             previous day high, bearish order block, bearish FVG 4567.87 4589.36 4503.40      215        TP 05-19 04:06 05-19 16:24  3.00  645.0
+2026-06-09 16:00 perfect higher            previous day high, bearish order block, round number $50, Asian high 4332.25 4363.52 4238.46      313        TP 06-09 17:00 06-09 19:39  3.00  938.0
+2026-06-16 14:00 perfect higher                                                         bearish FVG, Asian high 4342.81 4349.51 4322.70       67        SL 06-16 15:06 06-16 15:42 -1.00  -67.0
+2026-06-17 21:00  strong higher             previous day high, previous week high, round number $50, Asian high 4309.45 4379.71 4098.66      703 cancelled           - 06-17 22:57   NaN    NaN
+2026-07-31 23:00  strong higher                                                                round number $50 4045.65 4053.10 4023.32       74        SL 08-03 01:00 08-03 01:00 -0.03   -2.0
+2026-08-26 02:00  strong higher                                                 previous week high, bearish FVG 4659.29 4673.38 4617.01      141 cancelled           - 08-26 03:57   NaN    NaN
+2026-09-04 04:00 perfect higher                                                bearish order block, bearish FVG 4480.58 4487.57 4459.60       70        SL 09-04 05:00 09-04 10:45 -1.00  -70.0
+2026-10-02 09:00 perfect higher                                          previous day high, bearish order block 4182.47 4196.95 4139.03      145        SL 10-02 10:09 10-02 15:30 -1.00 -145.0
+2026-10-05 12:00  strong  lower                                                         bearish FVG, Asian high 4160.61 4169.80 4133.03       92        TP 10-05 13:54 10-05 16:45  3.00  276.0
+  all: 11 setups -> 8 trades (cancelled 3, still open 0): TP 3, SL 5, TP 38%, net +5.0R = $+124 at $25 risk a trade, +1,383 pips = $+138 at 0.01 lot
+  only higher-volume engulfings: 9 setups -> 6 trades (cancelled 3, still open 0): TP 2, SL 4, TP 33%, net +3.0R = $+74 at $25 risk a trade, +1,299 pips = $+130 at 0.01 lot
+
+All-in-one EA (defaults, strategy 7 off):
+ #             strategy  trades  TP  TP %  net R
+ 1   M15 Asian breakout      16   6  37.5    9.2
+ 2   M15 prev-day sweep      60  12  20.0  -11.7
+ 3  H1 EMA200 engulfing     102  26  25.5    4.1
+ 8   M3 Heikin Ashi buy      49  13  26.5    3.0
+ 9 H1 HH engulfing sell       9   3  33.3    4.0
+  total: 236 trades (9.0/week), TP 25.4%, net +8.6R = +2% at 0.25% risk, max drawdown -18.0R
+  by month (R): May 26 +9, Jun 26 +1, Jul 26 -12, Aug 26 +6, Sep 26 +1, Oct 26 +5, Nov 26 -2
+
+===== Our data: last 6 months, 2026-04-30 -> 2026-10-31 =====
+H1 engulfing sell, every setup:
+  engulfing (H1)    type volume                                                                             POI   entry      SL      TP  SL pips    result      filled      closed     R   pips
+2026-05-07 18:00 perfect higher previous day high, previous week high, 5-day high, round number $50, Asian high 4737.46 4764.59 4656.05      271 cancelled           - 05-07 19:59   NaN    NaN
+2026-05-14 04:00 perfect higher                                           bearish order block, round number $50 4692.69 4706.87 4650.15      142        SL 05-14 05:03 05-14 07:27 -1.00 -142.0
+2026-05-18 17:00  strong higher                  bearish order block, bearish FVG, round number $50, Asian high 4553.77 4575.60 4488.27      218        SL 05-18 19:54 05-19 01:39 -1.00 -218.0
+2026-05-19 03:00 perfect higher                             previous day high, bearish order block, bearish FVG 4567.84 4589.12 4504.00      213        TP 05-19 04:07 05-19 16:24  3.00  638.0
+2026-05-21 05:00  strong  lower                        previous day high, bearish order block, round number $50 4540.14 4564.77 4466.26      246        SL 05-21 06:22 05-25 01:48 -1.00 -246.0
+2026-06-09 16:00 perfect higher            previous day high, bearish order block, round number $50, Asian high 4331.87 4363.37 4237.36      315        TP 06-09 17:01 06-09 19:40  3.00  945.0
+2026-06-22 15:00  strong higher           previous day high, bearish order block, bearish FVG, round number $50 4196.77 4211.62 4152.20      149        TP 06-22 16:46 06-23 04:46  3.00  446.0
+2026-07-22 19:00  strong  lower             previous day high, previous week high, round number $50, Asian high 4149.89 4159.29 4121.68       94 cancelled           - 07-22 20:59   NaN    NaN
+2026-08-13 16:00 perfect higher                                            previous week high, round number $50 4379.87 4401.85 4313.92      220        TP 08-13 17:43 08-14 04:32  3.00  659.0
+2026-08-20 19:00  strong  lower          previous day high, previous week high, bearish order block, Asian high 4512.77 4524.64 4477.15      119        SL 08-20 20:02 08-20 21:51 -1.00 -119.0
+2026-08-26 02:00  strong higher                                                 previous week high, bearish FVG 4659.13 4673.31 4616.60      142 cancelled           - 08-26 03:59   NaN    NaN
+2026-09-10 06:00 perfect  lower                                                bearish order block, bearish FVG 4411.54 4420.71 4384.03       92        SL 09-10 07:04 09-10 08:29 -1.00  -92.0
+2026-09-15 17:00 perfect higher                              bearish order block, bearish FVG, round number $50 4281.45 4300.30 4224.91      188        SL 09-15 18:03 09-15 21:12 -1.00 -188.0
+2026-10-02 09:00 perfect higher                                          previous day high, bearish order block 4182.24 4196.70 4138.87      145        SL 10-02 10:10 10-02 11:08 -1.00 -145.0
+2026-10-02 23:00  strong  lower                                                                     bearish FVG 4139.97 4148.34 4114.86       84        SL 10-05 01:05 10-05 01:50 -0.76  -64.0
+  all: 15 setups -> 12 trades (cancelled 3, still open 0): TP 4, SL 8, TP 33%, net +4.2R = $+106 at $25 risk a trade, +1,474 pips = $+147 at 0.01 lot
+  only higher-volume engulfings: 10 setups -> 8 trades (cancelled 2, still open 0): TP 4, SL 4, TP 50%, net +8.0R = $+200 at $25 risk a trade, +1,995 pips = $+200 at 0.01 lot
+
+All-in-one EA (defaults, strategy 7 off):
+ #             strategy  trades  TP  TP %  net R
+ 1   M15 Asian breakout      16   6  37.5   11.0
+ 2   M15 prev-day sweep      61  14  23.0   -2.8
+ 3  H1 EMA200 engulfing     114  33  28.9   20.0
+ 4      M5 RSI pullback      64  17  26.6    4.0
+ 5  M5 NY opening range     114  24  21.1  -16.7
+ 6    M5 Asian breakout      13   3  23.1    2.4
+ 8   M3 Heikin Ashi buy      54  13  24.1   -2.0
+ 9 H1 HH engulfing sell      13   4  30.8    3.2
+  total: 449 trades (17.2/week), TP 25.4%, net +19.1R = +5% at 0.25% risk, max drawdown -44.2R
+  by month (R): Apr 26 -2, May 26 +26, Jun 26 +8, Jul 26 -20, Aug 26 +0, Sep 26 -13, Oct 26 +20

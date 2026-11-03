@@ -889,3 +889,26 @@ These are perfect + strong engulfings at any POI, with the same 25% entry, the S
 - **The higher-highs rule is the edge.** Selling every bearish engulfing loses money on both datasets.
 - **A low-volume engulfing is weaker.** Exact body and every type show the same.
 - **A high-volume engulfing is a little more accurate.** It is better in every period of both datasets, including the never-used Exness 2020-21 data: +0.38R/trade against +0.07R for any volume. But it takes 40% fewer trades and makes less net R. It was found by looking at the opposite of the low-volume test on the same data.
+
+### The last 6 months only (`last6m.py`)
+
+```bash
+python last6m.py   # -> results/last6m.txt (every engulfing setup with entry, SL, TP and result)
+```
+
+This is the H1 engulfing sell with the current rules: 3 higher highs, perfect or strong, any POI, 25% entry, SL at the high, TP 1:3. The "$ at $25" column is the profit when each trade risks $25 (0.25% of $10,000).
+
+| Data | Setups | Trades | TP / SL | TP % | Net R | $ at $25 risk | Pips (0.01 lot) |
+|---|---|---|---|---|---|---|---|
+| Exness 2026-05-03..11-03 | 11 | 8 (3 cancelled) | 3 / 5 | 38% | +5.0R | +$124 | +1,383 (+$138) |
+| Our data 2026-04-30..10-31 | 15 | 12 (3 cancelled) | 4 / 8 | 33% | +4.2R | +$106 | +1,474 (+$147) |
+
+The all-in-one EA (defaults) was close to break-even in the same 6 months:
+
+| Data | Trades / week | TP % | Net R | At 0.25% risk | Max drawdown |
+|---|---|---|---|---|---|
+| Exness (strategies 1-3, 8, 9) | 9.0 | 25.4% | +8.6R | +2% | -18R |
+| Our data (strategies 1-6, 8, 9) | 17.2 | 25.4% | +19.1R | +5% | -44R |
+
+- **July lost on both datasets:** -12R on Exness and -20R on our data.
+- **The drawdown on our data almost matches the worst of the whole backtest (-45R).** The NY opening range lost -16.7R and the M3 Heikin Ashi -2R.
